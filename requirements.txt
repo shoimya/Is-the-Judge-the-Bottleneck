@@ -1,2 +1,0 @@
-# Pin every library to an exact version (==). Add new ones here as tickets need them.
-pyyaml==6.0.2
