@@ -1,0 +1,18 @@
+# Large or per-machine folders: keep the folder, skip its contents
+data/*
+!data/.gitkeep
+runs/*
+!runs/.gitkeep
+
+# Python
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

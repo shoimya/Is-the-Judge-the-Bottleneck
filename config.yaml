@@ -1,0 +1,25 @@
+# Every setting lives here. Code reads it with pipeline.load_config();
+# nothing below should be hard-coded anywhere else.
+# `null` = not decided yet; the ticket in the comment fills it in.
+
+# Seeds: sampling the question sets, and the bootstrap.
+seeds: [0, 1, 2]
+
+# One model per role. Tier 1 uses the same model for all three (picked in T10);
+# Tier 3 changes only `judge`.
+models:
+  judge: null       # T10: Qwen3-8B-AWQ or Qwen3-4B-Instruct-2507
+  rewriter: null    # T10
+  answerer: null    # T10
+
+retrieval:
+  k: null           # T10: paragraphs retrieved per Round (try 2, 5, 10)
+
+loop:
+  rounds: 3         # maximum Rounds per question
+  token_budget: null  # T10: max Evidence tokens shown to the Judge and Answerer
+
+paths:
+  data_dir: data
+  runs_dir: runs
+  results_dir: results

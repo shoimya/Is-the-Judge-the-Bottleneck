@@ -1,0 +1,4 @@
+# Exact versions only (name==x.y.z). Each ticket adds what it needs.
+# Final pins are regenerated on Kaggle (pip freeze) before the main runs.
+PyYAML==6.0.3
+pytest==9.1.1
