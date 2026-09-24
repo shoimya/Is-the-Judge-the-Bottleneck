@@ -1,6 +1,6 @@
 # T01 · Repo and environment
 
-Tier: 1 · Owner: _ · Depends: none · Status: Mac verified Sep 23 (Python 3.12.14, `run.py --check` and `pytest` pass); Kaggle check pending push
+Tier: 1 · Owner: _ · Depends: none · Status: done (Sep 23: Mac on Python 3.12.14 and Kaggle both pass `run.py --check`)
 
 ## What
 
@@ -53,3 +53,4 @@ A teammate can clone, install, and run `python run.py --check` on the Mac and on
 
 - Python 3.12 was chosen on Sep 23 because Kaggle, where every reported number is produced, runs 3.12.12. Mac: `brew install python@3.12`.
 - Generate the final exact pins on Kaggle (`pip freeze` after install) and reuse them everywhere, so a version that only exists for the Mac never gets pinned.
+- Kaggle needs **Internet** switched on in the notebook settings (requires a phone-verified account). `kaggle.ipynb` stops with that hint if it's off.
