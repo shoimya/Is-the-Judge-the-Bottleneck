@@ -8,7 +8,7 @@ Blocked by: 02
 
 Using the throughput of the chosen model on Kaggle's free GPU (from ticket 02), estimate the GPU-hours for 1,000 Test set questions × (Conditions A–D + Single-turn + Always-loop + closed-book), with up to 3 Rounds, a Judge call and a shadow answer per Round, and a Rewriter call per non-final Round. Answer-oracle needs no extra run: it is computed from shadow answers. Does it fit in ~30 GPU-h/week alongside the pilot, Tier 2 and Tier 3, within the 10 weeks to Dec 1? If not, which lever is cheapest: fewer Test set questions, sharing runs between conditions (for example, Conditions A and C share every Round up to the first stop), or batching?
 
-Feeds backlog: [T11](../backlog/T11-main-runs.md).
+Feeds backlog: [T11](../../../backlog/T11-main-runs.md).
 
 ## Answer
 

@@ -1,6 +1,6 @@
 # T14 · MuSiQue data and search setting
 
-Tier: 2 · Owner: _ · Depends: T12, research [04](../issues/04-musique-setup.md)
+Tier: 2 · Owner: _ · Depends: T12, research [04](../.scratch/judge-bottleneck/issues/04-musique-setup.md)
 
 ## What
 

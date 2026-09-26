@@ -1,6 +1,6 @@
 # T04 · Model backend (plug-and-play roles)
 
-Tier: 1 · Owner: _ · Depends: T02, research [02](../issues/02-models-on-free-gpu.md)
+Tier: 1 · Owner: _ · Depends: T02, research [02](../.scratch/judge-bottleneck/issues/02-models-on-free-gpu.md)
 
 ## What
 
@@ -8,7 +8,7 @@ Tier: 1 · Owner: _ · Depends: T02, research [02](../issues/02-models-on-free-g
 - Two backends behind it: **vLLM** (Kaggle, for every reported number) and **Ollama** (Mac, development only). The backend is picked in the config.
 - `config.yaml` gets one model setting per role: `models.judge`, `models.rewriter`, `models.answerer`. Greedy decoding (temperature 0) and max output tokens per role also live there.
 - A cell in `kaggle.ipynb` that loads the model and runs 3 test prompts.
-- **Setup facts from [research 02](../issues/02-models-on-free-gpu.md):**
+- **Setup facts from [research 02](../.scratch/judge-bottleneck/issues/02-models-on-free-gpu.md):**
   - Kaggle's free GPU is 2× T4 (fp16 only, no bf16). Pin `vllm==0.30.0` (fallback 0.28.0) in a separate `requirements-gpu.txt`, because vLLM doesn't install on the Mac.
   - Run one model copy per T4 (data parallel) for the 8B AWQ model; don't use FP8 KV cache or act-order GPTQ checkpoints.
   - Qwen3 models: pass `enable_thinking=False` in the chat template. The Judge's reasoning goes in its REASONING field instead.

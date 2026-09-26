@@ -1,6 +1,6 @@
 # T11 · Main runs on the Test set
 
-Tier: 1 · Owner: _ · Depends: T10, research [03](../issues/03-gpu-hour-budget.md)
+Tier: 1 · Owner: _ · Depends: T10, research [03](../.scratch/judge-bottleneck/issues/03-gpu-hour-budget.md)
 
 ## What
 

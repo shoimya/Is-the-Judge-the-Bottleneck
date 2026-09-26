@@ -8,7 +8,7 @@ Blocked by: none
 
 Kaggle's free GPUs are 2× T4 (16 GB each) or 1× P100. Which open-weight instruct models of about 3–9B (for example Llama 3.1 8B, Qwen 2.5 7B, Gemma 2 9B, Mistral 7B) run under vLLM there, in what precision or quantization, and does vLLM support the T4 for them? Does vLLM return per-token log probabilities (needed for P("yes"))? Does Ollama on the Mac return log probabilities too? Rank 2–3 candidates for the Tier 1 model, and note which larger (~12–14B) or other-family models could serve as Tier 3 judges on the same hardware.
 
-Feeds backlog: [T04](../backlog/T04-model-backend.md), [T10](../backlog/T10-pilot-and-freeze.md), Tier 3.
+Feeds backlog: [T04](../../../backlog/T04-model-backend.md), [T10](../../../backlog/T10-pilot-and-freeze.md), Tier 3.
 
 ## Answer
 

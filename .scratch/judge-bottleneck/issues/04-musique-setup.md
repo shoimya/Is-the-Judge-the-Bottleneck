@@ -8,7 +8,7 @@ Blocked by: none
 
 Are MuSiQue's unanswerable questions only in MuSiQue-Full, so that MuSiQue-Answerable has none? Where is it downloaded, what are its fields (paragraphs per question, `is_supporting` labels, decomposition sub-questions, hop counts), and is the dev split's gold data public? How do iterative-retrieval papers (for example IRCoT, Adaptive-RAG) search MuSiQue: one pooled corpus of all paragraphs, or each question's own candidate paragraphs? How big is the pooled corpus?
 
-Feeds the map's fog on the MuSiQue search setting and backlog [T14](../backlog/T14-musique-data-and-corpus.md).
+Feeds the map's fog on the MuSiQue search setting and backlog [T14](../../../backlog/T14-musique-data-and-corpus.md).
 
 ## Answer
 

@@ -2,7 +2,7 @@
 
 Build tickets, worked **in order**. Each one depends on the one before it (see its `Depends:` line). Set `Owner:` when someone picks a ticket up, and `Status: done` when its "Done when" check passes.
 
-Research tickets that feed the backlog, with their answers, live in [../issues/](../issues/).
+Research tickets that feed the backlog, with their answers, live in [../issues/](../.scratch/judge-bottleneck/issues/).
 
 ## Tier 1: RQ1 + RQ2 on HotpotQA (must-have)
 

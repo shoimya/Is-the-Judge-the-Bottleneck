@@ -2,12 +2,12 @@
 
 ## Destination
 
-A locked study design plus an ordered build backlog ([backlog/](backlog/)) that a 4-person team works through one ticket after another, Tier 1 first, so the paper can be written by **Dec 1, 2026**. The map is done when every backlog ticket can be started without an open question.
+A locked study design plus an ordered build backlog ([backlog/](../../backlog/)) that a 4-person team works through one ticket after another, Tier 1 first, so the paper can be written by **Dec 1, 2026**. The map is done when every backlog ticket can be started without an open question.
 
 ## Notes
 
 - Vocabulary: [CONTEXT.md](../../CONTEXT.md) (Round, Evidence, Gold paragraph, Judge, Stop decision, Steer signal, Rewriter, Answerer, Oracle judge, LLM judge, Conditions A–D, Single-turn, Always-loop, Answer-oracle, Coverage key, Answerability key, Pilot set, Test set).
-- This is a **planning** map. Its tickets in [issues/](issues/) settle facts and decisions. Build work lives in [backlog/](backlog/) and is done outside the map.
+- This is a **planning** map. Its tickets in [issues/](issues/) settle facts and decisions. Build work lives in [backlog/](../../backlog/) and is done outside the map.
 - The paper is written by the map owner. Backlog tickets produce the tables, figures and logs the paper needs.
 - Budget: M-series Mac, Colab free, Kaggle free (~30 GPU-h/week), up to $40 of API spend reserved for Tier 3.
 - Tiers: **Tier 1** = RQ1 + RQ2 on HotpotQA (must-have, a complete paper on its own). **Tier 2** = MuSiQue. **Tier 3** = RQ3 (larger or different-family judge).
@@ -19,7 +19,7 @@ These predate the tickets, so they're recorded here rather than under Decisions 
 - **Oracle judge Stop decision:** "yes" once every Gold paragraph is in the Evidence. At Round 3 the Answerer answers regardless.
 - **Oracle judge Steer signal:** the title of one missing Gold paragraph, handed to the Rewriter. Never the paragraph text.
 - **Roles are plug-and-play:** each role (Judge, Rewriter, Answerer) has its own model setting. In Tier 1 all three use one model, chosen in the pilot. Tier 3 changes only the Judge.
-- **Lean repo layout:** code follows the pipeline, one file per piece in `pipeline/` (dataset, retriever, judge, rewriter, answerer, llm, loop), plus `run.py`, `evaluate.py`, `config.yaml`, `kaggle.ipynb` and `NOTES.md` at the top level. Full tree in [T01](backlog/T01-repo-and-environment.md).
+- **Lean repo layout:** code follows the pipeline, one file per piece in `pipeline/` (dataset, retriever, judge, rewriter, answerer, llm, loop), plus `run.py`, `evaluate.py`, `config.yaml`, `kaggle.ipynb` and `NOTES.md` at the top level. Full tree in [T01](../../backlog/T01-repo-and-environment.md).
 - **Python 3.12 everywhere:** matches Kaggle (3.12.12) and Colab. Final version pins are generated on Kaggle.
 - **One backend for reported numbers:** every number in the paper comes from vLLM on Kaggle. Ollama on the Mac is for development only.
 - **Reference points:** Single-turn, Always-loop and Answer-oracle, as defined in CONTEXT.md.

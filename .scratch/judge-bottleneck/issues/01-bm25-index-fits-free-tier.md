@@ -8,7 +8,7 @@ Blocked by: none
 
 HotpotQA's processed 2017 Wikipedia has about 5M intro paragraphs. Can we build and query a BM25 index over it within the memory of free Colab (~12 GB RAM), free Kaggle (~30 GB RAM) and a 16 GB Mac? Which library should we use (`bm25s`, Pyserini, or something else), how big are the index on disk and in RAM, how long does indexing take, and what is query latency? Where exactly is the dump downloaded from, and what is its format (title + paragraph fields)?
 
-Feeds backlog: [T03](../backlog/T03-corpus-and-bm25.md).
+Feeds backlog: [T03](../../../backlog/T03-corpus-and-bm25.md).
 
 ## Answer
 

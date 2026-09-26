@@ -1,6 +1,6 @@
 # T03 · Wikipedia corpus and BM25 search
 
-Tier: 1 · Owner: _ · Depends: T02, research [01](../issues/01-bm25-index-fits-free-tier.md)
+Tier: 1 · Owner: _ · Depends: T02, research [01](../.scratch/judge-bottleneck/issues/01-bm25-index-fits-free-tier.md)
 
 ## What
 
