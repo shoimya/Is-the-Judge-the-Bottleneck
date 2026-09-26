@@ -1,6 +1,6 @@
 # T01 · Repo and environment
 
-Tier: 1 · Owner: _ · Depends: none · Status: done (Sep 23: Mac on Python 3.12.14 and Kaggle both pass `run.py --check`)
+Tier: 1 · Owner: _ · Depends: none
 
 ## What
 
@@ -50,6 +50,8 @@ A teammate can clone, install, and run `python run.py --check` on the Mac and on
 4. **Kaggle notebook.** Kaggle and Colab reset every session, so the notebook redoes the setup each time and keeps `runs/` somewhere that survives a disconnect.
 
 ## Notes
+
+- Verified Sep 23: `python run.py --check` passes on the Mac (Python 3.12.14) and on Kaggle.
 
 - Python 3.12 was chosen on Sep 23 because Kaggle, where every reported number is produced, runs 3.12.12. Mac: `brew install python@3.12`.
 - Generate the final exact pins on Kaggle (`pip freeze` after install) and reuse them everywhere, so a version that only exists for the Mac never gets pinned.

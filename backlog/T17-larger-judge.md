@@ -1,6 +1,6 @@
 # T17 · Larger judge
 
-Tier: 3 · Owner: _ · Depends: T12, research [02](../.scratch/judge-bottleneck/issues/02-models-on-free-gpu.md)
+Tier: 3 · Owner: _ · Depends: T12, research [02](../specification.md#12-research-findings-behind-the-decisions)
 
 ## What
 

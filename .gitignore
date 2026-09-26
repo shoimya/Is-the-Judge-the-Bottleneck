@@ -17,5 +17,5 @@ __pycache__/
 .vscode/
 .idea/
 
-# Private planning notes (kept local, not on GitHub)
-.scratch/
+# Private Claude instructions (kept local, not on GitHub)
+CLAUDE.md

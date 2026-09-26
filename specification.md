@@ -338,8 +338,7 @@ Is-the-Judge-the-Bottleneck/
 ├── README.md
 ├── CONTEXT.md         # glossary
 ├── specification.md   # this document
-├── backlog/           # build tickets T01–T19, worked in order
-├── .scratch/judge-bottleneck/  # planning map + research questions and answers
+├── backlog/           # build tickets T01–T19 and their status
 ├── results/           # final tables + figures for the paper (committed)
 ├── data/              # datasets, index (git-ignored)
 └── runs/              # run logs (git-ignored)
@@ -379,30 +378,30 @@ Every run writes `runs/<run_id>/`, where `run_id` = date-time + setting (e.g. `2
 
 ## 11. Plan and timeline
 
-Tickets are worked in order; each lists its dependencies and a "Done when" check. A few can overlap: T03 ∥ T04, T05 ∥ T07, T13 ∥ T14.
+Tickets are worked in order; each lists its dependencies and a "Done when" check. A few can overlap: T03 ∥ T04, T05 ∥ T07, T13 ∥ T14. **Current status is tracked only in [backlog/README.md](backlog/README.md).**
 
-| # | Ticket | Target | Status |
-|---|---|---|---|
-| T01 | Repo and environment | Sep 23 – 29 | **Done** (Mac + Kaggle pass `run.py --check`) |
-| T02 | Pilot set and Test set | Sep 23 – 29 | Next |
-| T03 | Wikipedia corpus and BM25 search | Sep 30 – Oct 6 | |
-| T04 | Model backend (plug-and-play roles), throughput measurement | Sep 30 – Oct 6 | |
-| T05 | Run log | Oct 7 – 13 | |
-| T06 | Role prompts and output parsing | Oct 7 – 13 | |
-| T07 | Oracle judge | Oct 7 – 13 | |
-| T08 | The loop and all seven settings | Oct 14 – 20 | |
-| T09 | Scoring and per-run summary | Oct 14 – 20 | |
-| T10 | Pilot and freeze | Oct 21 – 27 | |
-| T11 | Main runs on the Test set | Oct 28 – Nov 6 | |
-| T12 | Analysis, statistics and figures | Nov 3 – 10 | |
-| T13 | Error analysis of the Judge | Nov 7 – 12 | |
-| T14 | MuSiQue data and search setting (Tier 2) | Nov 11 – 14 | |
-| T15 | MuSiQue pilot check and main runs | Nov 14 – 19 | |
-| T16 | MuSiQue analysis and cross-dataset table | Nov 19 – 21 | |
-| T17 | Larger judge (Tier 3) | Nov 19 – 23 | |
-| T18 | Judge from a different model family | Nov 22 – 25 | |
-| T19 | Hosted 70B judge (optional, ≤ $40) | Nov 24 – 26 | |
-| – | Buffer and paper polish | Nov 26 – Dec 1 | |
+| # | Ticket | Target |
+|---|---|---|
+| T01 | Repo and environment | Sep 23 – 29 |
+| T02 | Pilot set and Test set | Sep 23 – 29 |
+| T03 | Wikipedia corpus and BM25 search | Sep 30 – Oct 6 |
+| T04 | Model backend (plug-and-play roles), throughput measurement | Sep 30 – Oct 6 |
+| T05 | Run log | Oct 7 – 13 |
+| T06 | Role prompts and output parsing | Oct 7 – 13 |
+| T07 | Oracle judge | Oct 7 – 13 |
+| T08 | The loop and all seven settings | Oct 14 – 20 |
+| T09 | Scoring and per-run summary | Oct 14 – 20 |
+| T10 | Pilot and freeze | Oct 21 – 27 |
+| T11 | Main runs on the Test set | Oct 28 – Nov 6 |
+| T12 | Analysis, statistics and figures | Nov 3 – 10 |
+| T13 | Error analysis of the Judge | Nov 7 – 12 |
+| T14 | MuSiQue data and search setting (Tier 2) | Nov 11 – 14 |
+| T15 | MuSiQue pilot check and main runs | Nov 14 – 19 |
+| T16 | MuSiQue analysis and cross-dataset table | Nov 19 – 21 |
+| T17 | Larger judge (Tier 3) | Nov 19 – 23 |
+| T18 | Judge from a different model family | Nov 22 – 25 |
+| T19 | Hosted 70B judge (optional, ≤ $40) | Nov 24 – 26 |
+| – | Buffer and paper polish | Nov 26 – Dec 1 |
 
 - **Tier 1 finish line (~Nov 12):** a complete paper's worth of results.
 - **Main-run order (T11):** Closed-book and Single-turn first (cheapest, early numbers), then Always-loop, then Conditions A–D.
@@ -417,7 +416,6 @@ Tickets are worked in order; each lists its dependencies and a "Done when" check
 | Do the runs fit in free GPU hours before Dec 1? | Yes: ~5 GPU-hours for all Tier 1 main runs (~15 if 3× slower). |
 | How is MuSiQue set up and searched? | MuSiQue-Ans from dev (2,417 q), pooled corpus of 139k paragraphs, coverage by paragraph id (titles repeat), 3 Rounds kept with results by hop count. |
 
-Details and answers are in `.scratch/judge-bottleneck/issues/01–04`.
 
 ## 13. Risks and mitigations
 

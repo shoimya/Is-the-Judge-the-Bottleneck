@@ -2,7 +2,7 @@
 
 In a self-correcting retrieval loop for multi-hop QA, how much does an LLM sufficiency judge lose compared with an oracle judge, and is the loss from **stopping** ("enough, answer now") or **steering** ("here's what's missing")?
 
-Terms (Round, Evidence, Stop decision, Steer signal, …) are defined in [CONTEXT.md](CONTEXT.md). The tickets are in [backlog/](backlog/README.md); the planning map and research answers are in [.scratch/judge-bottleneck/](.scratch/judge-bottleneck/map.md).
+Terms (Round, Evidence, Stop decision, Steer signal, …) are defined in [CONTEXT.md](CONTEXT.md). Every decision is in [specification.md](specification.md); tickets and their status are in [backlog/](backlog/README.md).
 
 ## Layout
 
