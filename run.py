@@ -17,10 +17,10 @@ def check() -> None:
     if sys.version_info[:2] != (3, 12):
         print("WARNING  project targets Python 3.12")
 
-    cfg = load_config()
-    print(f"Config   rounds={cfg['loop']['rounds']} seeds={cfg['seeds']}")
+    config = load_config()
+    print(f"Config   rounds={config['loop']['rounds']} seeds={config['seeds']}")
 
-    runs_dir = REPO_ROOT / cfg["paths"]["runs_dir"]
+    runs_dir = REPO_ROOT / config["paths"]["runs_dir"]
     probe = runs_dir / ".write_test"
     probe.write_text("ok")
     probe.unlink()

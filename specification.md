@@ -54,10 +54,10 @@ If time runs short, **drop Tier 3 first, then Tier 2.** Nov 26 – Dec 1 is buff
 
 ### 5.1 HotpotQA (primary, Tier 1)
 
-- **Source:** official HotpotQA dev split, **fullwiki** setting (hotpotqa.github.io).
+- **Source:** HotpotQA dev split, **fullwiki** setting: 7,405 questions. Downloaded from the HotpotQA Hugging Face repo (`hotpotqa/hotpot_qa`, `fullwiki/validation-00000-of-00001.parquet`) because the official CMU download server was down (Oct 3, 2026). Same questions, answers and supporting facts; we ignore its `context` field (HotpotQA's own retrieval) and search with our own BM25.
 - **Why:** 2-hop questions with gold supporting paragraphs marked (`supporting_facts`), so the oracle judge and coverage checks are possible.
 - **Question types kept:** both bridge and comparison questions.
-- **Question sets:** a **Pilot set** of 100 questions and a disjoint **Test set** of 1,000 questions, both sampled from dev with a seed from `config.yaml`.
+- **Question sets:** a **Pilot set** of 100 questions and a disjoint **Test set** of 1,000 questions, both sampled from dev with `hotpotqa.sample_seed` (0) from `config.yaml`.
   - The Pilot set is for tuning prompts and settings as often as needed and is **never reported**.
   - The Test set is run **only after the config is frozen** (tag `v1-frozen`).
 - **Files:** `data/hotpotqa/pilot.jsonl` and `data/hotpotqa/test.jsonl`, one question per line with `id`, `question`, `answer`, `type`, `level`, `gold_titles`.
@@ -202,7 +202,7 @@ The LLM judge and oracle judge are **not** baselines; they make the decisions in
 - **Paired bootstrap** 95% confidence intervals (10,000 resamples, seed from config) for every headline number and for B − A, C − A, D − A.
 - **McNemar tests** on per-question correctness for those gaps.
 - **Memorization control:** one closed-book Answerer run on the Test set. Every headline result is reported on **all questions** and on the **not-memorized subset** (questions closed-book got wrong).
-- **Decoding:** greedy (temperature 0). Seeds therefore only matter for sampling question sets and for the bootstrap. Config seeds: `[0, 1, 2]`.
+- **Decoding:** greedy (temperature 0). Seeds therefore only matter for sampling question sets (`hotpotqa.sample_seed: 0`) and for the bootstrap and other repeated randomness (`seeds: [0, 1, 2]`).
 
 ### 7.5 Error analysis
 
@@ -353,7 +353,7 @@ Is-the-Judge-the-Bottleneck/
 ### 10.2 Configuration
 
 - **Rule:** no settings hard-coded in code; everything is in `config.yaml`, read via `pipeline.load_config()`.
-- Current values: `seeds: [0, 1, 2]`, `loop.rounds: 3`, `paths` for data/runs/results.
+- Current values: `seeds: [0, 1, 2]` (bootstrap), `hotpotqa` (source file, `pilot_size: 100`, `test_size: 1000`, `sample_seed: 0`), `loop.rounds: 3`, `paths` for data/runs/results.
 - Still `null`, filled in by the pilot (T10): `models.judge`, `models.rewriter`, `models.answerer`, `retrieval.k`, `loop.token_budget`.
 
 ### 10.3 Run log

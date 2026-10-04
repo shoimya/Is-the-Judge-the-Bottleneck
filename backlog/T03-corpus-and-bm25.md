@@ -19,3 +19,10 @@ Tier: 1 · Owner: _ · Depends: T02, research [01](../specification.md#12-resear
 ## Description
 
 BM25 is a classic keyword search: it ranks paragraphs by how many query words they share, weighted by how rare those words are. It stays fixed for the whole study, so building it well once matters. The sanity check tells us whether retrieval alone already finds both Gold paragraphs (then the loop has nothing to do) or usually misses one (then the loop has room to help).
+
+## Notes
+
+- Oct 3: `pipeline/retriever.py` written test-first (4 tests on tiny fake data). Commands: `python -m pipeline.retriever build` (Kaggle) and `python -m pipeline.retriever check` (Mac).
+- Dump format checked on the first 5 MB of the real file: each line has `title` and `text` as a list of sentence strings; the archive is 1,553,565,403 bytes.
+- The full build tokenizes into word ids, not word lists, to keep memory down for 5.2M paragraphs.
+- Remaining: build on Kaggle (`kaggle.ipynb`, T03 cell), save the index as a private Kaggle Dataset, copy it to `data/wiki/bm25_index/` on the SSD, run `check`.

@@ -2,8 +2,25 @@
 # nothing below should be hard-coded anywhere else.
 # `null` = not decided yet; the ticket in the comment fills it in.
 
-# Seeds: sampling the question sets, and the bootstrap.
+# Seeds for the bootstrap and other repeated randomness (question sampling uses hotpotqa.sample_seed).
 seeds: [0, 1, 2]
+
+# Question sets (T02): sampled once from HotpotQA dev, fullwiki setting.
+# Downloaded from Hugging Face because the official CMU server is down.
+hotpotqa:
+  hf_repo: hotpotqa/hotpot_qa
+  hf_file: fullwiki/validation-00000-of-00001.parquet
+  pilot_size: 100
+  test_size: 1000
+  sample_seed: 0
+
+# Wikipedia corpus and BM25 index (T03). Built once on Kaggle, then copied to the Mac.
+# Folders are relative to paths.data_dir.
+wiki:
+  dump_url: https://nlp.stanford.edu/projects/hotpotqa/enwiki-20171001-pages-meta-current-withlinks-abstracts.tar.bz2
+  dump_dir: wiki/dump
+  index_dir: wiki/bm25_index
+  recall_ks: [2, 5, 10, 20]   # k values for the Pilot set sanity check
 
 # One model per role. Tier 1 uses the same model for all three (picked in T10);
 # Tier 3 changes only `judge`.
