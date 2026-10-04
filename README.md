@@ -26,6 +26,7 @@ NOTES.md         pilot choices, run sheet, throughput numbers
 results/         final tables + figures for the paper
 backlog/         build tickets T01–T19, worked in order
 data/, runs/     datasets and run logs (not on GitHub)
+LICENSE          MIT, for the code
 ```
 
 Don't hard-code settings. Add them to `config.yaml` and read them with `pipeline.load_config()`.
@@ -53,3 +54,7 @@ Every number in the paper comes from Kaggle. The Mac is for development.
 ## Adding a library
 
 Pin the exact version in `requirements.txt` (`name==x.y.z`), and check it installs on the Mac and on Kaggle before pushing.
+
+## License
+
+Code: [MIT](LICENSE). The datasets (HotpotQA, MuSiQue) keep their own licenses and are not redistributed here.

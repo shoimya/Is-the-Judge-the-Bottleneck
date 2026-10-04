@@ -337,6 +337,7 @@ Is-the-Judge-the-Bottleneck/
 ├── NOTES.md           # Pilot choices, Runs sheet, Throughput numbers
 ├── README.md
 ├── CONTEXT.md         # glossary
+├── LICENSE            # MIT, for the code only (datasets keep their own licenses)
 ├── specification.md   # this document
 ├── backlog/           # build tickets T01–T19 and their status
 ├── results/           # final tables + figures for the paper (committed)
