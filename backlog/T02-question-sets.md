@@ -23,3 +23,4 @@ The Pilot set is our playground: we tune prompts and settings on it as often as 
 
 - Verified Oct 3: 7,405 dev questions in the source; 100 Pilot + 1,000 Test, no overlap, every question has exactly 2 `gold_titles`; a second run gives byte-identical files. Test set mix: 789 bridge, 211 comparison.
 - The Hugging Face cache is pointed at `data/cache/` (set in `pipeline/__init__.py`), so nothing is written to the home folder.
+- Oct 4 code review: added `load_question_set(set_name)` so every module reads the Pilot/Test sets the same way (file closed properly); used by `retriever check` and `llm benchmark`.

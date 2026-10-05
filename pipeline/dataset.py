@@ -46,6 +46,12 @@ def build_question_sets(parquet_path: Path, questions_dir: Path, question_ids_di
             "".join(question["id"] + "\n" for question in question_set))
 
 
+def load_question_set(set_name: str, questions_dir: Path = DATA_DIR / "hotpotqa") -> list[dict]:
+    """Read a question set written by build_question_sets: set_name is "pilot" or "test"."""
+    with open(questions_dir / f"{set_name}.jsonl") as question_file:
+        return [json.loads(line) for line in question_file]
+
+
 def download_hotpotqa(hotpotqa_config: dict, raw_dir: Path) -> Path:
     """Fetch HotpotQA dev (fullwiki) from Hugging Face into raw_dir, once."""
     # Imported here so the Hugging Face cache location set in pipeline/__init__.py applies first.

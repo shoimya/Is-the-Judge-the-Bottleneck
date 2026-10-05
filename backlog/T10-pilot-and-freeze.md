@@ -22,3 +22,6 @@ On the **Pilot set only**:
 ## Description
 
 The pilot is where every "we'll decide later" gets decided, on questions that will never be reported. After the freeze, nobody changes prompts or settings for Tier 1. That's what makes the Test set numbers honest.
+
+## Notes
+- From the Oct 4 code review: if the 8B AWQ model is chosen, add data parallelism (one model copy per T4) to `pipeline/llm.py`; it currently uses one GPU.

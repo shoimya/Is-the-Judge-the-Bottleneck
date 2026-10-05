@@ -15,3 +15,6 @@ Tier: 3 · Owner: _ · Depends: T12, research [02](../specification.md#12-resear
 ## Description
 
 RQ3: does a bigger judge close the gap to the oracle? Only the Judge changes, so any difference is the Judge's.
+
+## Notes
+- From the Oct 4 code review: `pipeline/llm.py` loads one vLLM engine per model at `gpu_memory_utilization: 0.90`, so a second model (the larger judge) won't fit on the same T4. Plan memory or one GPU per model before running.

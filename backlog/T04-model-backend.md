@@ -26,3 +26,9 @@ Tier: 1 · Owner: _ · Depends: T02, research [02](../specification.md#12-resear
 ## Description
 
 Every role goes through one door. That makes swapping a model a config change, which is exactly what Tier 3 needs (swap only the Judge). The Mac is for fast development. Numbers in the paper only come from vLLM on Kaggle, because the Mac's compressed models can answer slightly differently.
+
+## Notes
+- Oct 4: Mac part done test-first. `pipeline/llm.py`: `generate`/`generate_many`, `model_for`, Ollama and vLLM backends, `smoke` and `benchmark` commands; `requirements-gpu.txt` pins vLLM. Ollama runs from `data/ollama/` on the SSD (README). Ollama returns no logprobs entry for the end-of-answer token; vLLM does (documented in the module).
+- Oct 4 code review fixes: clearer names (`check_setup`, `arguments`, `evidence_prompt`, `config_file`, `work_dir`, `repo_dir`, test helpers); safe fallback when Ollama omits the prompt token count; the yes/no adding-up moved out of `llm.py` (now T06's job, see T06); docstring corrected for vLLM; `kaggle.ipynb` T04 cell installs `requirements-gpu.txt` and runs `smoke` and `benchmark`.
+- Remaining for Done: on Kaggle (GPU T4 x2, index attached) run the T04 cell; paste the benchmark numbers into the Throughput section of `NOTES.md`.
+- Open review findings, not yet fixed (owner's call): settings still written in code — the Ollama address and `timeout=300`, `dtype="float16"`, the benchmark's 20 questions / 5 paragraphs per Round, the `hotpotqa` data folder name, and the tests' Ollama address and `5`. The benchmark's GPU-hour estimate multiplies by 5 loop settings; spec §8.3 budgets 7 (Single-turn and Closed-book also use the GPU), so it understates cost.

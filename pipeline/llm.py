@@ -6,8 +6,11 @@ Mac, vLLM on Kaggle) and which model each role uses. Both backends return the sa
     {"text": str, "prompt_tokens": int, "completion_tokens": int,
      "logprobs": [{"token": str, "logprob": float, "top": [{"token": str, "logprob": float}, ...]}, ...]}
 
-with one logprobs entry per visible generated token (the Judge's P("yes") is read from these in T06).
-completion_tokens is the cost count and can include an end-of-answer token that has no logprobs entry.
+with one logprobs entry per generated token (the Judge's P("yes") is read from these in T06).
+completion_tokens is the cost count and includes the end-of-answer token. vLLM also gives that token a
+logprobs entry; Ollama does not, so on Ollama logprobs can be one entry shorter than completion_tokens.
+Ollama's prompt_tokens counts only prompt tokens it had to process (a cached prompt can count 0);
+vLLM counts the whole prompt. Ollama is for development only, so only vLLM counts are reported.
 
     python -m pipeline.llm smoke --backend vllm        # Kaggle: 3 test prompts, answers and probabilities
     python -m pipeline.llm benchmark --backend vllm    # Kaggle: speed on 20 Pilot questions, 3 Rounds each
@@ -15,11 +18,11 @@ completion_tokens is the cost count and can include an end-of-answer token that 
 
 import argparse
 import json
-import math
 import time
 import urllib.request
 
 from pipeline import DATA_DIR, load_config
+from pipeline.dataset import load_question_set
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
 
@@ -64,7 +67,7 @@ def generate_with_ollama(role: str, prompt: str, config: dict) -> dict:
         reply = json.load(response)
     return {
         "text": reply["message"]["content"],
-        "prompt_tokens": reply["prompt_eval_count"],
+        "prompt_tokens": reply.get("prompt_eval_count", 0),   # missing when Ollama reused a cached prompt
         "completion_tokens": reply["eval_count"],
         "logprobs": [
             {
@@ -138,29 +141,27 @@ SMOKE_PROMPTS = [
 
 
 def run_smoke_test(config: dict) -> None:
-    """Three prompts, one per role: print each answer, its token counts, and the yes/no probabilities if present."""
+    """Three prompts, one per role: print each answer, its token counts, and the top alternatives for its last word.
+
+    For the Judge prompt the last word is the yes/no verdict; turning these into P("yes") is T06's job (pipeline/judge.py).
+    """
     for role, prompt in SMOKE_PROMPTS:
         generation = generate(role, prompt, config)
         print(f"[{role}] model={model_for(role, config)}  prompt_tokens={generation['prompt_tokens']}  "
               f"completion_tokens={generation['completion_tokens']}  logprob_entries={len(generation['logprobs'])}")
         print(f"  answer: {generation['text'].strip()!r}")
-        for token_entry in generation["logprobs"]:
-            # Add up every spelling ("yes", " yes", "Yes" ...) of each word among the top alternatives.
-            probabilities = {"yes": 0.0, "no": 0.0}
-            for alternative in token_entry["top"]:
-                word = alternative["token"].strip().lower()
-                if word in probabilities:
-                    probabilities[word] += math.exp(alternative["logprob"])
-            if any(probabilities.values()):
-                print(f"  at {token_entry['token']!r}: P(yes)={probabilities['yes']:.4f}  P(no)={probabilities['no']:.4f}")
-                break
+        visible_entries = [entry for entry in generation["logprobs"] if entry["token"].strip()]
+        if visible_entries:
+            last_word = visible_entries[-1]
+            alternatives = ", ".join(f"{alternative['token']!r} {alternative['logprob']:.2f}" for alternative in last_word["top"])
+            print(f"  top alternatives at {last_word['token']!r} (log probability): {alternatives}")
 
 
 def run_benchmark(config: dict, question_count: int = 20, paragraphs_per_round: int = 5) -> None:
     """Mock 3-Round loop on Pilot questions with real BM25 Evidence; report tokens per second and a GPU-hour estimate."""
     from pipeline.retriever import Retriever   # needs the BM25 index in data/wiki/bm25_index
 
-    pilot_set = [json.loads(line) for line in open(DATA_DIR / "hotpotqa" / "pilot.jsonl")][:question_count]
+    pilot_set = load_question_set("pilot")[:question_count]
     retriever = Retriever.load(DATA_DIR / config["wiki"]["index_dir"])
     evidence_by_question = [
         [f"{result['title']}: {result['text']}" for result in
@@ -177,9 +178,9 @@ def run_benchmark(config: dict, question_count: int = 20, paragraphs_per_round: 
             for question, evidence in zip(pilot_set, evidence_by_question)
         ]
         batches = [
-            ("judge", [p + "Explain briefly whether the evidence is enough, then write ENOUGH: yes or no, "
-                           "then MISSING: what is still needed." for p in evidence_prompts]),
-            ("answerer", [p + "Answer with a short phrase only." for p in evidence_prompts]),
+            ("judge", [evidence_prompt + "Explain briefly whether the evidence is enough, then write ENOUGH: yes or no, "
+                                         "then MISSING: what is still needed." for evidence_prompt in evidence_prompts]),
+            ("answerer", [evidence_prompt + "Answer with a short phrase only." for evidence_prompt in evidence_prompts]),
             ("rewriter", [f"Question: {question['question']}\nWrite one search query for the missing information."
                           for question in pilot_set]),
         ]

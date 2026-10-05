@@ -10,13 +10,14 @@ import csv
 import json
 import tarfile
 import urllib.request
-from collections.abc import Iterable, Iterator
+from collections.abc import Collection, Iterable, Iterator
 from pathlib import Path
 
 import bm25s
 import Stemmer
 
 from pipeline import DATA_DIR, REPO_ROOT, load_config
+from pipeline.dataset import load_question_set
 
 STEMMER = Stemmer.Stemmer("english")
 
@@ -59,9 +60,11 @@ class Retriever:
         # mmap keeps the index on disk and reads only what a query needs (~1-3 GB RAM for full Wikipedia).
         return cls(bm25s.BM25.load(index_dir, mmap=True, load_corpus=True))
 
-    def search(self, query: str, k: int, exclude_titles: set[str] = frozenset()) -> list[dict]:
+    def search(self, query: str, k: int, exclude_titles: Collection[str] = frozenset()) -> list[dict]:
         """Top k paragraphs for the query as {title, text, score}, skipping titles already in the Evidence."""
-        paragraphs, scores = self.index.retrieve(tokenize([query]), k=k + len(exclude_titles), show_progress=False)
+        # Ask for extra results to make up for excluded ones, but never more than the index holds.
+        results_to_fetch = min(k + len(exclude_titles), self.index.scores["num_docs"])
+        paragraphs, scores = self.index.retrieve(tokenize([query]), k=results_to_fetch, show_progress=False)
         results = [
             {"title": paragraph["title"], "text": paragraph["text"], "score": float(score)}
             for paragraph, score in zip(paragraphs[0], scores[0])
@@ -71,7 +74,10 @@ class Retriever:
 
 
 def gold_recall_at_k(questions: list[dict], retriever: Retriever, ks: list[int]) -> list[dict]:
-    """Search with each raw question; per k, the share of questions with both / at least one Gold paragraph found."""
+    """Search with each raw question; per k, the share of questions with all / at least one Gold paragraph found.
+
+    "both_found" means every Gold paragraph was found: both of HotpotQA's two, or all of a MuSiQue question's 2-4.
+    """
     retrieved_titles = [
         [result["title"] for result in retriever.search(question["question"], k=max(ks))]
         for question in questions
@@ -84,7 +90,8 @@ def gold_recall_at_k(questions: list[dict], retriever: Retriever, ks: list[int])
         ]
         rows.append({
             "k": k,
-            "both_found": sum(count == 2 for count in gold_found_counts) / len(questions),
+            "both_found": sum(found == len(question["gold_titles"])
+                              for found, question in zip(gold_found_counts, questions)) / len(questions),
             "at_least_one_found": sum(count >= 1 for count in gold_found_counts) / len(questions),
         })
     return rows
@@ -121,7 +128,7 @@ def main() -> None:
         print(f"Saved the BM25 index to {index_dir}")
 
     if command == "check":
-        pilot_set = [json.loads(line) for line in open(DATA_DIR / "hotpotqa" / "pilot.jsonl")]
+        pilot_set = load_question_set("pilot")
         recall_rows = gold_recall_at_k(pilot_set, Retriever.load(index_dir), wiki_config["recall_ks"])
         recall_csv = REPO_ROOT / config["paths"]["results_dir"] / "pilot" / "bm25_recall.csv"
         recall_csv.parent.mkdir(parents=True, exist_ok=True)

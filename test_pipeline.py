@@ -9,7 +9,7 @@ import pyarrow.parquet as pq
 import pytest
 
 from pipeline import load_config
-from pipeline.dataset import build_question_sets, split_pilot_and_test, to_question
+from pipeline.dataset import build_question_sets, load_question_set, split_pilot_and_test, to_question
 from pipeline.llm import generate, generate_many, model_for
 from pipeline.retriever import Retriever, build_index, gold_recall_at_k, read_wiki_paragraphs
 
@@ -46,8 +46,8 @@ def test_raw_row_becomes_question_with_gold_titles_in_order_without_repeats():
     }
 
 
-def make_questions(n):
-    return [{"id": f"q{i}", "gold_titles": ["A", "B"]} for i in range(n)]
+def make_questions(question_count):
+    return [{"id": f"q{number}", "gold_titles": ["A", "B"]} for number in range(question_count)]
 
 
 def test_split_gives_disjoint_pilot_and_test_sets_of_the_requested_sizes():
@@ -66,20 +66,20 @@ def test_split_is_the_same_every_time_for_the_same_seed():
     assert split_pilot_and_test(questions, 3, 5, seed=0) != split_pilot_and_test(questions, 3, 5, seed=1)
 
 
-def write_fake_hotpotqa(path, n):
-    rows = [dict(RAW_ROW, id=f"q{i}") for i in range(n)]
+def write_fake_hotpotqa(path, row_count):
+    rows = [dict(RAW_ROW, id=f"q{row_number}") for row_number in range(row_count)]
     pq.write_table(pa.Table.from_pylist(rows), path)
 
 
 def test_build_writes_question_files_and_id_lists_identically_on_every_run(tmp_path):
-    parquet = tmp_path / "dev.parquet"
-    write_fake_hotpotqa(parquet, 10)
+    parquet_path = tmp_path / "dev.parquet"
+    write_fake_hotpotqa(parquet_path, 10)
     questions_dir, question_ids_dir = tmp_path / "data", tmp_path / "ids"
 
-    build_question_sets(parquet, questions_dir, question_ids_dir, pilot_size=2, test_size=4, seed=0)
-    first = {f.name: f.read_bytes() for f in [*questions_dir.iterdir(), *question_ids_dir.iterdir()]}
-    build_question_sets(parquet, questions_dir, question_ids_dir, pilot_size=2, test_size=4, seed=0)
-    second = {f.name: f.read_bytes() for f in [*questions_dir.iterdir(), *question_ids_dir.iterdir()]}
+    build_question_sets(parquet_path, questions_dir, question_ids_dir, pilot_size=2, test_size=4, seed=0)
+    first = {written_file.name: written_file.read_bytes() for written_file in [*questions_dir.iterdir(), *question_ids_dir.iterdir()]}
+    build_question_sets(parquet_path, questions_dir, question_ids_dir, pilot_size=2, test_size=4, seed=0)
+    second = {written_file.name: written_file.read_bytes() for written_file in [*questions_dir.iterdir(), *question_ids_dir.iterdir()]}
     assert first == second
 
     pilot = [json.loads(line) for line in (questions_dir / "pilot.jsonl").read_text().splitlines()]
@@ -95,7 +95,8 @@ def test_build_writes_question_files_and_id_lists_identically_on_every_run(tmp_p
 
 def write_fake_wiki_dump(path, articles):
     """A dump file like HotpotQA's: bz2-compressed, one JSON article per line, text as a list of sentences."""
-    lines = [json.dumps({"id": str(i), "title": title, "text": sentences}) for i, (title, sentences) in enumerate(articles)]
+    lines = [json.dumps({"id": str(article_number), "title": title, "text": sentences})
+             for article_number, (title, sentences) in enumerate(articles)]
     path.write_bytes(bz2.compress("\n".join(lines).encode()))
 
 
@@ -214,3 +215,33 @@ def test_a_batch_of_prompts_comes_back_as_one_answer_per_prompt_in_order():
     ])
     assert "Paris" in generations[0]["text"]
     assert "Tokyo" in generations[1]["text"]
+
+
+# --- review fixes (Oct 4) ---
+
+def test_a_built_question_set_loads_back_unchanged(tmp_path):
+    parquet_path = tmp_path / "dev.parquet"
+    write_fake_hotpotqa(parquet_path, 10)
+    questions_dir = tmp_path / "data"
+    build_question_sets(parquet_path, questions_dir, tmp_path / "ids", pilot_size=2, test_size=4, seed=0)
+
+    pilot_set = load_question_set("pilot", questions_dir)
+    assert len(pilot_set) == 2
+    assert pilot_set[0]["gold_titles"] == ["Scott Derrickson", "Ed Wood"]
+
+
+def test_search_asking_for_more_results_than_paragraphs_returns_them_all(tmp_path):
+    build_index(TINY_WIKI, tmp_path / "index")
+    retriever = Retriever.load(tmp_path / "index")
+
+    assert len(retriever.search("film", k=10, exclude_titles={"Volcano"})) == 5
+
+
+def test_gold_recall_needs_every_gold_paragraph_when_there_are_more_than_two(tmp_path):
+    build_index(TINY_WIKI, tmp_path / "index")
+    retriever = Retriever.load(tmp_path / "index")
+    three_hop_question = {"question": "Ed Wood Plan 9 Lighthouse",
+                          "gold_titles": ["Ed Wood", "Plan 9 from Outer Space", "Lighthouse"]}
+
+    # Top 2 can hold at most two of the three Gold paragraphs, so "all found" must be 0, not 1.
+    assert gold_recall_at_k([three_hop_question], retriever, ks=[2])[0]["both_found"] == 0.0

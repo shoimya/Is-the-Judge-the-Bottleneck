@@ -278,13 +278,16 @@ Ruled out on the T4: **Gemma 4** (doesn't run in vLLM on T4) and **Qwen3.5** (fp
 
 | Library / tool | Used for | Status |
 |---|---|---|
-| **vLLM** 0.30.0 (fallback 0.28.0) | Model inference on Kaggle T4s; token log probabilities for `p_yes`. Avoid FP8 KV cache and act-order GPTQ checkpoints on T4. | Chosen |
+| **vLLM** 0.30.0 (fallback 0.28.0) | Model inference on Kaggle T4s; token log probabilities for `p_yes`. Avoid FP8 KV cache and act-order GPTQ checkpoints on T4. Kept in `requirements-gpu.txt` (doesn't install on the Mac). | Pinned |
 | **Ollama** (≥ v0.12.11 for logprobs) | Development on the Mac only | Chosen |
 | **Hugging Face Hub** | Model weights | Chosen |
-| **bm25s** 0.3.11 + PyStemmer 3.1.0, numba 0.67.0 | BM25 index build, search, save/load with mmap | Chosen |
+| **bm25s** 0.3.11 + PyStemmer 3.1.0, numba 0.68.0 | BM25 index build, search, save/load with mmap | Pinned |
+| **huggingface_hub** 2.1.1 | Downloading HotpotQA dev from Hugging Face | Pinned |
+| **pyarrow** 25.0.1 | Reading the HotpotQA Parquet file | Pinned |
 | **PyYAML** 6.0.3 | Reading `config.yaml` | Pinned |
 | **pytest** 9.1.1 | Small tests | Pinned |
-| **pandas / NumPy** | Loading run logs; bootstrap resampling | To pin |
+| **NumPy** 2.5.3 | Arrays for BM25 (installed with bm25s); bootstrap resampling | Pinned |
+| **pandas** | Loading run logs | To pin |
 | **SciPy** | Exact McNemar test (binomial test on discordant pairs) | To pin |
 | **matplotlib** | Reliability diagrams, accuracy-vs-cost plots | To pin |
 | **HotpotQA official eval script** | Answer normalization and EM/F1, adapted so scores match the standard | Adapted |
@@ -353,7 +356,15 @@ Is-the-Judge-the-Bottleneck/
 ### 10.2 Configuration
 
 - **Rule:** no settings hard-coded in code; everything is in `config.yaml`, read via `pipeline.load_config()`.
-- Current values: `seeds: [0, 1, 2]` (bootstrap), `hotpotqa` (source file, `pilot_size: 100`, `test_size: 1000`, `sample_seed: 0`), `loop.rounds: 3`, `paths` for data/runs/results.
+- Current blocks:
+  - `seeds: [0, 1, 2]` (bootstrap)
+  - `hotpotqa`: source file, `pilot_size: 100`, `test_size: 1000`, `sample_seed: 0` (T02)
+  - `wiki`: dump URL, `dump_dir`, `index_dir`, `recall_ks: [2, 5, 10, 20]` (T03)
+  - `backend`: `ollama` on the Mac, `vllm` on Kaggle (T04)
+  - `models`: per role, a name for each backend (T04)
+  - `generation`: `temperature: 0`, `max_tokens` per role, `top_logprobs: 5` (T04)
+  - `vllm`: `max_model_len: 8192`, `gpu_memory_utilization: 0.90` (T04)
+  - `retrieval`, `loop` (`rounds: 3`), `paths` for data/runs/results
 - Development values until the pilot (T10) decides: `models.*` = Qwen3-4B-Instruct-2507 (`qwen3:4b-instruct` on Ollama). Still `null` until T10: `retrieval.k`, `loop.token_budget`.
 
 ### 10.3 Run log
