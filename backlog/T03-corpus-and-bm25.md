@@ -25,4 +25,6 @@ BM25 is a classic keyword search: it ranks paragraphs by how many query words th
 - Oct 3: `pipeline/retriever.py` written test-first (4 tests on tiny fake data). Commands: `python -m pipeline.retriever build` (Kaggle) and `python -m pipeline.retriever check` (Mac).
 - Dump format checked on the first 5 MB of the real file: each line has `title` and `text` as a list of sentence strings; the archive is 1,553,565,403 bytes.
 - The full build tokenizes into word ids, not word lists, to keep memory down for 5.2M paragraphs.
-- Remaining: build on Kaggle (`kaggle.ipynb`, T03 cell), save the index as a private Kaggle Dataset, copy it to `data/wiki/bm25_index/` on the SSD, run `check`.
+- Oct 4: built on Kaggle (notebook IJTB-SC-10-03, branch SC); index is 7 files, ~2.8 GB, saved as private Kaggle Dataset `hotpotqa-bm25-index` and copied to `data/wiki/bm25_index/` on the SSD.
+- Oct 4: `check` on the Pilot set (Mac): load + 100 searches in 6 s, ~1.3 GB RAM. Both Gold paragraphs found: 11% / 24% / 34% / 44% at k = 2 / 5 / 10 / 20; at least one: 77% / 83% / 84% / 90%. Saved to `results/pilot/bm25_recall.csv`. As expected, one Gold paragraph is usually found and the second often isn't: the loop has room to help.
+- Oct 4: Kaggle check passed. With the dataset attached (CPU session, branch SC), Kaggle rebuilt the same 100 + 1,000 questions (`git status` clean on `results/question_ids`) and `check` gave identical recall to the Mac. The reusable "use the saved index" cell is in `kaggle.ipynb`.
