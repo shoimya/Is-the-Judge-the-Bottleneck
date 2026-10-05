@@ -45,6 +45,17 @@ python run.py --check
 pytest
 ```
 
+## Ollama on the Mac (development only)
+
+Install once with `brew install ollama` (no background app). Start it from the repo folder whenever you need a model, so its models are stored in `data/ollama/` (git-ignored), not in your home folder:
+
+```bash
+OLLAMA_MODELS="$PWD/data/ollama" ollama serve     # leave this terminal open
+ollama pull qwen3:4b-instruct                     # in a second terminal, once: ~2.5 GB
+```
+
+Ollama only runs while that terminal is open. Reported numbers never come from Ollama; they come from vLLM on Kaggle.
+
 ## Setup on Kaggle / Colab
 
 Open `kaggle.ipynb` and run all cells at the start of every session. On Kaggle, turn on Internet and pick the GPU T4 x2 accelerator. The notebook clones the repo, installs requirements, keeps `runs/` in persistent storage, and runs `python run.py --check`.

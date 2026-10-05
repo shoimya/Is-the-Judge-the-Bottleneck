@@ -22,12 +22,30 @@ wiki:
   index_dir: wiki/bm25_index
   recall_ks: [2, 5, 10, 20]   # k values for the Pilot set sanity check
 
-# One model per role. Tier 1 uses the same model for all three (picked in T10);
-# Tier 3 changes only `judge`.
+# Which program runs the models: ollama on the Mac (development only),
+# vllm on Kaggle (every reported number). Only this line changes between machines.
+backend: ollama
+
+# One model per role, named for both backends. Tier 1 uses the same model for all
+# three; Tier 3 changes only `judge`. Development values until T10 picks the model
+# (Qwen3-8B-AWQ or Qwen3-4B-Instruct-2507).
 models:
-  judge: null       # T10: Qwen3-8B-AWQ or Qwen3-4B-Instruct-2507
-  rewriter: null    # T10
-  answerer: null    # T10
+  judge:    {ollama: "qwen3:4b-instruct", vllm: Qwen/Qwen3-4B-Instruct-2507}
+  rewriter: {ollama: "qwen3:4b-instruct", vllm: Qwen/Qwen3-4B-Instruct-2507}
+  answerer: {ollama: "qwen3:4b-instruct", vllm: Qwen/Qwen3-4B-Instruct-2507}
+
+# Decoding (T04): greedy, a length cap per role, and the top alternatives
+# saved for every generated token (the Judge's P("yes") is read from these).
+generation:
+  temperature: 0
+  max_tokens: {judge: 256, rewriter: 32, answerer: 32}
+  top_logprobs: 5
+
+# vLLM on Kaggle (T04). Qwen3 supports 262K context, but reserving that much memory
+# doesn't fit a T4; 3 Rounds of Evidence need ~2K tokens.
+vllm:
+  max_model_len: 8192
+  gpu_memory_utilization: 0.90
 
 retrieval:
   k: null           # T10: paragraphs retrieved per Round (try 2, 5, 10)

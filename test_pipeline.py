@@ -2,12 +2,15 @@
 
 import bz2
 import json
+import urllib.request
 
 import pyarrow as pa
 import pyarrow.parquet as pq
+import pytest
 
 from pipeline import load_config
 from pipeline.dataset import build_question_sets, split_pilot_and_test, to_question
+from pipeline.llm import generate, generate_many, model_for
 from pipeline.retriever import Retriever, build_index, gold_recall_at_k, read_wiki_paragraphs
 
 
@@ -156,3 +159,58 @@ def test_gold_recall_counts_questions_with_both_or_at_least_one_gold_paragraph_i
         {"k": 1, "both_found": 0.0, "at_least_one_found": 1.0},
         {"k": 6, "both_found": 1.0, "at_least_one_found": 1.0},
     ]
+
+
+# --- model backend (T04) ---
+
+def test_each_role_uses_its_own_model_name_for_the_active_backend():
+    config = {
+        "backend": "ollama",
+        "models": {
+            "judge": {"ollama": "qwen3:14b", "vllm": "Qwen/Qwen3-14B-AWQ"},
+            "answerer": {"ollama": "qwen3:4b-instruct", "vllm": "Qwen/Qwen3-4B-Instruct-2507"},
+        },
+    }
+    assert model_for("judge", config) == "qwen3:14b"
+    assert model_for("answerer", config) == "qwen3:4b-instruct"
+
+    config["backend"] = "vllm"
+    assert model_for("judge", config) == "Qwen/Qwen3-14B-AWQ"
+
+
+def ollama_is_running() -> bool:
+    try:
+        urllib.request.urlopen("http://localhost:11434/api/version", timeout=2)
+        return True
+    except OSError:
+        return False
+
+
+needs_ollama = pytest.mark.skipif(load_config()["backend"] != "ollama" or not ollama_is_running(),
+                                  reason="needs the Ollama server running (see README: Ollama on the Mac)")
+
+
+@needs_ollama
+def test_ollama_answers_with_token_counts_and_probabilities_for_every_generated_token():
+    prompt = "Answer with one word: what is the capital of France?"
+    generation = generate("answerer", prompt)
+
+    assert "Paris" in generation["text"]
+    assert generation["prompt_tokens"] > 0
+    # completion_tokens can include the end-of-answer token, which has no probability entry
+    assert 0 < len(generation["logprobs"]) <= generation["completion_tokens"]
+    for token_entry in generation["logprobs"]:
+        assert token_entry["logprob"] <= 0
+        assert len(token_entry["top"]) == 5
+        assert token_entry["token"] == token_entry["top"][0]["token"]   # greedy: the chosen token is the most likely
+    assert generate("answerer", prompt)["text"] == generation["text"]  # greedy decoding repeats exactly
+
+
+@needs_ollama
+def test_a_batch_of_prompts_comes_back_as_one_answer_per_prompt_in_order():
+    generations = generate_many("answerer", [
+        "Answer with one word: what is the capital of France?",
+        "Answer with one word: what is the capital of Japan?",
+    ])
+    assert "Paris" in generations[0]["text"]
+    assert "Tokyo" in generations[1]["text"]

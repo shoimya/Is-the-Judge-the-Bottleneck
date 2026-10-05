@@ -15,6 +15,8 @@ Tier: 1 · Owner: _ · Depends: T03, T04
   - **Answerer:** sees the question and the Evidence. Outputs a short answer only (a name, date, yes/no…), which is the format EM needs.
 - Each of those files has one function that fills the prompt, calls `llm.generate("<role>", prompt)`, and parses the output.
 - **Judge parser:** reads ENOUGH and MISSING, and computes `p_yes` = P("yes") / (P("yes") + P("no")) from the token probabilities at the ENOUGH position. If the output is malformed, it counts as "no" and is flagged `parse_error: true` in the log.
+  - Add up the probabilities of every spelling of each word among the top 5 ("yes", " yes", "Yes", …). Found in T04: Qwen3 lists both `" no"` and `"no"` as separate tokens.
+  - If "yes" isn't in the top 5 (T04's smoke test: the model was near-certain of "no"), P("yes") is below the 5th alternative's probability; decide here whether to record it as that upper bound or as 0, and flag it.
 
 ## Done when
 

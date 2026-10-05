@@ -126,7 +126,7 @@ MISSING: <what information is still needed, or "nothing">
 ```
 
 - The reasoning comes first so there are "thoughts" worth logging.
-- **Confidence:** `p_yes` = P("yes") / (P("yes") + P("no")) from the token probabilities at the ENOUGH position (vLLM `logprob_token_ids` over the "yes"/"Yes"/" yes" and "no"/"No"/" no" tokens).
+- **Confidence:** `p_yes` = P("yes") / (P("yes") + P("no")) from the token probabilities at the ENOUGH position. Every model call returns, per generated token, the chosen token and its top 5 alternatives with log probabilities (same format on Ollama and vLLM); "yes"/"Yes"/" yes" and "no"/"No"/" no" are read from that position. If neither appears in the top 5, `p_yes` is flagged unavailable for that call.
 - **Malformed output** counts as "no" and is flagged `parse_error: true` in the log.
 - Qwen3's built-in thinking mode is switched off (`enable_thinking=False`); the reasoning goes in the REASONING field instead.
 
@@ -145,7 +145,7 @@ MISSING: <what information is still needed, or "nothing">
 
 ### 6.6 Plug-and-play roles
 
-- `config.yaml` has **one model setting per role**: `models.judge`, `models.rewriter`, `models.answerer`.
+- `config.yaml` has **one model setting per role**: `models.judge`, `models.rewriter`, `models.answerer`. Each holds the model's name for **both backends** (`ollama` and `vllm`), and one `backend` line picks which is used, so moving between the Mac and Kaggle never touches the roles.
 - `pipeline/llm.py` is the **only** file that talks to a model: each role calls `llm.generate("<role>", prompt)`, which looks up that role's model in the config.
 - **Tier 1:** all three roles use the **same model** (chosen in the pilot), so a difference between conditions can only come from the judge.
 - **Tier 3:** only `models.judge` changes; the Rewriter and Answerer stay on the Tier 1 model. Swapping the judge is a one-line config change.
@@ -354,7 +354,7 @@ Is-the-Judge-the-Bottleneck/
 
 - **Rule:** no settings hard-coded in code; everything is in `config.yaml`, read via `pipeline.load_config()`.
 - Current values: `seeds: [0, 1, 2]` (bootstrap), `hotpotqa` (source file, `pilot_size: 100`, `test_size: 1000`, `sample_seed: 0`), `loop.rounds: 3`, `paths` for data/runs/results.
-- Still `null`, filled in by the pilot (T10): `models.judge`, `models.rewriter`, `models.answerer`, `retrieval.k`, `loop.token_budget`.
+- Development values until the pilot (T10) decides: `models.*` = Qwen3-4B-Instruct-2507 (`qwen3:4b-instruct` on Ollama). Still `null` until T10: `retrieval.k`, `loop.token_budget`.
 
 ### 10.3 Run log
 
