@@ -7,8 +7,8 @@ Mac, vLLM on Kaggle) and which model each role uses. Both backends return the sa
      "logprobs": [{"token": str, "logprob": float, "top": [{"token": str, "logprob": float}, ...]}, ...]}
 
 with one logprobs entry per generated token (the Judge's P("yes") is read from these in T06).
-completion_tokens is the cost count and includes the end-of-answer token. vLLM also gives that token a
-logprobs entry; Ollama does not, so on Ollama logprobs can be one entry shorter than completion_tokens.
+completion_tokens is the cost count and includes the end-of-answer token, which has no logprobs entry
+on either backend (vLLM returns one; we drop it so both backends give the same format).
 Ollama's prompt_tokens counts only prompt tokens it had to process (a cached prompt can count 0);
 vLLM counts the whole prompt. Ollama is for development only, so only vLLM counts are reported.
 
@@ -18,6 +18,7 @@ vLLM counts the whole prompt. Ollama is for development only, so only vLLM count
 
 import argparse
 import json
+import os
 import time
 import urllib.request
 
@@ -86,6 +87,9 @@ loaded_vllm_engines: dict = {}
 
 
 def generate_with_vllm(role: str, prompts: list[str], config: dict) -> list[dict]:
+    # Start vLLM's worker as a fresh process: copying (forking) a program that already touched the GPU,
+    # e.g. through JAX after loading the BM25 index, fails with "CUDA driver initialization failed".
+    os.environ.setdefault("VLLM_WORKER_MULTIPROC_METHOD", "spawn")
     # Imported here: vLLM only installs on Kaggle's GPUs, never on the Mac.
     from vllm import LLM, SamplingParams
 
@@ -122,6 +126,8 @@ def generate_with_vllm(role: str, prompts: list[str], config: dict) -> list[dict
                 "top": [{"token": alternative.decoded_token, "logprob": alternative.logprob}
                         for alternative in ranked[:generation_config["top_logprobs"]]],
             })
+        if completion.finish_reason == "stop" and logprobs:
+            logprobs.pop()   # the end-of-answer token: Ollama has no entry for it, so neither do we
         generations.append({
             "text": completion.text,
             "prompt_tokens": len(output.prompt_token_ids),
