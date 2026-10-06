@@ -256,7 +256,7 @@ Ruled out on the T4: **Gemma 4** (doesn't run in vLLM on T4) and **Qwen3.5** (fp
 - **Nothing is trained**; we only run existing 4–8B models.
 - **BM25:** CPU only. The index is built once on Kaggle in ~12 minutes (not on Colab, whose 12 GB RAM may be too little), saved (~1.1 GB index, ~2.9 GB with corpus) as a private Kaggle Dataset plus a Drive copy, and loaded with memory mapping everywhere (~1–3 GB RAM, ~21–48 ms per query).
 - **GPU:** Kaggle gives ~30 GPU-hours per week per account; four members.
-- **Estimate:** all Tier 1 main runs (1,000 questions × 7 settings) ≈ **5 GPU-hours** (≈ 15 if throughput is 3× worse than estimated). Whole project ≈ **15–50 GPU-hours** vs ~300 available before Dec 1. No cuts needed; the Test set stays at 1,000.
+- **Estimate:** all Tier 1 main runs (1,000 questions × 7 settings) ≈ **5 GPU-hours** estimated; **measured Oct 6 (T04): ≤ 10.7 GPU-hours** on one T4 (upper bound, see `NOTES.md` Throughput). Whole project ≈ **30–100 GPU-hours** vs ~300 available before Dec 1. No cuts needed; the Test set stays at 1,000.
   - Sizing basis: worst case ~7.6k prompt tokens and ~450 generated tokens per question per loop setting; ~3k prompt tok/s and ~500 generated tok/s combined on 2× T4 (source-free estimate).
   - vLLM prefix caching should lower cost further, since the Judge and shadow answer read the same Evidence.
 - **Throughput is not yet measured.** T04 measures it on 20 questions; T11 recomputes the budget before main runs. If it's more than 5× slower than estimated, reopen the budget question.
@@ -425,7 +425,7 @@ Tickets are worked in order; each lists its dependencies and a "Done when" check
 |---|---|
 | Can a free machine hold a BM25 index over HotpotQA's Wikipedia? | Yes, with `bm25s`: built once on Kaggle (~12 min, ~3 GB saved), loaded with mmap everywhere (~1–3 GB RAM). |
 | Which 3–9B models run on Kaggle's free GPU and give token probabilities? | Kaggle is 2× T4 only (P100 retired Sep 15, 2026); vLLM 0.30.0 works and returns logprobs. Tier 1: Qwen3-8B-AWQ or Qwen3-4B-Instruct-2507. Tier 3: Qwen3-14B-AWQ; Llama-3.1-8B or Granite-4.2-8B. |
-| Do the runs fit in free GPU hours before Dec 1? | Yes: ~5 GPU-hours for all Tier 1 main runs (~15 if 3× slower). |
+| Do the runs fit in free GPU hours before Dec 1? | Yes: measured ≤ 10.7 GPU-hours for all Tier 1 main runs (T04, Oct 6). |
 | How is MuSiQue set up and searched? | MuSiQue-Ans from dev (2,417 q), pooled corpus of 139k paragraphs, coverage by paragraph id (titles repeat), 3 Rounds kept with results by hop count. |
 
 
