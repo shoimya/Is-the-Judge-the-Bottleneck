@@ -21,3 +21,7 @@ DATA_DIR = REPO_ROOT / load_config()["paths"]["data_dir"]
 
 # Downloads and caches stay on the project drive, not in the home folder.
 os.environ.setdefault("HF_HOME", str(DATA_DIR / "cache" / "huggingface"))
+
+# Keep JAX (preinstalled on Kaggle, picked up by the BM25 library) off the GPU. Left alone, it reserves
+# 75% of GPU memory as soon as the search index loads, and vLLM then has no room for the model.
+os.environ.setdefault("JAX_PLATFORMS", "cpu")

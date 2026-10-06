@@ -281,12 +281,12 @@ Ruled out on the T4: **Gemma 4** (doesn't run in vLLM on T4) and **Qwen3.5** (fp
 | **vLLM** 0.30.0 (fallback 0.28.0) | Model inference on Kaggle T4s; token log probabilities for `p_yes`. Avoid FP8 KV cache and act-order GPTQ checkpoints on T4. Kept in `requirements-gpu.txt` (doesn't install on the Mac). | Pinned |
 | **Ollama** (≥ v0.12.11 for logprobs) | Development on the Mac only | Chosen |
 | **Hugging Face Hub** | Model weights | Chosen |
-| **bm25s** 0.3.11 + PyStemmer 3.1.0, numba 0.68.0 | BM25 index build, search, save/load with mmap | Pinned |
-| **huggingface_hub** 2.1.1 | Downloading HotpotQA dev from Hugging Face | Pinned |
+| **bm25s** 0.3.11 + PyStemmer 3.1.0, numba 0.65.0 | BM25 index build, search, save/load with mmap | Pinned |
+| **huggingface_hub** 1.33.0 (vLLM's `transformers` needs < 2.0) | Downloading HotpotQA dev from Hugging Face | Pinned |
 | **pyarrow** 25.0.1 | Reading the HotpotQA Parquet file | Pinned |
 | **PyYAML** 6.0.3 | Reading `config.yaml` | Pinned |
 | **pytest** 9.1.1 | Small tests | Pinned |
-| **NumPy** 2.5.3 | Arrays for BM25 (installed with bm25s); bootstrap resampling | Pinned |
+| **NumPy** 2.4.6 (the version vLLM installs on Kaggle) | Arrays for BM25 (installed with bm25s); bootstrap resampling | Pinned |
 | **pandas** | Loading run logs | To pin |
 | **SciPy** | Exact McNemar test (binomial test on discordant pairs) | To pin |
 | **matplotlib** | Reliability diagrams, accuracy-vs-cost plots | To pin |
