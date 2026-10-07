@@ -2,3 +2,9 @@
 # Final pins are regenerated on Kaggle (pip freeze) before the main runs.
 PyYAML==6.0.3
 pytest==9.1.1
+pyarrow==25.0.1
+bm25s[core]==0.3.11
+PyStemmer==3.1.0
+numba==0.67.0
+ollama==0.6.3
+pandas==3.0.6

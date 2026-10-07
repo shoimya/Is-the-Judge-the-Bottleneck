@@ -6,14 +6,27 @@
 seeds: [0, 1, 2]
 
 # One model per role. Tier 1 uses the same model for all three (picked in T10);
-# Tier 3 changes only `judge`.
+# Tier 3 changes only `judge`. Names are backend-specific: Ollama tags on the
+# Mac (dev), Hugging Face ids under vLLM on Kaggle (reported numbers).
 models:
-  judge: null       # T10: Qwen3-8B-AWQ or Qwen3-4B-Instruct-2507
-  rewriter: null    # T10
-  answerer: null    # T10
+  # qwen3:8b-nothink = the dev model built by .scratch/qwen3-nothink.Modelfile
+  # (the 4b variant ignores Ollama's think:false; see ollama#12234/#13154).
+  judge: qwen3:8b-nothink   # T10: Qwen3-8B-AWQ or Qwen3-4B-Instruct-2507
+  rewriter: qwen3:8b-nothink
+  answerer: qwen3:8b-nothink
+
+# The LLM door (T04): pipeline.llm.generate(role, prompt) is the only way
+# code talks to a model.
+llm:
+  backend: ollama   # ollama (Mac, dev only) | vllm (Kaggle, every reported number)
+  temperature: 0    # greedy decoding
+  max_tokens:       # max output tokens per role (sizes retuned in T06/T10)
+    judge: 512
+    rewriter: 256
+    answerer: 128
 
 retrieval:
-  k: null           # T10: paragraphs retrieved per Round (try 2, 5, 10)
+  k: 2              # placeholder so T08 can run; T10: try 2, 5, 10
 
 loop:
   rounds: 3         # maximum Rounds per question

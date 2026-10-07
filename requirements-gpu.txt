@@ -1,0 +1,3 @@
+# Kaggle GPU stack (T04). vLLM does not install on the Mac, so this file is
+# installed only by kaggle.ipynb cell 6a.
+vllm==0.30.0   # fallback 0.28.0 if the image refuses this pin (see cell 6a)
