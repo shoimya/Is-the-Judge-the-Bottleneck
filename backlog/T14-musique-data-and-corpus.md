@@ -1,6 +1,6 @@
 # T14 · MuSiQue data and search setting
 
-Tier: 2 · Owner: _ · Depends: T12, research [04](../specification.md#12-research-findings-behind-the-decisions)
+Tier: 2 · Owner: _ · Depends: T12, decisions in [CONTEXT.md](../CONTEXT.md)
 
 ## What
 

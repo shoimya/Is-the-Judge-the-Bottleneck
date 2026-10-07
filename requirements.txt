@@ -8,3 +8,6 @@ numpy==2.4.6               # the version vLLM installs on Kaggle
 huggingface_hub==1.33.0    # transformers (used by vLLM) needs < 2.0
 pyarrow==25.0.1
 pytest==9.1.1
+
+# This project's own `pipeline` folder, installed so every file can import it (see pyproject.toml).
+-e .

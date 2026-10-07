@@ -4,7 +4,7 @@ Tier: 3 · Owner: _ · Depends: T17
 
 ## What
 
-Same as T17, with `models.judge` set to a similar-size model from a **different family**: **Llama-3.1-8B-Instruct** (needs an HF token on Kaggle) or **Granite-4.2-8B**, both fp16 across the two T4s (research 02). Add it as a third row in `results/test/judge_comparison.csv`.
+Same as T17, with `judge_model` set to a similar-size model from a **different family**: **Llama-3.1-8B-Instruct** (needs an HF token on Kaggle) or **Granite-4.2-8B**, both fp16 across the two T4s (research 02). Add it as a third row in `results/test/judge_comparison.csv`.
 
 ## Done when
 

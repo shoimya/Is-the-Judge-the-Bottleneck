@@ -1,6 +1,6 @@
 # T11 · Main runs on the Test set
 
-Tier: 1 · Owner: _ · Depends: T10, research [03](../specification.md#12-research-findings-behind-the-decisions)
+Tier: 1 · Owner: _ · Depends: T10, decisions in [CONTEXT.md](../CONTEXT.md)
 
 ## What
 

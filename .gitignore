@@ -19,3 +19,7 @@ __pycache__/
 
 # Private Claude instructions (kept local, not on GitHub)
 CLAUDE.md
+
+# Made by `pip install -e .`
+*.egg-info/
+build/

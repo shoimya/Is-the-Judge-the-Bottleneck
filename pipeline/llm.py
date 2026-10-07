@@ -1,267 +1,215 @@
-"""The one place that talks to a model. Built in T04.
+"""The one place that talks to a model. (T04)
 
-Every role calls generate(role, prompt); config.yaml decides which backend (Ollama on the
-Mac, vLLM on Kaggle) and which model each role uses. Both backends return the same shape:
+Every role calls generate(role, prompt, config). config.yaml's `backend` picks the program that runs the model:
+Ollama on the Mac (development only) or vLLM on Kaggle's GPU (every reported number). Both return the same shape:
 
     {"text": str, "prompt_tokens": int, "completion_tokens": int,
      "logprobs": [{"token": str, "logprob": float, "top": [{"token": str, "logprob": float}, ...]}, ...]}
 
-with one logprobs entry per generated token (the Judge's P("yes") is read from these in T06).
-completion_tokens is the cost count and includes the end-of-answer token, which has no logprobs entry
-on either backend (vLLM returns one; we drop it so both backends give the same format).
-Ollama's prompt_tokens counts only prompt tokens it had to process (a cached prompt can count 0);
-vLLM counts the whole prompt. Ollama is for development only, so only vLLM counts are reported.
+`logprobs` has one entry per generated token: the token chosen and the 5 most likely alternatives at that position
+(the Judge's P("yes") is read from these in T06). completion_tokens counts the end-of-answer token too, but that
+token has no logprobs entry on either backend. Ollama's prompt_tokens can be lower when it reuses a cached prompt;
+only vLLM counts are reported.
 
-    python -m pipeline.llm smoke --backend vllm        # Kaggle: 3 test prompts, answers and probabilities
-    python -m pipeline.llm benchmark --backend vllm    # Kaggle: speed on 20 Pilot questions, 3 Rounds each
+    Press Debug on this file to ask the model one question (needs `ollama serve` running on the Mac).
 """
 
-import argparse
 import json
 import os
-import time
+import urllib.error
 import urllib.request
 
-from pipeline import DATA_DIR, load_config
-from pipeline.dataset import load_question_set
+# Decoding rules, the same for every role and both backends (CONTEXT.md, Roles).
+TEMPERATURE = 0          # always pick the most likely token, so the same prompt always gives the same reply
+TOP_ALTERNATIVES = 5     # how many likely alternatives to keep for each generated token
 
-# Here we name the address of the Ollama server running on the Mac (started with `ollama serve`).
-OLLAMA_URL = "http://localhost:11434/api/chat"
+# Ollama, on the Mac.
+OLLAMA_CHAT_URL = "http://localhost:11434/api/chat"
+OLLAMA_VERSION_URL = "http://localhost:11434/api/version"
+OLLAMA_TIMEOUT_SECONDS = 300
+START_OLLAMA_HINT = ('Ollama isn\'t running. In a second terminal, from the repo folder, run:\n'
+                     '    OLLAMA_MODELS="$PWD/data/ollama" ollama serve')
+# The name Ollama uses for each model in config.yaml (which uses the Hugging Face name).
+OLLAMA_MODEL_NAMES = {
+    "Qwen/Qwen3-4B-Instruct-2507": "qwen3:4b-instruct",
+    "Qwen/Qwen3-8B-AWQ": "qwen3:8b",
+    "Qwen/Qwen3-14B-AWQ": "qwen3:14b",
+}
+
+# vLLM, on Kaggle's T4 GPUs.
+VLLM_NUMBER_FORMAT = "float16"    # the T4 has no bfloat16
+VLLM_MAX_TOKENS_PER_REQUEST = 8192   # prompt + reply; 3 Rounds of Evidence need ~2K
+VLLM_GPU_MEMORY_SHARE = 0.90      # share of the GPU's memory vLLM may use
 
 
 def model_for(role: str, config: dict) -> str:
-    """The model name this role uses on the active backend."""
-    # Here we look up, e.g., models -> judge -> vllm in config.yaml.
-    return config["models"][role][config["backend"]]
+    """The model (Hugging Face name) a role uses: `model`, except the Judge uses `judge_model` when one is set."""
+    if role == "judge" and config.get("judge_model"):
+        return config["judge_model"]
+    return config["model"]
 
 
-def generate(role: str, prompt: str, config: dict | None = None) -> dict:
-    """Send one prompt to the model for this role and return its text, token counts and per-token probabilities.
+def ollama_name_for(model_name: str) -> str:
+    """Ollama's name for a model, e.g. Qwen/Qwen3-4B-Instruct-2507 -> qwen3:4b-instruct."""
+    if model_name not in OLLAMA_MODEL_NAMES:
+        raise KeyError(f"Add {model_name}'s Ollama name to OLLAMA_MODEL_NAMES in pipeline/llm.py.")
+    return OLLAMA_MODEL_NAMES[model_name]
 
-    A shortcut for generate_many with a batch of one.
-    """
+
+def generate(role: str, prompt: str, config: dict) -> dict:
+    """Send one prompt to the role's model and return its reply, token counts and per-token probabilities."""
     return generate_many(role, [prompt], config)[0]
 
 
-def generate_many(role: str, prompts: list[str], config: dict | None = None) -> list[dict]:
-    """Send a batch of prompts for one role; one generation per prompt, in order. vLLM runs them together, which is much faster."""
-    # Here we read config.yaml unless the caller passed settings in.
-    config = config or load_config()
-    # Here we send the prompts to whichever backend config.yaml picks.
+def generate_many(role: str, prompts: list[str], config: dict) -> list[dict]:
+    """Send several prompts for one role; one reply per prompt, in the same order. vLLM runs them together (faster)."""
     if config["backend"] == "ollama":
         return [generate_with_ollama(role, prompt, config) for prompt in prompts]
     if config["backend"] == "vllm":
         return generate_with_vllm(role, prompts, config)
-    raise ValueError(f"Unknown backend: {config['backend']}")
+    raise ValueError(f"backend in config.yaml must be ollama or vllm, not {config['backend']!r}")
+
+
+def make_token_entry(token: str, logprob: float, alternatives: list[tuple[str, float]]) -> dict:
+    """One logprobs entry: the chosen token, its log probability, and the top alternatives (same shape on both backends)."""
+    return {
+        "token": token,
+        "logprob": logprob,
+        "top": [{"token": alternative_token, "logprob": alternative_logprob}
+                for alternative_token, alternative_logprob in alternatives],
+    }
+
+
+# --- Ollama (the Mac) ---
+
+def ollama_is_running() -> bool:
+    """True if the Ollama server answers on this Mac."""
+    try:
+        with urllib.request.urlopen(OLLAMA_VERSION_URL, timeout=2):
+            return True
+    except OSError:
+        return False
 
 
 def generate_with_ollama(role: str, prompt: str, config: dict) -> dict:
-    """Send one prompt to the Ollama server on the Mac and return the reply in our shared shape."""
-    generation_config = config["generation"]
-    # Here we build the request: which model, the prompt as a chat message, and how to generate.
-    request_body = {
-        "model": model_for(role, config),
-        "messages": [{"role": "user", "content": prompt}],
-        "stream": False,   # one complete reply instead of word-by-word pieces
-        "think": False,    # Qwen3: answer directly; the Judge writes its reasoning in its REASONING field instead
-        "logprobs": True,  # also return how likely each generated token was
-        "top_logprobs": generation_config["top_logprobs"],   # and the top alternatives at each position
-        "options": {
-            "temperature": generation_config["temperature"],   # 0 = always pick the most likely token
-            "num_predict": generation_config["max_tokens"][role],   # longest reply allowed for this role
-        },
-    }
-    # Here we send the request to the Ollama server and wait (up to 5 minutes) for the reply.
-    request = urllib.request.Request(OLLAMA_URL, data=json.dumps(request_body).encode(),
-                                     headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(request, timeout=300) as response:
-        reply = json.load(response)
+    """Send one prompt to Ollama and return the reply in the shared shape."""
+    request_body = build_ollama_request(role, prompt, config)
+    ollama_reply = send_to_ollama(request_body)
+    return ollama_reply_to_generation(ollama_reply)
 
-    # Here we copy the parts we need from Ollama's reply into our shared shape (see the top of this file).
+
+def build_ollama_request(role: str, prompt: str, config: dict) -> dict:
+    """The request Ollama expects: which model, the prompt as a chat message, and how to generate."""
     return {
-        "text": reply["message"]["content"],
-        "prompt_tokens": reply.get("prompt_eval_count", 0),   # missing when Ollama reused a cached prompt
-        "completion_tokens": reply["eval_count"],
-        "logprobs": [
-            {
-                "token": token_entry["token"],
-                "logprob": token_entry["logprob"],
-                "top": [{"token": alternative["token"], "logprob": alternative["logprob"]}
-                        for alternative in token_entry["top_logprobs"]],
-            }
-            for token_entry in reply["logprobs"]
-        ],
+        "model": ollama_name_for(model_for(role, config)),
+        "messages": [{"role": "user", "content": prompt}],
+        "stream": False,      # one complete reply instead of word-by-word pieces
+        "think": False,       # Qwen3: answer directly; the Judge writes its reasoning in its REASONING field instead
+        "logprobs": True,     # also return how likely each generated token was
+        "top_logprobs": TOP_ALTERNATIVES,
+        "options": {"temperature": TEMPERATURE, "num_predict": config["max_tokens"][role]},
     }
 
 
-# Here we keep one loaded vLLM engine per model name, so roles that share a model share the engine
-# (loading a model takes minutes, so we only want to do it once).
+def send_to_ollama(request_body: dict) -> dict:
+    """Post the request to the Ollama server and return its JSON reply; stop with a clear hint if it isn't running."""
+    http_request = urllib.request.Request(OLLAMA_CHAT_URL, data=json.dumps(request_body).encode(),
+                                          headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(http_request, timeout=OLLAMA_TIMEOUT_SECONDS) as http_response:
+            return json.load(http_response)
+    except urllib.error.URLError as connection_error:
+        raise RuntimeError(START_OLLAMA_HINT) from connection_error
+
+
+def ollama_reply_to_generation(ollama_reply: dict) -> dict:
+    """Copy the parts we need from Ollama's reply into the shared shape."""
+    token_entries = [
+        make_token_entry(token_info["token"], token_info["logprob"],
+                         [(alternative["token"], alternative["logprob"]) for alternative in token_info["top_logprobs"]])
+        for token_info in ollama_reply["logprobs"]
+    ]
+    return {
+        "text": ollama_reply["message"]["content"],
+        "prompt_tokens": ollama_reply.get("prompt_eval_count", 0),   # missing when Ollama reused a cached prompt
+        "completion_tokens": ollama_reply["eval_count"],
+        "logprobs": token_entries,
+    }
+
+
+# --- vLLM (Kaggle) ---
+
+# One loaded engine per model name: loading takes minutes, so each model is loaded once and reused.
 loaded_vllm_engines: dict = {}
 
 
-def generate_with_vllm(role: str, prompts: list[str], config: dict) -> list[dict]:
-    """Run a batch of prompts through vLLM on Kaggle's GPU and return the replies in our shared shape."""
-    # Here we make vLLM start its worker as a fresh process: copying (forking) a program that already touched
-    # the GPU, e.g. through JAX after loading the BM25 index, fails with "CUDA driver initialization failed".
-    os.environ.setdefault("VLLM_WORKER_MULTIPROC_METHOD", "spawn")
-    # Imported here: vLLM only installs on Kaggle's GPUs, never on the Mac.
-    from vllm import LLM, SamplingParams
-
-    # Here we load the model onto the GPU the first time it is needed, and reuse it after that.
-    model_name = model_for(role, config)
+def get_vllm_engine(model_name: str):
+    """Load the model onto the GPU the first time it is asked for; after that, return the loaded one."""
     if model_name not in loaded_vllm_engines:
-        vllm_config = config["vllm"]
-        loaded_vllm_engines[model_name] = LLM(
-            model=model_name,
-            dtype="float16",   # the T4 has no bfloat16
-            max_model_len=vllm_config["max_model_len"],   # longest prompt + reply the model will accept
-            gpu_memory_utilization=vllm_config["gpu_memory_utilization"],   # share of GPU memory vLLM may use
-        )
-    engine = loaded_vllm_engines[model_name]
+        # Here we make vLLM start its worker as a fresh process: copying (forking) a program that already
+        # touched the GPU (e.g. JAX, after loading the index) fails with "CUDA driver initialization failed".
+        os.environ.setdefault("VLLM_WORKER_MULTIPROC_METHOD", "spawn")
+        from vllm import LLM   # imported here: vLLM only installs on Kaggle's GPUs, never on the Mac
 
-    # Here we set how to generate: same settings as the Ollama request above.
-    generation_config = config["generation"]
-    sampling_params = SamplingParams(
-        temperature=generation_config["temperature"],
-        max_tokens=generation_config["max_tokens"][role],
-        logprobs=generation_config["top_logprobs"],
-    )
+        loaded_vllm_engines[model_name] = LLM(model=model_name, dtype=VLLM_NUMBER_FORMAT,
+                                              max_model_len=VLLM_MAX_TOKENS_PER_REQUEST,
+                                              gpu_memory_utilization=VLLM_GPU_MEMORY_SHARE)
+    return loaded_vllm_engines[model_name]
+
+
+def generate_with_vllm(role: str, prompts: list[str], config: dict) -> list[dict]:
+    """Run a batch of prompts through vLLM on the GPU and return the replies in the shared shape."""
+    from vllm import SamplingParams
+
+    engine = get_vllm_engine(model_for(role, config))
+    sampling_params = SamplingParams(temperature=TEMPERATURE, max_tokens=config["max_tokens"][role],
+                                     logprobs=TOP_ALTERNATIVES)
     # Here we wrap each prompt as a one-message chat and send the whole batch to the GPU at once.
-    conversations = [[{"role": "user", "content": prompt}] for prompt in prompts]
-    outputs = engine.chat(conversations, sampling_params, use_tqdm=False,
-                          chat_template_kwargs={"enable_thinking": False})   # Qwen3: answer directly
-
-    # Here we convert each vLLM reply into our shared shape (see the top of this file).
-    generations = []
-    for output in outputs:
-        completion = output.outputs[0]
-
-        # Here we build one logprobs entry per generated token. vLLM gives, for each position, a dictionary
-        # from token id to that token's probability info: the chosen token plus the top alternatives.
-        logprobs = []
-        for token_id, logprobs_by_token_id in zip(completion.token_ids, completion.logprobs):
-            alternatives_by_rank = sorted(logprobs_by_token_id.values(), key=lambda alternative: alternative.rank)
-            chosen_token = logprobs_by_token_id[token_id]
-            logprobs.append({
-                "token": chosen_token.decoded_token,
-                "logprob": chosen_token.logprob,
-                "top": [{"token": alternative.decoded_token, "logprob": alternative.logprob}
-                        for alternative in alternatives_by_rank[:generation_config["top_logprobs"]]],
-            })
-        # Here we drop the entry for the end-of-answer token: Ollama has no entry for it, so neither do we.
-        if completion.finish_reason == "stop" and logprobs:
-            logprobs.pop()
-
-        generations.append({
-            "text": completion.text,
-            "prompt_tokens": len(output.prompt_token_ids),
-            "completion_tokens": len(completion.token_ids),
-            "logprobs": logprobs,
-        })
-    return generations
+    chats = [[{"role": "user", "content": prompt}] for prompt in prompts]
+    vllm_outputs = engine.chat(chats, sampling_params, use_tqdm=False,
+                               chat_template_kwargs={"enable_thinking": False})   # Qwen3: answer directly
+    return [vllm_output_to_generation(vllm_output) for vllm_output in vllm_outputs]
 
 
-# Here we list three tiny test prompts, one per role, used to check that a model loads and answers sensibly.
-SMOKE_PROMPTS = [
-    ("answerer", "Answer with one word: what is the capital of France?"),
-    ("rewriter", "Write one short search query to find out where Scott Derrickson was born."),
-    ("judge", "Evidence: Ed Wood was an American filmmaker.\n"
-              "Question: Were Scott Derrickson and Ed Wood of the same nationality?\n"
-              "Is the evidence enough to answer? Reply in exactly this format:\nENOUGH: yes or no"),
-]
+def vllm_output_to_generation(vllm_output) -> dict:
+    """Copy the parts we need from one vLLM reply into the shared shape."""
+    completion = vllm_output.outputs[0]
+    token_entries = vllm_token_entries(completion)
+    # Here we drop the entry for the end-of-answer token: Ollama has no entry for it, so neither do we.
+    if completion.finish_reason == "stop" and token_entries:
+        token_entries.pop()
+    return {
+        "text": completion.text,
+        "prompt_tokens": len(vllm_output.prompt_token_ids),
+        "completion_tokens": len(completion.token_ids),
+        "logprobs": token_entries,
+    }
 
 
-def run_smoke_test(config: dict) -> None:
-    """Three prompts, one per role: print each answer, its token counts, and the top alternatives for its last token.
-
-    For the Judge prompt the last token is the yes/no verdict; turning these into P("yes") is T06's job (pipeline/judge.py).
-    """
-    for role, prompt in SMOKE_PROMPTS:
-        # Here we send the test prompt and print the answer with its token counts.
-        generation = generate(role, prompt, config)
-        print(f"[{role}] model={model_for(role, config)}  prompt_tokens={generation['prompt_tokens']}  "
-              f"completion_tokens={generation['completion_tokens']}  logprob_entries={len(generation['logprobs'])}")
-        print(f"  answer: {generation['text'].strip()!r}")
-
-        # Here we find the last token that is not just a space or line break, and print the model's
-        # top alternatives at that position (for the Judge: how sure it was of "no" versus "yes").
-        visible_entries = [entry for entry in generation["logprobs"] if entry["token"].strip()]
-        if visible_entries:
-            last_visible_token = visible_entries[-1]
-            alternatives_text = ", ".join(f"{alternative['token']!r} {alternative['logprob']:.2f}"
-                                          for alternative in last_visible_token["top"])
-            print(f"  top alternatives at {last_visible_token['token']!r} (log probability): {alternatives_text}")
+def vllm_token_entries(completion) -> list[dict]:
+    """One logprobs entry per generated token, from vLLM's {token id: probability info} for each position."""
+    token_entries = []
+    for chosen_token_id, logprobs_by_token_id in zip(completion.token_ids, completion.logprobs):
+        chosen_token = logprobs_by_token_id[chosen_token_id]
+        alternatives_by_rank = sorted(logprobs_by_token_id.values(), key=lambda alternative: alternative.rank)
+        token_entries.append(make_token_entry(
+            chosen_token.decoded_token, chosen_token.logprob,
+            [(alternative.decoded_token, alternative.logprob) for alternative in alternatives_by_rank[:TOP_ALTERNATIVES]]))
+    return token_entries
 
 
-def build_evidence_prompt(question: dict, evidence: list[str]) -> str:
-    """The Evidence paragraphs followed by the question, as the benchmark's prompts start."""
-    return "Evidence:\n" + "\n".join(evidence) + f"\n\nQuestion: {question['question']}\n"
-
-
-def run_benchmark(config: dict, question_count: int = 20, paragraphs_per_round: int = 5) -> None:
-    """Mock 3-Round loop on Pilot questions with real BM25 Evidence; report tokens per second and a GPU-hour estimate."""
-    from pipeline.retriever import Retriever   # needs the BM25 index in data/wiki/bm25_index
-
-    # Here we take the first Pilot questions and search once for each, fetching enough paragraphs
-    # for every Round (5 per Round x 3 Rounds = 15). Round 1 shows the first 5, Round 2 the first 10, ...
-    pilot_set = load_question_set("pilot")[:question_count]
-    retriever = Retriever.load(DATA_DIR / config["wiki"]["index_dir"])
-    rounds = config["loop"]["rounds"]
-    evidence_by_question = [
-        [f"{result['title']}: {result['text']}"
-         for result in retriever.search(question["question"], k=paragraphs_per_round * rounds)]
-        for question in pilot_set
-    ]
-    # Here we send one throwaway prompt so the model is loaded before the timer starts.
-    generate("answerer", "Say OK.", config)
-
-    # Here we time the practice loop: every Round, the Judge, Answerer and Rewriter each answer every question.
-    prompt_tokens = completion_tokens = 0
-    started = time.perf_counter()
-    for round_number in range(1, rounds + 1):
-        # Here we give each question the Evidence it would have by this Round.
-        evidence_prompts = [
-            build_evidence_prompt(question, evidence[:paragraphs_per_round * round_number])
-            for question, evidence in zip(pilot_set, evidence_by_question)
-        ]
-        # Here we write one batch of prompts per role, shaped like the real prompts (T06).
-        batches = [
-            ("judge", [evidence_prompt + "Explain briefly whether the evidence is enough, then write ENOUGH: yes or no, "
-                                         "then MISSING: what is still needed." for evidence_prompt in evidence_prompts]),
-            ("answerer", [evidence_prompt + "Answer with a short phrase only." for evidence_prompt in evidence_prompts]),
-            ("rewriter", [f"Question: {question['question']}\nWrite one search query for the missing information."
-                          for question in pilot_set]),
-        ]
-        # Here we run each batch and add up how many tokens the model read and wrote.
-        for role, prompts in batches:
-            for generation in generate_many(role, prompts, config):
-                prompt_tokens += generation["prompt_tokens"]
-                completion_tokens += generation["completion_tokens"]
-    elapsed_seconds = time.perf_counter() - started
-
-    # Here we print the speed, and scale the time per question up to the full Tier 1 runs.
-    hours_per_question = elapsed_seconds / len(pilot_set) / 3600
-    print(f"{len(pilot_set)} questions x {rounds} Rounds in {elapsed_seconds:.0f} s")
-    print(f"prompt tokens: {prompt_tokens}  ({prompt_tokens / elapsed_seconds:.0f}/s)")
-    print(f"generated tokens: {completion_tokens}  ({completion_tokens / elapsed_seconds:.0f}/s)")
-    print(f"estimate for Tier 1 main runs (1,000 questions x 5 loop settings): {hours_per_question * 1000 * 5:.1f} GPU-hours")
-
-
-def main() -> None:
-    # Here we read the command ("smoke" or "benchmark") and an optional backend that overrides config.yaml.
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["smoke", "benchmark"])
-    parser.add_argument("--backend", choices=["ollama", "vllm"], help="override config.yaml's backend for this run")
-    arguments = parser.parse_args()
-
-    config = load_config()
-    if arguments.backend:
-        config["backend"] = arguments.backend
-    if arguments.command == "smoke":
-        run_smoke_test(config)
-    if arguments.command == "benchmark":
-        run_benchmark(config)
+def shut_down_vllm_engines() -> None:
+    """Stop every loaded vLLM engine and free the GPU, so the program can exit instead of hanging."""
+    for engine in loaded_vllm_engines.values():
+        engine.llm_engine.engine_core.shutdown()
+    loaded_vllm_engines.clear()
 
 
 if __name__ == "__main__":
-    main()
+    from pipeline.config import load_config
+
+    config = load_config()
+    reply = generate("answerer", "Answer with one word: what is the capital of France?", config)
+    print(f"[{config['backend']}] {model_for('answerer', config)}: {reply['text']!r}")
+    print(f"prompt_tokens={reply['prompt_tokens']}  completion_tokens={reply['completion_tokens']}")
+    shut_down_vllm_engines()

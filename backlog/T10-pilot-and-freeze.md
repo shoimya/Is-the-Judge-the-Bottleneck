@@ -1,6 +1,6 @@
 # T10 · Pilot and freeze
 
-Tier: 1 · Owner: _ · Depends: T09, research [02](../specification.md#12-research-findings-behind-the-decisions)
+Tier: 1 · Owner: _ · Depends: T09, decisions in [CONTEXT.md](../CONTEXT.md)
 
 ## What
 

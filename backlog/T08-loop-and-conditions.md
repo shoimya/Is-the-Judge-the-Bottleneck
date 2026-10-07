@@ -9,7 +9,7 @@ Tier: 1 · Owner: _ · Depends: T03, T05, T06, T07
 ```
 evidence = search(question, k)
 for round in 1..3:
-    judge = LLM judge (always run, so its verdict is logged in every setting)
+    judge = LLM judge (run in every looping setting, so its verdict is always logged)
     shadow_answer = Answerer(question, evidence)            # logged, not counted
     stop  = stop_source(judge, oracle)                      # LLM, oracle, never, or always
     if stop or round == 3: final answer = shadow_answer; break
@@ -23,10 +23,10 @@ for round in 1..3:
 | Setting | Stop from | Steer from |
 |---|---|---|
 | A | LLM judge | LLM judge |
-| B | Oracle judge | LLM judge |
-| C | LLM judge | Oracle judge |
+| B | LLM judge | Oracle judge |
+| C | Oracle judge | LLM judge |
 | D | Oracle judge | Oracle judge |
-| Single-turn | always stop after Round 1 | none |
+| Single-turn | none: search once with the question, then answer (no Judge call) | none |
 | Always-loop | never stop before Round 3 | LLM judge |
 | Closed-book | no retrieval, Answerer only | none |
 
@@ -40,4 +40,4 @@ Answer-oracle is not a run: it's computed from the shadow answers in the Always-
 
 ## Description
 
-This is the core of the study. The 2×2 comes from swapping only two things, who decides to stop and who says what's missing, while the retriever, the Rewriter and the Answerer stay identical. The LLM judge is called in every setting, even where its output isn't used, so we always have its verdict to score against the answer keys.
+This is the core of the study. The 2×2 comes from swapping only two things, who decides to stop and who says what's missing, while the retriever, the Rewriter and the Answerer stay identical. The LLM judge is called in every looping setting, even where its output isn't used, so we always have its verdict to score against the answer keys. Closed-book and Single-turn have no Judge (decided Oct 6, spec §6.2). A search with no searchable words returns no paragraphs (`retriever.search`, Oct 6), so that Round adds nothing to the Evidence.

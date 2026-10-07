@@ -7,7 +7,7 @@ Tier: 1 · Owner: _ · Depends: T11
 Extend `evaluate.py` (Mac is fine, no GPU) so `python evaluate.py --report` reads the Test set logs and produces:
 
 1. **Main table (RQ1, RQ2):** EM, F1, tokens and calls for all seven settings plus Answer-oracle, each with a 95% **paired bootstrap** CI (10,000 resamples, seed from config).
-2. **Gap decomposition:** B − A (cost of bad stopping), C − A (cost of bad steering), D − A (total gap), each with a CI and a **McNemar** test on per-question correctness.
+2. **Gap decomposition:** B − A (cost of bad steering), C − A (cost of bad stopping), D − A (total gap), each with a CI and a **McNemar** test on per-question correctness.
 3. **Memorization control:** the same table restricted to questions Closed-book got wrong.
 4. **Judge quality:** precision and recall of the LLM judge's stop verdicts against the Coverage key and the Answerability key, plus early-stop and late-stop rates.
 5. **Calibration:** a reliability diagram and ECE of `p_yes` against each key.

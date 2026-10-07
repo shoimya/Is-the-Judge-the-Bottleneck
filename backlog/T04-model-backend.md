@@ -1,6 +1,6 @@
 # T04 · Model backend (plug-and-play roles)
 
-Tier: 1 · Owner: _ · Depends: T02, research [02](../specification.md#12-research-findings-behind-the-decisions)
+Tier: 1 · Owner: _ · Depends: T02, decisions in [CONTEXT.md](../CONTEXT.md)
 
 ## What
 
@@ -8,13 +8,13 @@ Tier: 1 · Owner: _ · Depends: T02, research [02](../specification.md#12-resear
 - Two backends behind it: **vLLM** (Kaggle, for every reported number) and **Ollama** (Mac, development only). The backend is picked in the config.
 - `config.yaml` gets `backend: ollama | vllm` and one model setting per role (`models.judge`, `models.rewriter`, `models.answerer`), each holding **both backend names**, e.g. `{ollama: qwen3:4b-instruct, vllm: Qwen/Qwen3-4B-Instruct-2507}`. Switching machines changes only `backend`. Greedy decoding (temperature 0), max output tokens per role and `top_logprobs` also live there. The model names are development values until T10 picks the final model.
 - A cell in `kaggle.ipynb` that loads the model and runs 3 test prompts.
-- **Setup facts from [research 02](../specification.md#12-research-findings-behind-the-decisions):**
+- **Setup facts (now in [CONTEXT.md](../CONTEXT.md)):**
   - Kaggle's free GPU is 2× T4 (fp16 only, no bf16). Pin `vllm==0.30.0` (fallback 0.28.0) in a separate `requirements-gpu.txt`, because vLLM doesn't install on the Mac.
   - Run one model copy per T4 (data parallel) for the 8B AWQ model; don't use FP8 KV cache or act-order GPTQ checkpoints.
   - Qwen3 models: pass `enable_thinking=False` in the chat template. The Judge's reasoning goes in its REASONING field instead.
   - `logprobs` holds, for **every** generated token, the chosen token's log probability and the top 5 alternatives (both backends). T06 reads P("yes") at the token after `ENOUGH:`.
   - Ollama returns logprobs since v0.12.11, but only for development.
-- **Measure throughput:** run 20 Pilot set questions through a fake 3-Round loop on Kaggle (padding prompts with filler paragraphs to realistic Evidence length, since BM25 may not be ready yet) and record prompt tok/s, generated tok/s and wall time in the Throughput section of `NOTES.md`.
+- **Measure throughput:** run 20 Pilot set questions through a practice 3-Round loop on Kaggle, with real BM25 search results as Evidence (the index was ready by then, so no filler paragraphs were needed) and record prompt tok/s, generated tok/s and wall time in the Throughput section of `NOTES.md`.
 
 ## Done when
 
@@ -50,3 +50,22 @@ Every role goes through one door. That makes swapping a model a config change, w
   - Later tickets: data parallel one copy per T4 (T10); `gold_answer` vs `answer` field name (T05); Colab can't use the saved index; no automated test for the vLLM path; pass `hotpotqa_config` instead of 3 params (T14); parent-folder CLAUDE.md still points to `.scratch/` and `docs/agents/` (outside the repo).
 
 - Oct 6, readability pass (for the paper's readers): plain "Here we ..." comments above every block that does something, in all code files, the tests and the notebook; docstrings added to `load_config`, `check_setup`, `Retriever.load` and both backend functions. Renames: `to_question` → `raw_row_to_question`, `sampled` → `pilot_and_test_sample`, `as_ids` → `return_word_ids`, `ks` → `cutoffs`, `both_found` → `all_found` (also the header of `results/pilot/bm25_recall.csv`), `sampling` → `sampling_params`, `alternatives`/`ranked` → `logprobs_by_token_id`/`alternatives_by_rank`, `last_word` → `last_visible_token`, `seconds` → `elapsed_seconds`, `make_questions` → `make_fake_questions`, notebook `run()` → `run_or_stop()`, `attached_index` → `attached_index_matches`. Two dense lines split (`build_evidence_prompt()` in `llm.py`, `read_written_files()` in the tests). No behaviour changed: 13 tests pass. Bugs from the same review are not fixed yet.
+- Oct 6, ranked bug list, fixes agreed with the owner:
+  - Single-turn has no Judge (spec §6.2, §7.2, CONTEXT, T08 updated).
+  - `retriever.search` returns no paragraphs for a query with no searchable words (empty or only stopwords); test added.
+  - Kaggle/Colab model downloads go to `/tmp` (`HF_HOME` set in the notebook), not the ~20 GB `/kaggle/working`.
+  - `llm.py` shuts vLLM engines down after `smoke`/`benchmark` (`engine.llm_engine.engine_core.shutdown()`, checked in vLLM 0.30.0's source), so the Kaggle cell ends by itself. Not yet run on Kaggle.
+  - The Wikipedia dump download resumes after an interruption (`download_with_resume`: `.part` file, HTTP Range, size check, up to 20 attempts); an interrupted unpack starts over (`unpacked.part` → `unpacked`). Two tests added.
+  - Python: 3.12 or newer supported (Mac 3.12, Kaggle 3.13, verified identical outputs); `run.py --check` warns only below 3.12.
+  - Benchmark sizes and the ×7 settings moved to `config.yaml` (`benchmark` block); the estimate uses `hotpotqa.test_size`.
+  - Notebook section 8 removes a broken index link before relinking.
+  - `ollama_is_running()` in the tests closes its connection.
+  - Docs brought up to date: spec (date, throughput, budget, Python, Kaggle fixes, layout, config blocks, index size 2.8 GB), README (layout, Kaggle section, adding a library), CONTEXT (Closed-book, Coin-flip, Shadow answer, baselines vs upper bound, oracle steer, Rewriter input), NOTES.
+  - Still open: Tier 3 needs two models on the GPUs (T17 note); notebook section 5 deletes `runs/.gitkeep` (skipped for now).
+- Oct 6, restructure so the owner can run and debug every piece (architecture review candidates 1–5, approved):
+  - `pyproject.toml` + `-e .` in `requirements.txt`: every file can `import pipeline` from anywhere, so VS Code "Debug file" works.
+  - `pipeline/` keeps only per-question code: `config.py` (load_config + folders; replaces the hidden work in `__init__.py`), `dataset.py` (read a question set), `retriever.py` (search only), `llm.py` (generate only), `answerer.py` (draft prompt until T06), `judge.py`/`rewriter.py` (described stubs for T06/T07), `loop.py` (one function per scenario; `closed_book` and `single_turn` work, the rest stop with "built in T08"; Coin-flip will read Always-loop's log).
+  - One-time jobs moved to `setup/`: `get_questions.py` (T02), `build_index.py` (T03), `check_index.py` (T03), `check_model.py` (T04 smoke + benchmark in one run; `--smoke-only`).
+  - `run.py`: `--check`, or `--setting <scenario> [--question <id>]` to follow one question; stops with a clear hint if Ollama isn't running.
+  - `config.yaml` cut to the experiment's choices (`backend`, `model`, `judge_model`, `paragraphs_per_round`, `rounds`, `token_budget`, `max_tokens`, set sizes, seeds); fixed facts are constants beside their use. Spec §6.6, §10.1, §10.2 and README updated; Tier 3 tickets now say `judge_model`.
+  - Tests rewritten in pipeline order: 22 pass, 4 need Ollama. Verified on the Mac: question sets and `bm25_recall.csv` byte-identical to before. `kaggle.ipynb` still calls the old commands: redo next.

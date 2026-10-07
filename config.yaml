@@ -1,60 +1,29 @@
-# Every setting lives here. Code reads it with pipeline.load_config();
-# nothing below should be hard-coded anywhere else.
-# `null` = not decided yet; the ticket in the comment fills it in.
+# The choices an experiment can change. Read with pipeline.config.load_config().
+# Fixed facts (download links, folder names, decoding rules) live as named constants
+# at the top of the file that uses them.
 
-# Seeds for the bootstrap and other repeated randomness (question sampling uses hotpotqa.sample_seed).
-seeds: [0, 1, 2]
-
-# Question sets (T02): sampled once from HotpotQA dev, fullwiki setting.
-# Downloaded from Hugging Face because the official CMU server is down.
-hotpotqa:
-  hf_repo: hotpotqa/hotpot_qa
-  hf_file: fullwiki/validation-00000-of-00001.parquet
-  pilot_size: 100
-  test_size: 1000
-  sample_seed: 0
-
-# Wikipedia corpus and BM25 index (T03). Built once on Kaggle, then copied to the Mac.
-# Folders are relative to paths.data_dir.
-wiki:
-  dump_url: https://nlp.stanford.edu/projects/hotpotqa/enwiki-20171001-pages-meta-current-withlinks-abstracts.tar.bz2
-  dump_dir: wiki/dump
-  index_dir: wiki/bm25_index
-  recall_ks: [2, 5, 10, 20]   # k values for the Pilot set sanity check
-
-# Which program runs the models: ollama on the Mac (development only),
-# vllm on Kaggle (every reported number). Only this line changes between machines.
+# Which program runs the model: ollama on the Mac (development only), vllm on Kaggle (every reported number).
 backend: ollama
 
-# One model per role, named for both backends. Tier 1 uses the same model for all
-# three; Tier 3 changes only `judge`. Development values until T10 picks the model
-# (Qwen3-8B-AWQ or Qwen3-4B-Instruct-2507).
-models:
-  judge:    {ollama: "qwen3:4b-instruct", vllm: Qwen/Qwen3-4B-Instruct-2507}
-  rewriter: {ollama: "qwen3:4b-instruct", vllm: Qwen/Qwen3-4B-Instruct-2507}
-  answerer: {ollama: "qwen3:4b-instruct", vllm: Qwen/Qwen3-4B-Instruct-2507}
+# The model every role uses (its Hugging Face name; llm.py knows its Ollama name).
+model: Qwen/Qwen3-4B-Instruct-2507
 
-# Decoding (T04): greedy, a length cap per role, and the top alternatives
-# saved for every generated token (the Judge's P("yes") is read from these).
-generation:
-  temperature: 0
-  max_tokens: {judge: 256, rewriter: 32, answerer: 32}
-  top_logprobs: 5
+# Tier 3 only: a different model for the Judge. null = the Judge uses `model` too.
+judge_model: null
 
-# vLLM on Kaggle (T04). Qwen3 supports 262K context, but reserving that much memory
-# doesn't fit a T4; 3 Rounds of Evidence need ~2K tokens.
-vllm:
-  max_model_len: 8192
-  gpu_memory_utilization: 0.90
+# The loop. paragraphs_per_round is a development value until T10 picks 2, 5 or 10;
+# token_budget stays null (no limit) until T10.
+paragraphs_per_round: 5
+rounds: 3
+token_budget: null
 
-retrieval:
-  k: null           # T10: paragraphs retrieved per Round (try 2, 5, 10)
+# Longest reply each role may write, in tokens.
+max_tokens: {judge: 256, rewriter: 32, answerer: 32}
 
-loop:
-  rounds: 3         # maximum Rounds per question
-  token_budget: null  # T10: max Evidence tokens shown to the Judge and Answerer
+# Question sets (T02): sampled once from HotpotQA dev with sample_seed.
+pilot_size: 100
+test_size: 1000
+sample_seed: 0
 
-paths:
-  data_dir: data
-  runs_dir: runs
-  results_dir: results
+# Seeds for the bootstrap and other repeated randomness in the analysis.
+seeds: [0, 1, 2]

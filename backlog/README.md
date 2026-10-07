@@ -2,7 +2,7 @@
 
 Build tickets, worked **in order**. Each one depends on the one before it (see its `Depends:` line). Set `Owner:` in the ticket when someone picks it up, and update the Status column below when its "Done when" check passes.
 
-This is the **only place ticket status is tracked**. The research answers behind the tickets are in [specification.md §12](../specification.md#12-research-findings-behind-the-decisions).
+This is the **only place ticket status is tracked**. The decisions behind the tickets are in [CONTEXT.md](../CONTEXT.md).
 
 ## Tier 1: RQ1 + RQ2 on HotpotQA (must-have)
 
