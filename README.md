@@ -18,6 +18,7 @@ pipeline/            what runs for every question
   rewriter.py        Steer signal → next query (T06)
   answerer.py        Evidence → answer
   loop.py            one function per scenario: Closed-book, Single-turn, Always-loop, Coin-flip, A–D
+  run_log.py         where each scenario's logs go: runs/<scenario>/ (T05)
 setup/               one-time jobs
   get_questions.py   download HotpotQA, pick the Pilot and Test sets
   build_index.py     download Wikipedia and build the search index (already built; only if lost)
@@ -90,7 +91,7 @@ Open `kaggle.ipynb` and run all cells at the start of every session. Before runn
 2. Internet: **On** (needs a phone-verified Kaggle account).
 3. Add Input > Your Datasets > **`hotpotqa-bm25-index`** (the saved search index).
 
-The notebook has 11 numbered sections, each with a plain-language note. It clones the repo at the branch set in section 1, installs the requirements, keeps `runs/` in storage that survives the session, checks the setup, rebuilds the question sets and checks they match GitHub, links the search index and checks its results match the Mac's, then installs vLLM and runs the model smoke test and speed benchmark. Model files download to `/tmp`, so they don't fill the ~20 GB working folder.
+The notebook has 11 numbered sections, each with a plain-language note. It clones the branch set in section 1 (`SC.V2`), installs the requirements, keeps `runs/` in storage that survives the session, checks the setup, rebuilds the question sets and checks they match GitHub, links the search index and checks its results match the Mac's, installs vLLM, runs the model check (smoke test + speed benchmark), and finally runs a scenario through `run.py` on the GPU and shows its log. Click **Save Version** afterwards to keep `runs/`. Model files download to `/tmp`, so they don't fill the ~20 GB working folder.
 
 Every number in the paper comes from Kaggle. The Mac is for development.
 

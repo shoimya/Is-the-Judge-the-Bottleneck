@@ -1,13 +1,14 @@
-"""The launcher: check the setup, or follow one question through one scenario.
+"""The launcher: check the setup, or run a scenario on one question or a whole question set. Every run is logged.
 
     python run.py --check                                   is this machine ready? (T01)
-    python run.py --setting single-turn                     first Pilot question, Single-turn
+    python run.py --setting single-turn                     the first Pilot question
     python run.py --setting closed-book --question <id>     a chosen Pilot question
-    python run.py --setting single-turn --backend vllm      on Kaggle
+    python run.py --setting single-turn --set pilot         all 100 Pilot questions
+    python run.py --setting single-turn --set test --backend vllm     all Test questions, on Kaggle
 
 Scenarios: closed-book, single-turn (working now); always-loop, coin-flip, A, B, C, D (T08).
-Running a whole question set and writing the run log come in T05 and T08.
-To follow the code, put breakpoints in pipeline/loop.py and press Debug on this file (VS Code: Run and Debug).
+Logs go to runs/<scenario>/<run id>/ (see pipeline/run_log.py). Running the same command again after a crash
+continues where it stopped. To follow the code, put breakpoints in pipeline/loop.py and press Debug on this file.
 """
 
 import argparse
@@ -19,6 +20,7 @@ from pipeline.dataset import find_question, load_question_set
 from pipeline.llm import START_OLLAMA_HINT, ollama_is_running, shut_down_vllm_engines
 from pipeline.loop import SCENARIOS
 from pipeline.retriever import Retriever
+from pipeline.run_log import read_question_records, run_scenario
 
 
 def check_python_version() -> None:
@@ -46,20 +48,36 @@ def check_setup() -> None:
     print("Setup OK.")
 
 
-def run_one_question(setting_name: str, question_id: str | None, config: dict) -> None:
-    """Run one Pilot question (the first, unless an id is given) through one scenario and print the result."""
+def choose_questions(question_set_name: str, question_id: str | None, whole_set: bool) -> list[dict]:
+    """The questions to run: the whole set, one chosen question, or (by default) the set's first question."""
+    question_set = load_question_set(question_set_name)
+    if whole_set:
+        return question_set
+    if question_id:
+        return [find_question(question_id, question_set)]
+    return question_set[:1]
+
+
+def print_one_question(record: dict) -> None:
+    """Show what happened to one question: what was searched, what came back, and the answer."""
+    print("Question:    ", record["question"])
+    print("Gold answer: ", record["gold_answer"], "| Gold titles:", record["gold_titles"])
+    for single_round in record["rounds"]:
+        if single_round["retriever"] is not None:
+            retrieved_titles = [paragraph["title"] for paragraph in single_round["retriever"]["retrieved"]]
+            print(f"Round {single_round['round']} search:", single_round["retriever"]["query"], "->", retrieved_titles)
+    print("Answer:      ", record["final_answer"])
+
+
+def run_and_log(setting_name: str, questions: list[dict], question_set_name: str, config: dict) -> None:
+    """Run one scenario on the chosen questions, logging every question; then say where the log is."""
     if config["backend"] == "ollama" and not ollama_is_running():
         sys.exit(START_OLLAMA_HINT)
-
-    pilot_set = load_question_set("pilot")
-    question = find_question(question_id, pilot_set) if question_id else pilot_set[0]
-    scenario = SCENARIOS[setting_name]
-    result = scenario(question, Retriever.load(), config)   # <- step into this line to follow the pipeline
-
-    print("Question:    ", question["question"])
-    print("Gold answer: ", question["answer"])
-    for field_name, field_value in result.items():
-        print(f"{field_name + ':':<14}{field_value}")
+    run_folder = run_scenario(setting_name, SCENARIOS[setting_name], questions, question_set_name, config,
+                              retriever=Retriever.load())   # <- step into this line to follow the pipeline
+    if len(questions) == 1:
+        print_one_question(read_question_records(run_folder)[0])
+    print("Log saved in", run_folder)
 
 
 def read_arguments() -> argparse.Namespace:
@@ -68,7 +86,8 @@ def read_arguments() -> argparse.Namespace:
     argument_parser.add_argument("--check", action="store_true", help="check the setup and exit")
     argument_parser.add_argument("--setting", choices=list(SCENARIOS), default="single-turn",
                                  help="which scenario to run (default: single-turn)")
-    argument_parser.add_argument("--question", help="id of a Pilot question (default: the first one)")
+    argument_parser.add_argument("--question", help="id of one question to run (default: the set's first question)")
+    argument_parser.add_argument("--set", choices=["pilot", "test"], help="run every question in this set")
     argument_parser.add_argument("--backend", choices=["ollama", "vllm"], help="use this instead of config.yaml's backend")
     return argument_parser.parse_args()
 
@@ -81,5 +100,7 @@ if __name__ == "__main__":
         config = load_config()
         if arguments.backend:
             config["backend"] = arguments.backend
-        run_one_question(arguments.setting, arguments.question, config)
+        question_set_name = arguments.set or "pilot"
+        questions = choose_questions(question_set_name, arguments.question, whole_set=bool(arguments.set))
+        run_and_log(arguments.setting, questions, question_set_name, config)
         shut_down_vllm_engines()   # here we free the GPU on Kaggle, so the program can exit

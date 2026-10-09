@@ -18,8 +18,11 @@ from pipeline.answerer import build_answer_prompt
 from pipeline.config import load_config
 from pipeline.dataset import find_question, load_question_set
 from pipeline.llm import generate, generate_many, model_for, ollama_is_running, ollama_name_for
-from pipeline.loop import SCENARIOS, closed_book, never_stop, single_turn
+from pipeline.loop import (SCENARIOS, closed_book, make_answerer_entry, make_result, make_retriever_entry,
+                           make_round, never_stop, single_turn)
 from pipeline.retriever import Retriever
+from pipeline.run_log import (SCENARIO_FOLDER_NAMES, read_meta, read_question_records, run_scenario,
+                              scenario_log_folder)
 from run import check_setup
 from setup.build_index import build_index, download_and_unpack_dump, download_with_resume, read_wiki_paragraphs
 from setup.check_index import gold_recall_at_k
@@ -389,20 +392,135 @@ def test_scenarios_not_built_yet_say_which_ticket_builds_them(tiny_retriever):
 def test_single_turn_searches_once_and_answers_from_what_it_found(tiny_retriever):
     """Single-turn searches once, uses those paragraphs, and answers from them."""
     config = load_config() | {"backend": "ollama", "paragraphs_per_round": 2}
-    question = {"id": "q1", "question": "Which tower emits light to guide ships at sea?", "gold_titles": ["Lighthouse"]}
+    question = {"id": "q1", "question": "Which tower emits light to guide ships at sea?", "answer": "a lighthouse",
+                "gold_titles": ["Lighthouse"]}
     result = single_turn(question, tiny_retriever, config)
-    assert result["setting"] == "single-turn"
+    only_round = result["rounds"][0]
     assert result["rounds_used"] == 1
-    assert result["evidence_titles"][0] == "Lighthouse"
-    assert "lighthouse" in result["answer"].lower()
+    assert only_round["retriever"]["query"] == question["question"]
+    assert only_round["retriever"]["retrieved"][0]["title"] == "Lighthouse"
+    assert only_round["answerer"]["paragraphs_seen"][0] == "Lighthouse"
+    assert only_round["judge"] is None and only_round["rewriter"] is None
+    assert "lighthouse" in result["final_answer"].lower()
 
 
 @needs_ollama
 def test_closed_book_answers_from_memory_without_searching(tiny_retriever):
     """Closed-book answers from the model's memory, with no search."""
     config = load_config() | {"backend": "ollama"}
-    question = {"id": "q1", "question": "What is the capital of France?", "gold_titles": []}
+    question = {"id": "q1", "question": "What is the capital of France?", "answer": "Paris", "gold_titles": []}
     result = closed_book(question, tiny_retriever, config)
     assert result["rounds_used"] == 0
-    assert result["evidence_titles"] == []
-    assert "Paris" in result["answer"]
+    assert result["rounds"][0]["retriever"] is None
+    assert result["rounds"][0]["answerer"]["paragraphs_seen"] == []
+    assert "Paris" in result["final_answer"]
+
+
+# ---------------------------------------------------------------------------
+# 7. Run logs: pipeline/run_log.py (T05)
+# ---------------------------------------------------------------------------
+
+def test_every_scenario_has_its_own_log_folder_name():
+    """Each of the 8 scenarios logs into its own folder; A-D names say who stops and who steers."""
+    assert set(SCENARIO_FOLDER_NAMES) == set(SCENARIOS)
+    assert SCENARIO_FOLDER_NAMES["A"] == "A_llm-stops_llm-steers"
+    assert SCENARIO_FOLDER_NAMES["B"] == "B_llm-stops_oracle-steers"
+    assert SCENARIO_FOLDER_NAMES["C"] == "C_oracle-stops_llm-steers"
+    assert SCENARIO_FOLDER_NAMES["D"] == "D_oracle-stops_oracle-steers"
+
+
+def test_a_scenario_log_folder_is_created_the_first_time_and_reused_after(tmp_path):
+    """The first run of a scenario creates runs/<scenario folder>/; later runs reuse it."""
+    assert not (tmp_path / "single-turn").exists()
+    first_folder = scenario_log_folder("single-turn", runs_dir=tmp_path)
+    assert first_folder == tmp_path / "single-turn" and first_folder.is_dir()
+    assert scenario_log_folder("single-turn", runs_dir=tmp_path) == first_folder
+    # Here we check no other scenario's folder was made along the way.
+    assert [folder.name for folder in tmp_path.iterdir()] == ["single-turn"]
+
+
+# A stand-in model reply, with token counts, for building records without a model.
+FAKE_REPLY = {"text": " Lighthouse ", "prompt_tokens": 40, "completion_tokens": 3, "logprobs": []}
+LIGHTHOUSE_PARAGRAPH = {"title": "Lighthouse", "text": "A lighthouse guides ships.", "score": 2.5}
+
+
+def make_fake_question_set(question_count):
+    """Stand-in questions with everything a record copies: id, English question, gold answer, Gold titles."""
+    return [{"id": f"q{number}", "question": f"Question number {number}?", "answer": "Lighthouse",
+             "gold_titles": ["Lighthouse"]} for number in range(question_count)]
+
+
+def fake_single_turn(question, retriever, config):
+    """A Single-turn stand-in that returns a real-shaped record without searching or calling a model."""
+    rounds = [make_round(1, make_retriever_entry(question["question"], [LIGHTHOUSE_PARAGRAPH]),
+                         make_answerer_entry([LIGHTHOUSE_PARAGRAPH], FAKE_REPLY))]
+    return make_result(question, rounds, final_answer=FAKE_REPLY["text"].strip())
+
+
+def test_a_record_holds_the_question_what_was_retrieved_and_what_the_answerer_saw():
+    """One question's record: the question, the query and full paragraphs retrieved, the answerer's view, totals."""
+    question = make_fake_question_set(1)[0]
+    record = fake_single_turn(question, retriever=None, config={})
+    only_round = record["rounds"][0]
+    assert record["question_id"] == "q0" and record["question"] == "Question number 0?"
+    assert record["gold_answer"] == "Lighthouse" and record["gold_titles"] == ["Lighthouse"]
+    assert only_round["retriever"]["retrieved"] == [LIGHTHOUSE_PARAGRAPH]   # full text and score, not just the title
+    assert only_round["answerer"]["paragraphs_seen"] == ["Lighthouse"]
+    assert only_round["answerer"]["prompt_version"] == "draft"
+    assert only_round["answerer"]["answer"] == "Lighthouse"
+    assert record["rounds_used"] == 1 and record["llm_calls"] == 1
+    assert record["total_prompt_tokens"] == 40 and record["total_completion_tokens"] == 3
+
+
+def test_a_run_writes_its_meta_and_one_record_per_question_in_the_scenario_folder(tmp_path):
+    """A 5-question run writes meta.json and 5 timed records under runs/<scenario>/<run id>/."""
+    questions = make_fake_question_set(5)
+    run_folder = run_scenario("single-turn", fake_single_turn, questions, "pilot", load_config(),
+                              retriever=None, runs_dir=tmp_path)
+
+    assert run_folder.parent == tmp_path / "single-turn"
+    meta = read_meta(run_folder)
+    assert meta["scenario"] == "single-turn" and meta["question_set"] == "pilot"
+    assert meta["question_ids"] == ["q0", "q1", "q2", "q3", "q4"]
+    assert meta["config"] == load_config() and meta["finished_at"] is not None
+    records = read_question_records(run_folder)
+    assert [record["question_id"] for record in records] == ["q0", "q1", "q2", "q3", "q4"]
+    assert all(record["started_at"] <= record["finished_at"] for record in records)
+
+
+def test_a_stopped_run_resumes_and_finishes_with_no_duplicates(tmp_path):
+    """A run that crashes partway (even mid-line) continues where it stopped when started again."""
+    questions = make_fake_question_set(5)
+
+    def crash_on_the_third_question(question, retriever, config):
+        """Stand-in that crashes at q2, like a Kaggle session ending."""
+        if question["id"] == "q2":
+            raise RuntimeError("session ended")
+        return fake_single_turn(question, retriever, config)
+
+    with pytest.raises(RuntimeError):
+        run_scenario("single-turn", crash_on_the_third_question, questions, "pilot", load_config(),
+                     retriever=None, runs_dir=tmp_path)
+    [stopped_run] = (tmp_path / "single-turn").iterdir()
+    assert read_meta(stopped_run)["finished_at"] is None
+    # Here we pretend the crash also cut the next line off halfway through writing it.
+    with open(stopped_run / "questions.jsonl", "a") as questions_file:
+        questions_file.write('{"question_id": "q2", "quest')
+
+    resumed_run = run_scenario("single-turn", fake_single_turn, questions, "pilot", load_config(),
+                               retriever=None, runs_dir=tmp_path)
+
+    assert resumed_run == stopped_run
+    assert [record["question_id"] for record in read_question_records(resumed_run)] == ["q0", "q1", "q2", "q3", "q4"]
+    assert read_meta(resumed_run)["finished_at"] is not None
+
+
+def test_a_finished_run_is_kept_and_running_again_starts_a_new_run(tmp_path):
+    """Running the same scenario again after it finished starts a fresh run folder instead of adding to the old one."""
+    questions = make_fake_question_set(2)
+    first_run = run_scenario("single-turn", fake_single_turn, questions, "pilot", load_config(),
+                             retriever=None, runs_dir=tmp_path)
+    second_run = run_scenario("single-turn", fake_single_turn, questions, "pilot", load_config(),
+                              retriever=None, runs_dir=tmp_path)
+    assert second_run != first_run
+    assert len(read_question_records(first_run)) == 2 and len(read_question_records(second_run)) == 2

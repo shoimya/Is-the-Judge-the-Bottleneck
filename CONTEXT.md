@@ -188,10 +188,13 @@ Ruled out on the T4: Gemma 4 (no vLLM support on T4), Qwen3.5 (fp16 overflow ris
 
 ## Run log
 
-Every run writes `runs/<run_id>/`, with `run_id` = date-time + scenario (e.g. `2026-10-14T1530_A`). `runs/` points to persistent storage on Kaggle (`/kaggle/working/runs`) and Colab (Drive).
-- **`meta.json`:** date and time, scenario, dataset, question set, model per role, backend, git commit, full config, prompt versions.
-- **`questions.jsonl`**, one line per question: `id`, `question`, `gold_answer`, `gold_titles`, `rounds_used`, `final_answer`, `em`, `f1`, `total_prompt_tokens`, `total_completion_tokens`, `llm_calls` (shadow answers counted separately), and `rounds`: per Round `query`, `retrieved_titles`, `judge_raw` (full output with reasoning), `stop`, `p_yes`, `steer`, `shadow_answer`, `shadow_em`, tokens per role, `parse_error`.
-- **Resumable:** on restart, question ids already in `questions.jsonl` are skipped.
+Every run that uses the pipeline is logged (`run.py` on one question or a whole set, `loop.py`'s demo); tests, setup scripts and `run.py --check` write nothing. Code: `pipeline/run_log.py`.
+
+- **Folders:** `runs/<scenario>/<run id>/`, one scenario folder created the first time it runs: `closed-book`, `single-turn`, `always-loop`, `coin-flip`, `A_llm-stops_llm-steers`, `B_llm-stops_oracle-steers`, `C_oracle-stops_llm-steers`, `D_oracle-stops_oracle-steers`. The run id is the start time (e.g. `2026-10-14T153012`). `runs/` points to persistent storage on Kaggle (`/kaggle/working/runs`) and Colab (Drive).
+- **`meta.json`:** run id, scenario, dataset, question set and its ids, start and finish time, backend, model per role, prompt versions, git commit (and whether there were uncommitted changes), full config.
+- **`questions.jsonl`**, one line per question, saved as soon as it finishes: `question_id`, `question`, `gold_answer`, `gold_titles`, `started_at`, `finished_at`, `final_answer`, `rounds_used`, token totals, `llm_calls`, and `rounds`. Each Round records, in order: **retriever** (the query and every paragraph returned, with full text and score), **judge** (full output with reasoning, Stop decision, `p_yes`, Steer signal, parse error, tokens; from T06), **answerer** (titles of the paragraphs it saw, prompt version, answer, tokens; its full prompt is rebuilt from these), **rewriter** (the query it sent back, tokens; from T06). Closed-book is one Round 0 with no retriever.
+- **Resumable:** running the same scenario on the same questions with the same config continues the newest unfinished run, skipping finished questions and dropping a half-written last line.
+- Scores (`em`, `f1`, `shadow_em`) are added in T09.
 
 ## Outputs for the paper
 

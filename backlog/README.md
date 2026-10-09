@@ -12,7 +12,7 @@ This is the **only place ticket status is tracked**. The decisions behind the ti
 | T02 | [Pilot set and Test set](T02-question-sets.md) | Sep 23 – 29 | Done |
 | T03 | [Wikipedia corpus and BM25 search](T03-corpus-and-bm25.md) | Sep 30 – Oct 6 | Done |
 | T04 | [Model backend (plug-and-play roles)](T04-model-backend.md) | Sep 30 – Oct 6 | Done |
-| T05 | [Run log](T05-run-log.md) | Oct 7 – 13 |  |
+| T05 | [Run log](T05-run-log.md) | Oct 7 – 13 | Done |
 | T06 | [Role prompts and output parsing](T06-role-prompts.md) | Oct 7 – 13 |  |
 | T07 | [Oracle judge](T07-oracle-judge.md) | Oct 7 – 13 |  |
 | T08 | [The loop and all seven settings](T08-loop-and-conditions.md) | Oct 14 – 20 |  |
