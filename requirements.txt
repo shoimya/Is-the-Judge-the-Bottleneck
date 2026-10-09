@@ -1,3 +1,9 @@
 # Libraries the project needs, at exact versions (name==x.y.z). setup_project.py installs whichever are missing.
 # Each ticket adds what it needs.
 pytest==9.1.1
+huggingface_hub==1.33.0    # T02: downloads HotpotQA. transformers, used by vLLM, needs a version below 2.0
+pyarrow==25.0.1            # T02: reads the downloaded HotpotQA file, which is in Parquet format
+bm25s[core]==0.3.11        # T03: BM25 keyword search over Wikipedia
+PyStemmer==3.1.0           # T03: cuts words to their root ("directed" -> "direct") for the search
+numba==0.65.0              # T03: speeds up bm25s. This is the version vLLM installs on Kaggle
+numpy==2.4.6               # T03: bm25s stores the index with it. This is the version vLLM installs on Kaggle

@@ -4,7 +4,9 @@
 
 For everything the project needs, it first checks whether it already exists and only installs what is missing:
 Python 3.12 or newer, the project folders, pytest's settings file, a virtual environment (.venv, on the Mac), and
-the libraries in requirements.txt (plus requirements-gpu.txt on a GPU machine, once that file exists). It never deletes anything,
+the libraries in requirements.txt (plus requirements-gpu.txt on a GPU machine, once that file exists), the
+Pilot set and Test set (made by question_sets.py), and the search index (linked on Kaggle; elsewhere it explains
+how to download it). It never deletes anything,
 so it is safe to run again. Everything it did is logged in runs/setup/<date>/setup_<time>.log.
 
 It uses only Python's built-in modules and starts even on the Mac's built-in Python 3.9, because nothing is
@@ -35,6 +37,15 @@ SETUP_LOGS_DIR = PROJECT_ROOT / "runs" / "setup"
 PYTEST_SETTINGS_FILE = PROJECT_ROOT / "pytest.ini"
 # pytest's settings: tests live in test/, and they may import the scripts at the top of the repo.
 PYTEST_SETTINGS = "[pytest]\ntestpaths = test\npythonpath = .\n"
+# T02: the Pilot set and Test set files, and the script that makes them if they're missing. These paths repeat the
+# ones in question_sets.py on purpose: this script can't import it, because it runs before its libraries are installed.
+QUESTION_SET_FILES = [PROJECT_ROOT / "data" / "hotpotqa" / "pilot.jsonl", PROJECT_ROOT / "data" / "hotpotqa" / "test.jsonl"]
+QUESTION_SETS_SCRIPT = PROJECT_ROOT / "question_sets.py"
+# T03: where the search index lives, and the Kaggle dataset that holds a copy (attached under /kaggle/input/).
+# INDEX_DIR repeats the one in retriever.py for the same reason as above.
+INDEX_DIR = PROJECT_ROOT / "data" / "wiki" / "bm25_index"
+INDEX_KAGGLE_DATASET = "hotpotqa-bm25-index"
+KAGGLE_INPUT_DIR = Path("/kaggle/input")
 
 
 # --- The setup log ---
@@ -50,12 +61,12 @@ def warn(log_lines: list[str], message: str) -> None:
     note(log_lines, f"WARNING: {message}")
 
 
-def write_setup_log(log_lines: list[str], logs_dir: Path = SETUP_LOGS_DIR) -> Path:
-    """Save the log to <logs_dir>/<date>/setup_<time>.log, so every run of setup gets its own file."""
+def write_run_log(log_lines: list[str], logs_dir: Path, log_name: str) -> Path:
+    """Save a log to <logs_dir>/<date>/<log_name>_<time>.log, so every run gets its own file. Other scripts use it too."""
     started_at = datetime.now()
     log_folder = logs_dir / started_at.strftime("%Y-%m-%d")
     log_folder.mkdir(parents=True, exist_ok=True)
-    log_file = log_folder / f"setup_{started_at.strftime('%H%M%S')}.log"
+    log_file = log_folder / f"{log_name}_{started_at.strftime('%H%M%S')}.log"
     log_file.write_text("\n".join(log_lines) + "\n")
     return log_file
 
@@ -221,7 +232,58 @@ def install_gpu_requirements(python_command: str, machine: dict, log_lines: list
         install_missing_requirements(python_command, GPU_REQUIREMENTS_FILE, log_lines)
 
 
-# --- Step 7: final check ---
+# --- Step 7: data ---
+
+def build_question_sets_if_missing(python_command: str, log_lines: list[str]) -> None:
+    """Make the Pilot set and Test set with question_sets.py, unless both question files already exist. (T02)"""
+    if all(question_file.exists() for question_file in QUESTION_SET_FILES):
+        note(log_lines, "Question sets: already exist (data/hotpotqa/)")
+        return
+
+    note(log_lines, "Question sets: making them with question_sets.py ...")
+    # Here we run the script with the project's Python, because it needs libraries this script can't import.
+    subprocess.run([python_command, str(QUESTION_SETS_SCRIPT)], check=True)
+
+
+def find_attached_kaggle_index() -> Path | None:
+    """On Kaggle: the folder of the attached search index dataset, or None if it isn't attached."""
+    # Kaggle puts attached datasets somewhere under /kaggle/input/, so we look for the index's settings file.
+    for settings_file in KAGGLE_INPUT_DIR.glob("**/params.index.json"):
+        return settings_file.parent
+    return None
+
+
+def explain_how_to_get_the_index(machine: dict, log_lines: list[str]) -> None:
+    """Warn that the search index is missing, and say how to get it on this machine."""
+    warn(log_lines, f"the search index isn't in {INDEX_DIR.relative_to(PROJECT_ROOT)}/, so search won't work yet.")
+    if machine["name"] == "kaggle":
+        note(log_lines, f"  On Kaggle: Add Input -> Your Datasets -> {INDEX_KAGGLE_DATASET}, then run this script again.")
+        note(log_lines, "  If that dataset is lost, `python build_index.py` rebuilds it (about 12 minutes).")
+    else:
+        note(log_lines, f"  1. Download the Kaggle dataset {INDEX_KAGGLE_DATASET} (about 2.8 GB). It's private: ask the")
+        note(log_lines, "     repo owner to share it with your Kaggle account. On its Kaggle page, click Download.")
+        note(log_lines, f"  2. Unzip it so its 7 files sit directly in {INDEX_DIR.relative_to(PROJECT_ROOT)}/")
+        note(log_lines, "  3. Run this script again: it will find the index.")
+
+
+def get_search_index(machine: dict, log_lines: list[str]) -> None:
+    """Make sure the search index is in data/wiki/bm25_index/: link Kaggle's attached copy, or explain how to get it. (T03)"""
+    if (INDEX_DIR / "params.index.json").exists():
+        note(log_lines, f"Search index: already in {INDEX_DIR.relative_to(PROJECT_ROOT)}/")
+        return
+
+    attached_index_dir = find_attached_kaggle_index() if machine["name"] == "kaggle" else None
+    if attached_index_dir is None:
+        explain_how_to_get_the_index(machine, log_lines)
+        return
+
+    # Kaggle's attached datasets are read-only, so instead of copying 2.8 GB we make a shortcut (a symlink) to it.
+    INDEX_DIR.parent.mkdir(parents=True, exist_ok=True)
+    INDEX_DIR.symlink_to(attached_index_dir)
+    note(log_lines, f"Search index: linked {INDEX_DIR.relative_to(PROJECT_ROOT)} to the attached dataset {attached_index_dir}")
+
+
+# --- Step 8: final check ---
 
 def check_setup(python_command: str, machine: dict, log_lines: list[str]) -> None:
     """Confirm every project folder can be written to, record installed versions, and warn about anything off."""
@@ -258,6 +320,8 @@ def set_up_project(log_lines: list[str]) -> str:
 
     install_missing_requirements(project_python, REQUIREMENTS_FILE, log_lines)
     install_gpu_requirements(project_python, machine, log_lines)
+    build_question_sets_if_missing(project_python, log_lines)
+    get_search_index(machine, log_lines)
     check_setup(project_python, machine, log_lines)
     return project_python
 
@@ -275,4 +339,4 @@ if __name__ == "__main__":
         warn(setup_log_lines, f"setup failed: {setup_error!r}")
         raise
     finally:
-        print("Log saved in", write_setup_log(setup_log_lines))
+        print("Log saved in", write_run_log(setup_log_lines, SETUP_LOGS_DIR, "setup"))

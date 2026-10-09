@@ -12,8 +12,8 @@ This is the **only place ticket status is tracked**. The decisions behind the ti
 
 | # | Ticket | Target week | Status |
 |---|---|---|---|
-| T01 | [Repo and environment](T01-repo-and-environment.md) | Sep 23 – 29 |  |
-| T02 | [Pilot set and Test set](T02-question-sets.md) | Sep 23 – 29 |  |
+| T01 | [Repo and environment](T01-repo-and-environment.md) | Sep 23 – 29 | Done |
+| T02 | [Pilot set and Test set](T02-question-sets.md) | Sep 23 – 29 | Done |
 | T03 | [Wikipedia corpus and BM25 search](T03-corpus-and-bm25.md) | Sep 30 – Oct 6 |  |
 | T04 | [Model backend (plug-and-play roles)](T04-model-backend.md) | Sep 30 – Oct 6 |  |
 | T05 | [Run log](T05-run-log.md) | Oct 7 – 13 |  |

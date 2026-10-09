@@ -35,3 +35,4 @@ Everyone runs the same Python, the same exact library versions, and the same fol
 - Oct 9: rebuilt from scratch under the owner's coding rules (CLAUDE.md). Decided with the owner: the script is `setup_project.py` (not `setup.py`, which pip treats as a packaging script); logs go in `runs/`; folders `data/`, `data/cache/`, `runs/`, `results/`; the script creates `.venv` itself. Replaces the earlier `run.py --check`, stub files and `config.yaml`.
 - Python: the Mac runs 3.12, Kaggle 3.13; both are supported.
 - Kaggle needs **Internet** switched on in the notebook settings (requires a phone-verified account).
+- Oct 9: Done. Verified on the Mac (started from the built-in Python 3.9; found 3.12, built `.venv`, installed pytest; a second run installed nothing; 2 tests pass) and on Kaggle (two runs, both Setup OK, branch `SC.V3`).
