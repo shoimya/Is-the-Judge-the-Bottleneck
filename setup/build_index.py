@@ -1,6 +1,6 @@
 """Build the BM25 search index over HotpotQA's 2017 Wikipedia. Run once, on Kaggle (needs ~12 GB RAM). (T03)
 
-    python setup/build_index.py        (or press Debug on this file)
+    Open this file and press Run (or Debug). Kaggle only: it downloads 1.55 GB and needs ~12 GB RAM.
 
 Downloads the Wikipedia dump (1.55 GB) into data/wiki/dump/, unpacks it, and saves the index to
 data/wiki/bm25_index/ (~2.8 GB). Safe to re-run after an interruption: the download resumes where it stopped,

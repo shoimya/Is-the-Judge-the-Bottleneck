@@ -11,7 +11,7 @@ Ollama on the Mac (development only) or vLLM on Kaggle's GPU (every reported num
 token has no logprobs entry on either backend. Ollama's prompt_tokens can be lower when it reuses a cached prompt;
 only vLLM counts are reported.
 
-    Press Debug on this file to ask the model one question (needs `ollama serve` running on the Mac).
+    Press Debug on this file to ask the model one question (open the Ollama server first: pipeline/server_launcher.py).
 """
 
 import json
@@ -27,8 +27,8 @@ TOP_ALTERNATIVES = 5     # how many likely alternatives to keep for each generat
 OLLAMA_CHAT_URL = "http://localhost:11434/api/chat"
 OLLAMA_VERSION_URL = "http://localhost:11434/api/version"
 OLLAMA_TIMEOUT_SECONDS = 300
-START_OLLAMA_HINT = ('Ollama isn\'t running. In a second terminal, from the repo folder, run:\n'
-                     '    OLLAMA_MODELS="$PWD/data/ollama" ollama serve')
+START_OLLAMA_HINT = ("Ollama isn't running. Open it: in pipeline/server_launcher.py set ACTION = \"start\" "
+                     "and press Run.")
 # The name Ollama uses for each model in config.yaml (which uses the Hugging Face name).
 OLLAMA_MODEL_NAMES = {
     "Qwen/Qwen3-4B-Instruct-2507": "qwen3:4b-instruct",

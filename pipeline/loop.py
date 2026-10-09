@@ -17,7 +17,7 @@ Every scenario takes (question, retriever, config) and returns the question's ru
     rounds: one entry per Round with what the retriever, judge, answerer and rewriter each did.
 The looping scenarios share run_rounds, so the Round steps are written once.
 
-    Press Debug on this file to run Single-turn on the first Pilot question (needs `ollama serve` on the Mac).
+    Press Debug on this file to run Single-turn on the first Pilot question (open the Ollama server first: pipeline/server_launcher.py).
 """
 
 from pipeline.answerer import PROMPT_VERSION as ANSWER_PROMPT_VERSION

@@ -1,12 +1,12 @@
 # Is the Judge the Bottleneck?
 
-What the project studies, how, and every decision that shapes the code or the paper. Ticket status lives only in [backlog/README.md](backlog/README.md); how to run the code is in [README.md](README.md). Last updated Oct 6, 2026.
+What the project studies, how, and every decision that shapes the code or the paper. Ticket status lives only in [backlog/README.md](backlog/README.md); how to run the code is in [README.md](README.md); how code is written and how work is done are in [Coding rules](#coding-rules). Last updated Oct 9, 2026.
 
 Some QA systems answer hard questions by searching several times. After each search an LLM **Judge** decides whether the **Evidence** is enough to answer (the **Stop decision**) and, if not, what is missing (the **Steer signal**, which drives the next search). We measure how much accuracy and cost the LLM judge loses compared with an **Oracle judge** that knows which paragraphs are needed, and which of the two decisions causes more of the loss.
 
 - **Course:** Masters NLP class project. Paper due **Dec 1, 2026**; started Sep 22, 2026.
 - **Team:** 4 people; tickets run in order and are picked up by whoever is free. The repo owner writes the paper.
-- **Repo:** https://github.com/shoimya/Is-the-Judge-the-Bottleneck (public; work branch `SC`).
+- **Repo:** https://github.com/shoimya/Is-the-Judge-the-Bottleneck (public; work branch `SC.V2`).
 
 ## Research questions
 
@@ -185,10 +185,62 @@ Ruled out on the T4: Gemma 4 (no vLLM support on T4), Qwen3.5 (fp16 overflow ris
   - The end-of-answer token's log probability is dropped on vLLM, so both backends return the same format.
   - Model downloads go to `/tmp`, not `/kaggle/working` (~20 GB limit, saved with every version).
   - The vLLM engine is shut down after each command, so notebook cells end by themselves.
+- **Mac setup:** `project_set_up.py` sets up a machine in one run: `.venv`, the pinned libraries, the question sets and the Ollama model. It checks each piece first and only installs or downloads what is missing; what it can't do (installing Python or Ollama, downloading the index from Kaggle) it prints as steps.
+- **Ollama on the Mac:** `pipeline/server_launcher.py` opens and closes the Ollama server, pointed at `data/ollama/`. The server keeps ~3 GB of memory while open, so close it when done; the launcher only closes a server it opened.
+
+## Coding rules
+
+The owner's, Oct 9. They apply to every file, including tests and the notebook.
+
+**Readability**
+- Use descriptive names written out in full: `user_count`, not `uc`.
+- Function names say what the function does: `load_config`, not `load`.
+- Every function has a short plain-language docstring saying what it's for.
+- Important lines get a short comment explaining the goal, in words a beginner can follow.
+- Break up dense lines. A line that does several things becomes several lines, or calls a small, well-named helper.
+
+**Lean**
+- Build the smallest solution that does today's job, with no layers, wrappers or features "for later".
+- No placeholders, dead code or unused options.
+- Each job has one function, and every caller uses it. Don't copy it.
+- Explain any new file, folder or dependency before adding it.
+
+**Structure**
+- Each function has one goal.
+- Shared code lives in one place, and each feature's own logic lives in its own file.
+- Settings a feature may change go as named variables at the top of its file, not scattered through the code. The one exception: experiment choices that can change a reported number go in `config.yaml`, so T10 freezes a single file.
+
+**Runnable and followable**
+- Every file is run with the editor's Run button: open it, press Run (or Debug), and it shows a short demo of what it does. No terminal commands and no command-line arguments are needed to run any file.
+- The demo lives at the end of the file, in its `if __name__ == "__main__":` block. Its defaults run something useful with no setup.
+- Anything the demo lets you choose (which scenario, which question, start or stop) is a named variable at the top of the file that you edit before pressing Run, not a command-line option.
+- The README tells people which file to open and press Run, never a terminal command to type.
+- A script cleans up only what it started itself.
+
+**Testing**
+- Build test-first: a failing test, then just enough code to pass it, one small piece at a time.
+- Agree on which public functions get tested before writing tests.
+- Test against the real thing, such as the real service or model, when that's what matters. Skip with a clear message if it isn't available. Don't use fakes unless they're agreed.
+- Tests never write to the real output folders.
+
+**Logging**
+- Every run writes a readable log to a predictable place, `runs/<script>/<date>/`, so reruns never overwrite each other.
+- A log records exactly what went in, what came out, and the totals that matter, such as calls, cost and time.
+- Warn loudly in the log when something may have gone silently wrong.
+
+**Working rules**
+- Propose first; the owner decides.
+- One task at a time, confirmed before starting.
+- The owner does all git work and commits and pushes for the team: no commits, pushes, `git rm` or other git changes unless asked, and nothing is pushed on anyone's behalf. When asked to ignore something, only edit `.gitignore`.
+- Ask before installing system software or deleting anything.
+- Keep everything the project downloads or installs inside the project folder.
+- Every ticket ends by updating the setup and the README. Anything a machine needs to run the project (a library, a folder, a download, the index, a model) becomes a step in `project_set_up.py`, one function each, which checks whether it already exists and only installs or downloads what is missing. `README.md` is then updated so someone who just cloned the repo can get started: what setup now does, which file to open and run for the new piece, and the repository layout.
+- The project lives on an external SSD and the Mac is short on space. Store datasets, indexes, model files and caches under `data/`, never in the home folder: the Hugging Face cache in `data/cache/`, Ollama models in `data/ollama/` (the server launcher points Ollama there). (Exception, agreed: on Kaggle, model downloads go to `/tmp`.)
+- Keep project knowledge in this file and status in the backlog; don't create memory or notes files elsewhere. Explain choices in plain language.
 
 ## Run log
 
-Every run that uses the pipeline is logged (`run.py` on one question or a whole set, `loop.py`'s demo); tests, setup scripts and `run.py --check` write nothing. Code: `pipeline/run_log.py`.
+Every run that uses the pipeline is logged (`run.py` on one question or a whole set, `loop.py`'s demo); tests and setup scripts write nothing to it. Code: `pipeline/run_log.py`.
 
 - **Folders:** `runs/<scenario>/<run id>/`, one scenario folder created the first time it runs: `closed-book`, `single-turn`, `always-loop`, `coin-flip`, `A_llm-stops_llm-steers`, `B_llm-stops_oracle-steers`, `C_oracle-stops_llm-steers`, `D_oracle-stops_oracle-steers`. The run id is the start time (e.g. `2026-10-14T153012`). `runs/` points to persistent storage on Kaggle (`/kaggle/working/runs`) and Colab (Drive).
 - **`meta.json`:** run id, scenario, dataset, question set and its ids, start and finish time, backend, model per role, prompt versions, git commit (and whether there were uncommitted changes), full config.

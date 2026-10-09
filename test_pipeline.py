@@ -1,4 +1,4 @@
-"""Checks for every piece of the pipeline, in pipeline order. Run with `pytest` (or press Debug on a single test).
+"""Checks for every piece of the pipeline, in pipeline order. Open this file and press Run to run them all.
 
 Tests use tiny made-up data, so they run in seconds. Tests marked needs_ollama talk to the real model and are
 skipped (not failed) when the Ollama server isn't running.
@@ -7,6 +7,7 @@ skipped (not failed) when the Ollama server isn't running.
 import bz2
 import http.server
 import json
+import shutil
 import tarfile
 import threading
 
@@ -23,6 +24,8 @@ from pipeline.loop import (SCENARIOS, closed_book, make_answerer_entry, make_res
 from pipeline.retriever import Retriever
 from pipeline.run_log import (SCENARIO_FOLDER_NAMES, read_meta, read_question_records, run_scenario,
                               scenario_log_folder)
+from pipeline.server_launcher import start_ollama_server, stop_ollama_server
+from project_set_up import missing_libraries, ollama_model_is_downloaded, python_is_new_enough, question_sets_exist
 from run import check_setup
 from setup.build_index import build_index, download_and_unpack_dump, download_with_resume, read_wiki_paragraphs
 from setup.check_index import gold_recall_at_k
@@ -92,6 +95,54 @@ def write_fake_wiki_dump(dump_file_path, articles):
 
 
 # ---------------------------------------------------------------------------
+# 0. Setting up a machine: project_set_up.py
+# ---------------------------------------------------------------------------
+
+def test_python_312_or_newer_is_new_enough_and_311_is_not():
+    """The project needs Python 3.12 or newer."""
+    assert python_is_new_enough((3, 12, 0))
+    assert python_is_new_enough((3, 13, 1))
+    assert not python_is_new_enough((3, 11, 9))
+
+
+def test_only_libraries_that_are_missing_or_the_wrong_version_are_reported():
+    """Comments, extras and the project's own `-e .` line are understood; only what needs installing is listed."""
+    requirement_lines = [
+        "# a comment line",
+        "",
+        "PyYAML==6.0.3",
+        "bm25s[core]==0.3.11              # extras in brackets are part of the name",
+        "huggingface_hub==1.33.0",
+        "pytest==9.1.1",
+        "-e .",
+    ]
+    # Here pip reports names in its own spelling ("huggingface-hub"), pytest is the wrong version,
+    # and the project's own package isn't installed.
+    installed_versions = {"pyyaml": "6.0.3", "bm25s": "0.3.11", "huggingface-hub": "1.33.0", "pytest": "8.0.0"}
+    assert missing_libraries(requirement_lines, installed_versions) == ["pytest==9.1.1", "-e ."]
+
+
+def test_question_sets_exist_only_when_both_the_pilot_and_test_files_are_there(tmp_path):
+    """Both pilot.jsonl and test.jsonl are needed."""
+    assert not question_sets_exist(tmp_path)
+    (tmp_path / "pilot.jsonl").write_text("{}\n")
+    assert not question_sets_exist(tmp_path)
+    (tmp_path / "test.jsonl").write_text("{}\n")
+    assert question_sets_exist(tmp_path)
+
+
+def test_an_ollama_model_counts_as_downloaded_only_when_its_manifest_is_in_the_models_folder(tmp_path):
+    """Ollama keeps one manifest file per model: manifests/registry.ollama.ai/library/<name>/<tag>."""
+    assert not ollama_model_is_downloaded(tmp_path, "qwen3:4b-instruct")
+    manifest_file = tmp_path / "manifests" / "registry.ollama.ai" / "library" / "qwen3" / "4b-instruct"
+    manifest_file.parent.mkdir(parents=True)
+    manifest_file.write_text("{}")
+    assert ollama_model_is_downloaded(tmp_path, "qwen3:4b-instruct")
+    # Here a model asked for without a tag means Ollama's "latest" tag, which isn't downloaded.
+    assert not ollama_model_is_downloaded(tmp_path, "qwen3")
+
+
+# ---------------------------------------------------------------------------
 # 1. Settings (T01)
 # ---------------------------------------------------------------------------
 
@@ -105,7 +156,7 @@ def test_config_holds_the_experiment_settings():
 
 
 def test_setup_check_passes_on_this_machine(capsys):
-    """run.py --check passes here (Python version, config, writable runs/)."""
+    """run.py's setup check passes here (Python version, config, writable runs/)."""
     check_setup()
     assert "Setup OK." in capsys.readouterr().out
 
@@ -328,6 +379,27 @@ def test_each_model_has_an_ollama_name_and_an_unknown_model_says_where_to_add_it
         ollama_name_for("Some/Unknown-Model")
 
 
+@pytest.mark.skipif(shutil.which("ollama") is None or ollama_is_running(),
+                    reason="needs Ollama installed and not already running (a running server is left alone)")
+def test_the_launcher_opens_the_server_and_closes_it_again(tmp_path):
+    """start_ollama_server opens a server that keeps running; stop_ollama_server closes it."""
+    # Here the server's details and log go in a temporary folder, not the real data/ and runs/ folders.
+    server_file = tmp_path / "server.json"
+    assert start_ollama_server(server_file=server_file, logs_dir=tmp_path) is True
+    assert ollama_is_running()
+    # Here a second start sees the server is already open and starts nothing.
+    assert start_ollama_server(server_file=server_file, logs_dir=tmp_path) is False
+
+    assert stop_ollama_server(server_file=server_file) is True
+    assert not ollama_is_running()
+    assert not server_file.exists()
+
+
+def test_closing_does_nothing_when_the_launcher_did_not_open_a_server(tmp_path):
+    """With no server opened by the launcher, closing stops nothing (a server started by hand is left alone)."""
+    assert stop_ollama_server(server_file=tmp_path / "server.json") is False
+
+
 @needs_ollama
 def test_ollama_answers_with_token_counts_and_probabilities_for_every_generated_token():
     """Ollama answers correctly, with token counts and the top 5 alternatives for every token."""
@@ -524,3 +596,8 @@ def test_a_finished_run_is_kept_and_running_again_starts_a_new_run(tmp_path):
                               retriever=None, runs_dir=tmp_path)
     assert second_run != first_run
     assert len(read_question_records(first_run)) == 2 and len(read_question_records(second_run)) == 2
+
+
+if __name__ == "__main__":
+    # Here pressing Run on this file runs every test in it and reports passed / skipped / failed.
+    raise SystemExit(pytest.main([__file__]))

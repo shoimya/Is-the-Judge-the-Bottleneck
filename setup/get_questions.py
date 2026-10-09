@@ -1,6 +1,6 @@
 """Make the Pilot set and Test set from HotpotQA's dev questions (fullwiki setting). Run once per machine. (T02)
 
-    python setup/get_questions.py        (or press Debug on this file)
+    Open this file and press Run (or Debug).
 
 Writes data/hotpotqa/{pilot,test}.jsonl (the questions) and results/question_ids/hotpotqa_{pilot,test}.txt
 (their ids, on GitHub). The fixed seed means every machine picks exactly the same questions.

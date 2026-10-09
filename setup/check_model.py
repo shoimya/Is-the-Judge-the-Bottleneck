@@ -1,21 +1,23 @@
-"""Check the model: a smoke test (3 tiny prompts), then a speed benchmark. (T04)
+"""Check the model: a smoke test (3 tiny prompts), then optionally a speed benchmark. (T04)
 
-    python setup/check_model.py                         Mac: Ollama (start `ollama serve` first)
-    python setup/check_model.py --backend vllm          Kaggle: vLLM on the GPU
-    python setup/check_model.py --smoke-only            skip the benchmark (it takes minutes on a Mac)
+    Open this file, choose what to run in the settings below, and press Run (or Debug).
+    On the Mac, open the Ollama server first (pipeline/server_launcher.py).
 
 Smoke test: one prompt per role; prints the answer, token counts and the top alternatives for its last token.
 Benchmark: 20 Pilot questions through a practice 3-Round loop with real search results; prints the speed and an
 upper-bound GPU-hour estimate for the Tier 1 main runs. Only Kaggle's numbers go in NOTES.md.
 """
 
-import argparse
 import time
 
 from pipeline.config import load_config
 from pipeline.dataset import load_question_set
 from pipeline.llm import generate, generate_many, model_for, shut_down_vllm_engines
 from pipeline.retriever import Retriever
+
+# What pressing Run does. Change these, then press Run.
+BACKEND = None            # None: use config.yaml's backend ("ollama" on the Mac); "vllm" on Kaggle
+RUN_BENCHMARK = False     # True: also time a practice loop (~9 min on the Mac, ~2 min on Kaggle)
 
 # Three tiny prompts, one per role, with answers we know.
 SMOKE_PROMPTS = [
@@ -120,17 +122,18 @@ def run_benchmark(config: dict) -> None:
     print_benchmark_results(timing, len(questions), config)
 
 
-if __name__ == "__main__":
-    argument_parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    argument_parser.add_argument("--backend", choices=["ollama", "vllm"], help="use this instead of config.yaml's backend")
-    argument_parser.add_argument("--smoke-only", action="store_true", help="run the smoke test and skip the benchmark")
-    arguments = argument_parser.parse_args()
-
+def check_model(backend: str | None, include_benchmark: bool) -> None:
+    """Run the smoke test with the chosen backend, then the benchmark if asked for."""
     config = load_config()
-    if arguments.backend:
-        config["backend"] = arguments.backend
+    # Here a backend chosen at the top of this file (or by the Kaggle notebook) replaces config.yaml's.
+    if backend:
+        config["backend"] = backend
     run_smoke_test(config)
-    if not arguments.smoke_only:
+    if include_benchmark:
         run_benchmark(config)
     # Here we stop the model on the GPU; without this, the Kaggle cell can hang after printing.
     shut_down_vllm_engines()
+
+
+if __name__ == "__main__":
+    check_model(BACKEND, RUN_BENCHMARK)

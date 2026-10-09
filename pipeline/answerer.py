@@ -3,7 +3,7 @@
 The prompt here is a temporary draft so closed_book and single_turn can run end to end now.
 T06 replaces it with the real, version-numbered prompt (CONTEXT.md, Roles).
 
-    Press Debug on this file to answer one question from memory (needs `ollama serve` running on the Mac).
+    Press Debug on this file to answer one question from memory (open the Ollama server first: pipeline/server_launcher.py).
 """
 
 from pipeline.llm import generate

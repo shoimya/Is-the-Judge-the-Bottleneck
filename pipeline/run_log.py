@@ -3,7 +3,7 @@
     runs/<scenario folder>/<run id>/meta.json          what was run: scenario, questions, models, config, git commit, times
     runs/<scenario folder>/<run id>/questions.jsonl    one line per question, written as soon as that question finishes
 
-Only runs that use the pipeline are logged (run.py, loop.py's demo). Tests, setup/ scripts and `run.py --check`
+Only runs that use the pipeline are logged (run.py, loop.py's demo). Tests, setup/ scripts and run.py's setup check
 write nothing here. A run that stops partway (e.g. Kaggle ends the session) continues where it stopped when the
 same scenario is run again on the same questions with the same config.
 

@@ -1,6 +1,6 @@
 """Check search quality: how often BM25 finds the Gold paragraphs for the Pilot questions. (T03)
 
-    python setup/check_index.py        (or press Debug on this file)
+    Open this file and press Run (or Debug).
 
 Searches once with each Pilot question and counts, for the top 2 / 5 / 10 / 20 results, the share of questions
 where ALL Gold paragraphs were found and where AT LEAST ONE was. Saves results/pilot/bm25_recall.csv.

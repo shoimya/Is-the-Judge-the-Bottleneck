@@ -1,17 +1,12 @@
 """The launcher: check the setup, or run a scenario on one question or a whole question set. Every run is logged.
 
-    python run.py --check                                   is this machine ready? (T01)
-    python run.py --setting single-turn                     the first Pilot question
-    python run.py --setting closed-book --question <id>     a chosen Pilot question
-    python run.py --setting single-turn --set pilot         all 100 Pilot questions
-    python run.py --setting single-turn --set test --backend vllm     all Test questions, on Kaggle
+    Open this file, choose what to run in the settings just below, and press Run (or Debug).
 
 Scenarios: closed-book, single-turn (working now); always-loop, coin-flip, A, B, C, D (T08).
-Logs go to runs/<scenario>/<run id>/ (see pipeline/run_log.py). Running the same command again after a crash
+Logs go to runs/<scenario>/<run id>/ (see pipeline/run_log.py). Running the same settings again after a crash
 continues where it stopped. To follow the code, put breakpoints in pipeline/loop.py and press Debug on this file.
 """
 
-import argparse
 import platform
 import sys
 
@@ -21,6 +16,14 @@ from pipeline.llm import START_OLLAMA_HINT, ollama_is_running, shut_down_vllm_en
 from pipeline.loop import SCENARIOS
 from pipeline.retriever import Retriever
 from pipeline.run_log import read_question_records, run_scenario
+
+# What pressing Run does. Change these, then press Run.
+CHECK_SETUP_ONLY = False      # True: only check this machine is ready (Python, config.yaml, runs/), run nothing
+SCENARIO = "single-turn"      # "closed-book" or "single-turn" (working now); "always-loop", "coin-flip", "A"-"D" (T08)
+QUESTION_SET = "pilot"        # "pilot" (100 questions) or "test" (1,000; only after the T10 freeze)
+QUESTION_ID = None            # one question's id from QUESTION_SET, or None for the set's first question
+RUN_WHOLE_SET = False         # True: run every question in QUESTION_SET (QUESTION_ID is then ignored)
+BACKEND = None                # None: use config.yaml's backend ("ollama" on the Mac); "vllm" on Kaggle
 
 
 def check_python_version() -> None:
@@ -80,27 +83,20 @@ def run_and_log(setting_name: str, questions: list[dict], question_set_name: str
     print("Log saved in", run_folder)
 
 
-def read_arguments() -> argparse.Namespace:
-    """Read the command-line options."""
-    argument_parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    argument_parser.add_argument("--check", action="store_true", help="check the setup and exit")
-    argument_parser.add_argument("--setting", choices=list(SCENARIOS), default="single-turn",
-                                 help="which scenario to run (default: single-turn)")
-    argument_parser.add_argument("--question", help="id of one question to run (default: the set's first question)")
-    argument_parser.add_argument("--set", choices=["pilot", "test"], help="run every question in this set")
-    argument_parser.add_argument("--backend", choices=["ollama", "vllm"], help="use this instead of config.yaml's backend")
-    return argument_parser.parse_args()
+def run_one_scenario(scenario_name: str, question_set_name: str, question_id: str | None,
+                     run_whole_set: bool, backend: str | None) -> None:
+    """Run one scenario on the chosen questions with the chosen backend, and log it."""
+    config = load_config()
+    # Here a backend chosen at the top of this file (or by the Kaggle notebook) replaces config.yaml's.
+    if backend:
+        config["backend"] = backend
+    questions = choose_questions(question_set_name, question_id, run_whole_set)
+    run_and_log(scenario_name, questions, question_set_name, config)
+    shut_down_vllm_engines()   # here we free the GPU on Kaggle, so the program can exit
 
 
 if __name__ == "__main__":
-    arguments = read_arguments()
-    if arguments.check:
+    if CHECK_SETUP_ONLY:
         check_setup()
     else:
-        config = load_config()
-        if arguments.backend:
-            config["backend"] = arguments.backend
-        question_set_name = arguments.set or "pilot"
-        questions = choose_questions(question_set_name, arguments.question, whole_set=bool(arguments.set))
-        run_and_log(arguments.setting, questions, question_set_name, config)
-        shut_down_vllm_engines()   # here we free the GPU on Kaggle, so the program can exit
+        run_one_scenario(SCENARIO, QUESTION_SET, QUESTION_ID, RUN_WHOLE_SET, BACKEND)
