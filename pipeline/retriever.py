@@ -1,6 +1,6 @@
 """Search HotpotQA's 2017 Wikipedia with BM25: give a query, get back the best-matching paragraphs. (T03)
 
-    python retriever.py        (or press Run / Debug on this file)
+    python pipeline/retriever.py        (or press Run / Debug on this file)
 
 Other scripts use two functions from here: load_index() opens the saved index, and
 search(index, query, k, exclude_titles) returns the k best paragraphs as {title, text, score}.
@@ -17,11 +17,10 @@ import os
 import time
 from pathlib import Path
 
-from question_sets import load_question_set
-from setup_project import PROJECT_ROOT, note, warn, write_run_log
+from pipeline.question_sets import load_question_set
+from pipeline.shared import INDEX_DIR, PROJECT_ROOT, note, warn, write_run_log
 
 # Settings for this script.
-INDEX_DIR = PROJECT_ROOT / "data" / "wiki" / "bm25_index"
 RECALL_CUTOFFS = [2, 5, 10, 20]   # how many top results the search-quality check looks at
 RECALL_FILE = PROJECT_ROOT / "results" / "pilot" / "bm25_recall.csv"
 DEMO_RESULT_COUNT = 5             # how many paragraphs the demo search prints

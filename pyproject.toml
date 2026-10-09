@@ -1,0 +1,15 @@
+# Tells pip that this project's code is the pipeline/ folder. setup_project.py installs it with
+# `pip install -e .`, so every file can `import pipeline` from any folder, and Run / Debug works on any file.
+# The libraries the project needs are listed in requirements.txt, not here.
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "is-the-judge-the-bottleneck"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+[tool.setuptools]
+packages = ["pipeline"]

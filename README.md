@@ -28,7 +28,8 @@ For everything the project needs, the script first checks whether it's already t
 - creates `pytest.ini`, so `pytest` finds the tests
 - creates a virtual environment in `.venv/` (on the Mac; Kaggle uses its own Python)
 - installs the libraries in `requirements.txt` that aren't installed yet, keeping pip's downloads in `data/cache/pip`
-- makes the Pilot set and Test set with `question_sets.py`, if `data/hotpotqa/` doesn't have them yet (see below)
+- installs the project's own `pipeline/` folder as a package, so every file can run on its own from any folder
+- makes the Pilot set and Test set with `pipeline/question_sets.py`, if `data/hotpotqa/` doesn't have them yet (see below)
 - finds the Wikipedia search index in `data/wiki/bm25_index/`. On Kaggle it links the attached dataset; on a Mac it prints how to download it (see below)
 - writes what it did to `runs/setup/<date>/setup_<time>.log`
 
@@ -62,7 +63,7 @@ Kaggle resets every session, so run these again at the start of each one.
 Every experiment runs on two fixed sets of questions from HotpotQA's dev split, fullwiki setting. The Pilot set has 100 questions and is for tuning prompts and settings. The Test set has a separate 1,000 questions, and nobody runs it until the settings are frozen. Setup makes both sets for you. To make them by hand, with the virtual environment active (step 3):
 
 ```bash
-python question_sets.py
+python pipeline/question_sets.py
 ```
 
 It downloads HotpotQA from Hugging Face into `data/hotpotqa/raw/` and picks the questions with a fixed seed, so every machine gets the same ones. It writes the questions to `data/hotpotqa/pilot.jsonl` and `test.jsonl`, one per line, with the fields `id`, `question`, `answer`, `type`, `level` and `gold_titles`. Only the id lists in `results/question_ids/` go on GitHub. If a rerun would change those lists, the log at `runs/question_sets/<date>/` shows a warning. The script ends by printing the first Pilot question.
@@ -79,26 +80,32 @@ The search uses BM25, a keyword search, over HotpotQA's 2017 Wikipedia: about 5.
 **Trying the search**, with the virtual environment active:
 
 ```bash
-python retriever.py
+python pipeline/retriever.py
 ```
 
 It searches with the first Pilot question and prints the top 5 paragraphs, marking the Gold ones. Then it checks search quality on all 100 Pilot questions: for the top 2, 5, 10 and 20 results, how often all Gold paragraphs were found, and how often at least one was. The table is saved to `results/pilot/bm25_recall.csv`, and the log goes to `runs/retriever/<date>/`. If the numbers ever differ from the saved table, the log warns.
 
-Other code searches with two functions from `retriever.py`: `load_index()` opens the index once, and `search(index, query, k, exclude_titles)` returns the `k` best paragraphs as `{title, text, score}`, skipping titles already found.
+Other code searches with two functions from `pipeline/retriever.py`: `load_index()` opens the index once, and `search(index, query, k, exclude_titles)` returns the `k` best paragraphs as `{title, text, score}`, skipping titles already found.
 
 ## What's in the repository
 
 ```
-setup_project.py   gets a machine ready to run the project (run this first)
-question_sets.py   makes the Pilot set and Test set from HotpotQA, and reads them back
-retriever.py       searches Wikipedia; running it checks search quality on the Pilot set
-build_index.py     builds the Wikipedia search index (Kaggle only, and only if the saved copy is lost)
-requirements.txt   libraries the project needs, at exact versions
-test/              tests, run with `pytest`
-CONTEXT.md         what the project studies, every decision, and the glossary
-backlog/           build tickets T01-T19 and their status
-LICENSE            MIT, for the code
+setup_project.py          gets a machine ready to run the project (run this first)
+build_index.py            builds the Wikipedia search index (Kaggle only, and only if the saved copy is lost)
+pipeline/                 the project's code, in the order it runs:
+  shared.py               the project's folders and the run log helpers, used by every file
+  settings.py             the experiment's choices (set sizes, seed, ...), frozen before any Test set run
+  question_sets.py        makes the Pilot set and Test set from HotpotQA, and reads them back
+  retriever.py            searches Wikipedia; running it checks search quality on the Pilot set
+test/                     one test file per script, run with `pytest`
+requirements.txt          libraries the project needs, at exact versions
+pyproject.toml            tells pip that pipeline/ is the project's code, so setup can install it
+CONTEXT.md                what the project studies, every decision, and the glossary
+backlog/                  build tickets T01-T19 and their status
+LICENSE                   MIT, for the code
 ```
+
+Every file runs on its own and ends with a short demo: press Run or Debug on it in VS Code, or run `python <file>` from any folder.
 
 `setup_project.py` creates these, and git ignores all of them except `results/` and `pytest.ini`:
 
@@ -108,6 +115,7 @@ data/              datasets, the search index, downloads and caches
 runs/              logs of every run, including setup's
 results/           the question id lists, the search-quality table, and tables and figures for the paper
 pytest.ini         tells pytest where the tests are
+*.egg-info/        pip's notes from installing pipeline/
 ```
 
 ## Adding a library

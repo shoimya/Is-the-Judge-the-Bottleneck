@@ -3,11 +3,11 @@
     python3 setup_project.py        (or press Run / Debug on this file)
 
 For everything the project needs, it first checks whether it already exists and only installs what is missing:
-Python 3.12 or newer, the project folders, pytest's settings file, a virtual environment (.venv, on the Mac), and
+Python 3.12 or newer, the project folders, pytest's settings file, a virtual environment (.venv, on the Mac),
 the libraries in requirements.txt (plus requirements-gpu.txt on a GPU machine, once that file exists), the
-Pilot set and Test set (made by question_sets.py), and the search index (linked on Kaggle; elsewhere it explains
-how to download it). It never deletes anything,
-so it is safe to run again. Everything it did is logged in runs/setup/<date>/setup_<time>.log.
+project's own pipeline/ folder as an installed package, the Pilot set and Test set (made by
+pipeline/question_sets.py), and the search index (linked on Kaggle; elsewhere it explains how to download it).
+It never deletes anything, so it is safe to run again. Everything it did is logged in runs/setup/<date>/.
 
 It uses only Python's built-in modules and starts even on the Mac's built-in Python 3.9, because nothing is
 installed yet when it runs.
@@ -23,8 +23,10 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+# pipeline/shared.py uses only built-in modules too, so this script can import it before anything is installed.
+from pipeline.shared import INDEX_DIR, PROJECT_ROOT, note, question_file_path, warn, write_run_log
+
 # Settings for this script.
-PROJECT_ROOT = Path(__file__).resolve().parent
 OLDEST_SUPPORTED_PYTHON = (3, 12)
 PYTHON_COMMANDS_TO_TRY = ["python3.13", "python3.12"]   # newest first
 HOMEBREW_PYTHON_PACKAGE = "python@3.12"
@@ -35,40 +37,16 @@ GPU_REQUIREMENTS_FILE = PROJECT_ROOT / "requirements-gpu.txt"
 PIP_DOWNLOAD_CACHE_DIR = PROJECT_ROOT / "data" / "cache" / "pip"
 SETUP_LOGS_DIR = PROJECT_ROOT / "runs" / "setup"
 PYTEST_SETTINGS_FILE = PROJECT_ROOT / "pytest.ini"
-# pytest's settings: tests live in test/, and they may import the scripts at the top of the repo.
+# pytest's settings: tests live in test/, and they may import the scripts at the top of the repo
+# (setup_project.py and build_index.py; pipeline/ is found because it's installed).
 PYTEST_SETTINGS = "[pytest]\ntestpaths = test\npythonpath = .\n"
-# T02: the Pilot set and Test set files, and the script that makes them if they're missing. These paths repeat the
-# ones in question_sets.py on purpose: this script can't import it, because it runs before its libraries are installed.
-QUESTION_SET_FILES = [PROJECT_ROOT / "data" / "hotpotqa" / "pilot.jsonl", PROJECT_ROOT / "data" / "hotpotqa" / "test.jsonl"]
-QUESTION_SETS_SCRIPT = PROJECT_ROOT / "question_sets.py"
-# T03: where the search index lives, and the Kaggle dataset that holds a copy (attached under /kaggle/input/).
-# INDEX_DIR repeats the one in retriever.py for the same reason as above.
-INDEX_DIR = PROJECT_ROOT / "data" / "wiki" / "bm25_index"
+# The project's own code: pipeline/ is installed as a package, so every file finds it wherever it's run from.
+PIPELINE_PACKAGE_DIR = PROJECT_ROOT / "pipeline"
+# T02: the script that makes the Pilot set and Test set if they're missing.
+QUESTION_SETS_SCRIPT = PIPELINE_PACKAGE_DIR / "question_sets.py"
+# T03: the Kaggle dataset that holds a copy of the search index (attached under /kaggle/input/).
 INDEX_KAGGLE_DATASET = "hotpotqa-bm25-index"
 KAGGLE_INPUT_DIR = Path("/kaggle/input")
-
-
-# --- The setup log ---
-
-def note(log_lines: list[str], message: str) -> None:
-    """Print a step's result and keep it for the log file."""
-    print(message, flush=True)   # flush: show it now, in order with pip's output (matters on Kaggle)
-    log_lines.append(message)
-
-
-def warn(log_lines: list[str], message: str) -> None:
-    """Print a warning in capitals and keep it for the log file, so it can't be missed."""
-    note(log_lines, f"WARNING: {message}")
-
-
-def write_run_log(log_lines: list[str], logs_dir: Path, log_name: str) -> Path:
-    """Save a log to <logs_dir>/<date>/<log_name>_<time>.log, so every run gets its own file. Other scripts use it too."""
-    started_at = datetime.now()
-    log_folder = logs_dir / started_at.strftime("%Y-%m-%d")
-    log_folder.mkdir(parents=True, exist_ok=True)
-    log_file = log_folder / f"{log_name}_{started_at.strftime('%H%M%S')}.log"
-    log_file.write_text("\n".join(log_lines) + "\n")
-    return log_file
 
 
 # --- Step 1: Python ---
@@ -217,9 +195,14 @@ def install_missing_requirements(python_command: str, requirements_file: Path, l
         return
 
     note(log_lines, f"{requirements_file.name}: installing {', '.join(libraries_to_install)} ...")
+    run_pip_install(python_command, libraries_to_install)
+
+
+def run_pip_install(python_command: str, pip_arguments: list[str]) -> None:
+    """Run `pip install` with those arguments in that Python, keeping pip's downloads inside the project."""
     # Here we point pip's download cache into the project, so nothing lands in the home folder.
     pip_environment = {**os.environ, "PIP_CACHE_DIR": str(PIP_DOWNLOAD_CACHE_DIR)}
-    subprocess.run([python_command, "-m", "pip", "install", *libraries_to_install], check=True, env=pip_environment)
+    subprocess.run([python_command, "-m", "pip", "install", *pip_arguments], check=True, env=pip_environment)
 
 
 def install_gpu_requirements(python_command: str, machine: dict, log_lines: list[str]) -> None:
@@ -232,15 +215,35 @@ def install_gpu_requirements(python_command: str, machine: dict, log_lines: list
         install_missing_requirements(python_command, GPU_REQUIREMENTS_FILE, log_lines)
 
 
+def where_python_finds_pipeline(python_command: str) -> str | None:
+    """The folder that Python imports `pipeline` from, or None if it can't find it."""
+    # We run the check from the root folder "/", so Python can't find pipeline/ just because we're standing next to it.
+    find_pipeline = "import pipeline, os; print(os.path.dirname(pipeline.__file__))"
+    check = subprocess.run([python_command, "-c", find_pipeline], capture_output=True, text=True, cwd="/")
+    return check.stdout.strip() if check.returncode == 0 else None
+
+
+def install_pipeline_package(python_command: str, log_lines: list[str]) -> None:
+    """Install pipeline/ as a package (in editable mode), so every file can import it from any folder."""
+    if where_python_finds_pipeline(python_command) == str(PIPELINE_PACKAGE_DIR):
+        note(log_lines, "pipeline package: already installed")
+        return
+
+    note(log_lines, "pipeline package: installing it from pyproject.toml ...")
+    # "Editable" (-e) means Python reads the files in pipeline/ directly, so edits work without reinstalling.
+    run_pip_install(python_command, ["-e", str(PROJECT_ROOT)])
+
+
 # --- Step 7: data ---
 
 def build_question_sets_if_missing(python_command: str, log_lines: list[str]) -> None:
     """Make the Pilot set and Test set with question_sets.py, unless both question files already exist. (T02)"""
-    if all(question_file.exists() for question_file in QUESTION_SET_FILES):
+    question_set_files = [question_file_path("pilot"), question_file_path("test")]
+    if all(question_file.exists() for question_file in question_set_files):
         note(log_lines, "Question sets: already exist (data/hotpotqa/)")
         return
 
-    note(log_lines, "Question sets: making them with question_sets.py ...")
+    note(log_lines, "Question sets: making them with pipeline/question_sets.py ...")
     # Here we run the script with the project's Python, because it needs libraries this script can't import.
     subprocess.run([python_command, str(QUESTION_SETS_SCRIPT)], check=True)
 
@@ -320,6 +323,7 @@ def set_up_project(log_lines: list[str]) -> str:
 
     install_missing_requirements(project_python, REQUIREMENTS_FILE, log_lines)
     install_gpu_requirements(project_python, machine, log_lines)
+    install_pipeline_package(project_python, log_lines)
     build_question_sets_if_missing(project_python, log_lines)
     get_search_index(machine, log_lines)
     check_setup(project_python, machine, log_lines)

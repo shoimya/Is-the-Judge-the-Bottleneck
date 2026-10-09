@@ -22,8 +22,8 @@ from pathlib import Path
 
 import bm25s
 
-from retriever import INDEX_DIR, split_into_search_words
-from setup_project import PROJECT_ROOT, note, warn, write_run_log
+from pipeline.retriever import split_into_search_words
+from pipeline.shared import INDEX_DIR, PROJECT_ROOT, note, warn, write_run_log
 
 # Settings for this script.
 WIKIPEDIA_DUMP_URL = ("https://nlp.stanford.edu/projects/hotpotqa/"
@@ -121,7 +121,7 @@ def build_wikipedia_index(log_lines: list[str]) -> None:
     note(log_lines, f"    saved to {INDEX_DIR.relative_to(PROJECT_ROOT)}")
 
     elapsed_minutes = (time.time() - started_at) / 60
-    note(log_lines, f"Done in {elapsed_minutes:.1f} minutes. Next: `python retriever.py` checks search quality.")
+    note(log_lines, f"Done in {elapsed_minutes:.1f} minutes. Next: `python pipeline/retriever.py` checks search quality.")
 
 
 if __name__ == "__main__":

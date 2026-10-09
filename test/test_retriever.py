@@ -1,4 +1,4 @@
-"""Checks for retriever.py and build_index.py (T03). Run `pytest` from the repo folder, or run this file on its own:
+"""Checks for pipeline/retriever.py and build_index.py (T03). Run `pytest` from the repo folder, or run this file on its own:
 
     python test/test_retriever.py        (or press Run / Debug on this file)
 
@@ -11,12 +11,13 @@ from pathlib import Path
 
 import pytest
 
-# The scripts being tested live one folder up. pytest finds them through pytest.ini; this line lets the file
-# also run on its own with plain `python`. The imports below have to come after it.
+# build_index.py lives one folder up. pytest finds it through pytest.ini; this line lets the file also run on its
+# own with plain `python`. The imports below have to come after it. (pipeline/ is found because it's installed.)
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from build_index import build_index
-from retriever import INDEX_DIR, count_paragraphs, load_index, measure_gold_recall, search
+from pipeline.retriever import count_paragraphs, load_index, measure_gold_recall, search
+from pipeline.shared import INDEX_DIR
 
 # Five short paragraphs, shaped like the Wikipedia ones: a title and a text.
 SMALL_WIKIPEDIA = [

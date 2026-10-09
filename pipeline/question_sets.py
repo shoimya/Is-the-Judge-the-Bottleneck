@@ -1,6 +1,6 @@
 """Make the Pilot set and the Test set from HotpotQA's dev questions. (T02)
 
-    python question_sets.py        (or press Run / Debug on this file)
+    python pipeline/question_sets.py        (or press Run / Debug on this file)
 
 It downloads HotpotQA dev (fullwiki setting), picks 100 Pilot questions and a separate 1,000 Test questions with a
 fixed seed, and writes:
@@ -17,17 +17,14 @@ import time
 from collections import Counter
 from pathlib import Path
 
-from setup_project import PROJECT_ROOT, note, warn, write_run_log
+from pipeline.settings import PILOT_SIZE, SAMPLE_SEED, TEST_SIZE
+from pipeline.shared import PROJECT_ROOT, QUESTIONS_DIR, note, question_file_path, warn, write_run_log
 
-# Settings for this script.
-PILOT_SIZE = 100
-TEST_SIZE = 1000
-SAMPLE_SEED = 0
+# Settings for this script. The set sizes and the seed are experiment choices, so they live in pipeline/settings.py.
 GOLD_TITLES_PER_QUESTION = 2   # every HotpotQA question needs exactly 2 Gold paragraphs
 # HotpotQA comes from Hugging Face because the official CMU server is down. We use the dev split, fullwiki setting.
 HOTPOTQA_REPOSITORY = "hotpotqa/hotpot_qa"
 HOTPOTQA_DEV_FILE = "fullwiki/validation-00000-of-00001.parquet"
-QUESTIONS_DIR = PROJECT_ROOT / "data" / "hotpotqa"
 DOWNLOAD_DIR = QUESTIONS_DIR / "raw"
 QUESTION_IDS_DIR = PROJECT_ROOT / "results" / "question_ids"
 HUGGING_FACE_CACHE_DIR = PROJECT_ROOT / "data" / "cache" / "huggingface"
@@ -101,10 +98,10 @@ def write_lines_to_file(lines: list[str], file_path: Path) -> None:
     file_path.write_text("".join(line + "\n" for line in lines))
 
 
-def write_question_set(question_set: list[dict], question_file_path: Path) -> None:
+def write_question_set(question_set: list[dict], set_file_path: Path) -> None:
     """Save a question set as a .jsonl file: one question per line, written as JSON."""
     question_lines = [json.dumps(question) for question in question_set]
-    write_lines_to_file(question_lines, question_file_path)
+    write_lines_to_file(question_lines, set_file_path)
 
 
 def write_question_ids(question_set: list[dict], id_file_path: Path) -> None:
@@ -116,8 +113,7 @@ def write_question_ids(question_set: list[dict], id_file_path: Path) -> None:
 
 def load_question_set(set_name: str) -> list[dict]:
     """Read a saved question set ("pilot" or "test") back from its .jsonl file, one question per line."""
-    question_file_path = QUESTIONS_DIR / f"{set_name}.jsonl"
-    question_lines = question_file_path.read_text().splitlines()
+    question_lines = question_file_path(set_name).read_text().splitlines()
     return [json.loads(question_line) for question_line in question_lines]
 
 
@@ -156,17 +152,17 @@ def count_questions_without_two_gold_titles(question_set: list[dict]) -> int:
 
 def save_question_set(set_name: str, question_set: list[dict], log_lines: list[str]) -> None:
     """Write one set's question file and id file, log what was written, and warn if anything looks wrong."""
-    question_file_path = QUESTIONS_DIR / f"{set_name}.jsonl"
+    set_file_path = question_file_path(set_name)
     id_file_path = QUESTION_IDS_DIR / f"hotpotqa_{set_name}.txt"
 
     # Here we compare with the id list already saved before overwriting it, so a changed sample can't go unnoticed.
     if id_list_would_change(question_set, id_file_path):
         warn(log_lines, f"{id_file_path.name} changed: these are not the questions on GitHub. Check the seed and sizes.")
 
-    write_question_set(question_set, question_file_path)
+    write_question_set(question_set, set_file_path)
     write_question_ids(question_set, id_file_path)
     note(log_lines, describe_question_set(set_name, question_set))
-    question_file_name = question_file_path.relative_to(PROJECT_ROOT)
+    question_file_name = set_file_path.relative_to(PROJECT_ROOT)
     id_file_name = id_file_path.relative_to(PROJECT_ROOT)
     note(log_lines, f"  wrote {question_file_name} and {id_file_name}")
 

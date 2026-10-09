@@ -1,4 +1,4 @@
-"""Checks for question_sets.py (T02). Run `pytest` from the repo folder, or run this file on its own:
+"""Checks for pipeline/question_sets.py (T02). Run `pytest` from the repo folder, or run this file on its own:
 
     python test/test_question_sets.py        (or press Run / Debug on this file)
 
@@ -7,17 +7,12 @@ These tests cover the functions agreed with the owner. They write only to a temp
 
 import socket
 import sys
-from pathlib import Path
 
 import pytest
 
-# The scripts being tested live one folder up. pytest finds them through pytest.ini; this line lets the file
-# also run on its own with plain `python`. The import below has to come after it.
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from question_sets import (count_questions_without_two_gold_titles, download_hotpotqa,
-                           question_ids_of, raw_row_to_question, read_hotpotqa_questions,
-                           split_pilot_and_test, write_question_ids)
+from pipeline.question_sets import (count_questions_without_two_gold_titles, download_hotpotqa,
+                                    question_ids_of, raw_row_to_question, read_hotpotqa_questions,
+                                    split_pilot_and_test, write_question_ids)
 
 
 def make_raw_row(question_id: str) -> dict:

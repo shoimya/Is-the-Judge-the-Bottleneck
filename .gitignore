@@ -6,6 +6,8 @@ runs/
 # Python
 __pycache__/
 .pytest_cache/
+# pip's notes from installing pipeline/ as a package (setup_project.py remakes them)
+*.egg-info/
 
 # OS / editor
 .DS_Store
