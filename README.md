@@ -1,104 +1,85 @@
 # Is the Judge the Bottleneck?
 
-In a self-correcting retrieval loop for multi-hop QA, how much does an LLM sufficiency judge lose compared with an oracle judge, and is the loss from **stopping** ("enough, answer now") or **steering** ("here's what's missing")?
+Some question-answering systems search several times before answering. After each search, a language model acts as a judge: it decides whether the evidence is enough to answer, and if not, what is still missing. This project measures how much accuracy and cost that judge loses compared with a perfect judge that knows which paragraphs are needed, and whether the loss comes from stopping at the wrong time or from searching for the wrong thing.
 
-What the project studies, every decision and the glossary (Round, Evidence, Stop decision, Steer signal, …) are in [CONTEXT.md](CONTEXT.md). Tickets and their status are in [backlog/](backlog/README.md).
+The research questions, the design and every decision are in [CONTEXT.md](CONTEXT.md). The build plan and each ticket's status are in [backlog/](backlog/README.md).
 
-## Layout
+## Getting started
 
-The code follows the pipeline: question → retriever → judge → rewriter → answerer. Every file in `pipeline/` and `setup/` runs on its own: open it and press Debug (or `python <file>`) to run a short demo, with breakpoints wherever you like.
+You need macOS with [Homebrew](https://brew.sh), or a Kaggle notebook, and an internet connection.
 
-```
-pipeline/            what runs for every question
-  config.py          load_config() + the project's folders
-  dataset.py         read the Pilot set / Test set
-  retriever.py       load the BM25 index, search
-  llm.py             the one place that talks to the model (Ollama on the Mac, vLLM on Kaggle)
-  judge.py           LLM judge + Oracle judge (T06, T07)
-  rewriter.py        Steer signal → next query (T06)
-  answerer.py        Evidence → answer
-  loop.py            one function per scenario: Closed-book, Single-turn, Always-loop, Coin-flip, A–D
-  run_log.py         where each scenario's logs go: runs/<scenario>/ (T05)
-setup/               one-time jobs
-  get_questions.py   download HotpotQA, pick the Pilot and Test sets
-  build_index.py     download Wikipedia and build the search index (already built; only if lost)
-  check_index.py     how often search finds the Gold paragraphs
-  check_model.py     model smoke test + speed benchmark
-run.py               launcher: --check, or follow one question through one scenario
-evaluate.py          scores, statistics, tables, figures
-test_pipeline.py     checks for every piece, in pipeline order (pytest)
-kaggle.ipynb         setup + run on Kaggle / Colab
-config.yaml          the choices an experiment can change
-pyproject.toml       lets every file `import pipeline` from anywhere
-requirements.txt      libraries for every machine (exact versions)
-requirements-gpu.txt  vLLM, Kaggle only (doesn't install on a Mac)
-.python-version      3.12, picked up by Python tools on the Mac
-NOTES.md             pilot choices, run sheet, throughput numbers
-CONTEXT.md           what the project studies, every decision, and the glossary
-results/             final tables + figures for the paper
-backlog/             build tickets T01–T19, worked in order
-data/, runs/         datasets and run logs (not on GitHub)
-LICENSE              MIT, for the code
-```
-
-`config.yaml` holds only the choices an experiment can change; read it with `pipeline.config.load_config()`. Fixed facts (links, folders, decoding rules) are named constants at the top of the file that uses them.
-
-## Setup on Mac
-
-Requires Python 3.12 or newer (`brew install python@3.12`). The Mac uses 3.12; Kaggle runs 3.13, and both give identical results.
+**1. Clone the repository.**
 
 ```bash
 git clone https://github.com/shoimya/Is-the-Judge-the-Bottleneck.git
 cd Is-the-Judge-the-Bottleneck
-python3.12 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt      # also installs this repo's pipeline/ (the `-e .` line)
-python run.py --check                # Setup OK.
-pytest                               # model tests are skipped until Ollama is running
 ```
 
-Then, once per machine (the search index is copied into `data/wiki/bm25_index/` from the Kaggle dataset `hotpotqa-bm25-index`):
+**2. Run the setup script.** Any Python 3 can start it, including the one built into macOS.
 
 ```bash
-python setup/get_questions.py        # the Pilot and Test sets; ids must match results/question_ids/
-python setup/check_index.py          # search quality: 11/24/34/44 % all Gold paragraphs found
+python3 setup_project.py
 ```
 
-Follow one question through the pipeline (needs Ollama, below):
+For everything the project needs, the script first checks whether it's already there and only installs what's missing. Running it again is safe and installs nothing new. It:
+
+- finds Python 3.12 or newer, and installs `python@3.12` with Homebrew only if none is found
+- creates the folders `data/`, `data/cache/`, `runs/` and `results/`
+- creates `pytest.ini`, so `pytest` finds the tests
+- creates a virtual environment in `.venv/` (on the Mac; Kaggle uses its own Python)
+- installs the libraries in `requirements.txt` that aren't installed yet, keeping pip's downloads in `data/cache/pip`
+- writes what it did to `runs/setup/<date>/setup_<time>.log`
+
+It finishes with `Setup OK.` If something goes wrong, the error is in that log too.
+
+**3. Use the virtual environment.**
+
+- In a terminal: `source .venv/bin/activate`
+- In VS Code: Command Palette → **Python: Select Interpreter** → the one in `.venv`
+
+**4. Run the tests.**
 
 ```bash
-python run.py --setting single-turn  # or closed-book; add --question <id> for a chosen Pilot question
+pytest
 ```
 
-To debug in VS Code, select the `.venv` interpreter, open any file in `pipeline/`, `setup/` or `run.py`, and press F5 (Python Debugger: Current File).
+### On Kaggle
 
-## Ollama on the Mac (development only)
+Turn on **Internet** in the notebook's settings panel (it needs a phone-verified account), then run in a cell:
 
-Install once with `brew install ollama` (no background app). Start it from the repo folder whenever you need a model, so its models are stored in `data/ollama/` (git-ignored), not in your home folder:
-
-```bash
-OLLAMA_MODELS="$PWD/data/ollama" ollama serve     # leave this terminal open
-ollama pull qwen3:4b-instruct                     # in a second terminal, once: ~2.5 GB
+```python
+!git clone --branch SC.V3 https://github.com/shoimya/Is-the-Judge-the-Bottleneck.git
+%cd Is-the-Judge-the-Bottleneck
+!python setup_project.py
 ```
 
-Ollama only runs while that terminal is open. Reported numbers never come from Ollama; they come from vLLM on Kaggle.
+Kaggle resets every session, so run these again at the start of each one.
 
-## Setup on Kaggle / Colab
+## What's in the repository
 
-Open `kaggle.ipynb` and run all cells at the start of every session. Before running, in the notebook's settings panel:
+```
+setup_project.py   gets a machine ready to run the project (run this first)
+requirements.txt   libraries the project needs, at exact versions
+test/              tests, run with `pytest`
+CONTEXT.md         what the project studies, every decision, and the glossary
+backlog/           build tickets T01-T19 and their status
+LICENSE            MIT, for the code
+```
 
-1. Accelerator: **GPU T4 x2**.
-2. Internet: **On** (needs a phone-verified Kaggle account).
-3. Add Input > Your Datasets > **`hotpotqa-bm25-index`** (the saved search index).
+`setup_project.py` creates these, and git ignores all of them except `results/` and `pytest.ini`:
 
-The notebook has 11 numbered sections, each with a plain-language note. It clones the branch set in section 1 (`SC.V2`), installs the requirements, keeps `runs/` in storage that survives the session, checks the setup, rebuilds the question sets and checks they match GitHub, links the search index and checks its results match the Mac's, installs vLLM, runs the model check (smoke test + speed benchmark), and finally runs a scenario through `run.py` on the GPU and shows its log. Click **Save Version** afterwards to keep `runs/`. Model files download to `/tmp`, so they don't fill the ~20 GB working folder.
-
-Every number in the paper comes from Kaggle. The Mac is for development.
+```
+.venv/             the project's Python and libraries (Mac)
+data/              datasets, the search index, downloads and caches
+runs/              logs of every run, including setup's
+results/           tables and figures for the paper
+pytest.ini         tells pytest where the tests are
+```
 
 ## Adding a library
 
-Pin the exact version (`name==x.y.z`) in `requirements.txt`, or in `requirements-gpu.txt` if it only runs on Kaggle's GPU. Use the version pip actually installs on Kaggle (where every reported number comes from), and check it installs on the Mac too before pushing.
+Add it to `requirements.txt` at an exact version (`name==x.y.z`) and run `python3 setup_project.py` again; it installs only what's new. Use the version pip installs on Kaggle, where every reported number comes from.
 
 ## License
 
-Code: [MIT](LICENSE). The datasets (HotpotQA, MuSiQue) keep their own licenses and are not redistributed here.
+The code is [MIT](LICENSE). The datasets (HotpotQA, MuSiQue) keep their own licenses and aren't redistributed here.

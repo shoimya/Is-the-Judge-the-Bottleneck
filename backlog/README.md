@@ -4,15 +4,19 @@ Build tickets, worked **in order**. Each one depends on the one before it (see i
 
 This is the **only place ticket status is tracked**. The decisions behind the tickets are in [CONTEXT.md](../CONTEXT.md).
 
+**Every ticket ends with two updates before it counts as done:**
+1. Anything a machine needs for the new piece (a library, folder, download, index or model) becomes a step in `setup_project.py`, which checks first and only installs what's missing.
+2. `README.md` explains how to get started and how to run the new piece.
+
 ## Tier 1: RQ1 + RQ2 on HotpotQA (must-have)
 
 | # | Ticket | Target week | Status |
 |---|---|---|---|
-| T01 | [Repo and environment](T01-repo-and-environment.md) | Sep 23 – 29 | Done |
-| T02 | [Pilot set and Test set](T02-question-sets.md) | Sep 23 – 29 | Done |
-| T03 | [Wikipedia corpus and BM25 search](T03-corpus-and-bm25.md) | Sep 30 – Oct 6 | Done |
-| T04 | [Model backend (plug-and-play roles)](T04-model-backend.md) | Sep 30 – Oct 6 | Done |
-| T05 | [Run log](T05-run-log.md) | Oct 7 – 13 | Done |
+| T01 | [Repo and environment](T01-repo-and-environment.md) | Sep 23 – 29 |  |
+| T02 | [Pilot set and Test set](T02-question-sets.md) | Sep 23 – 29 |  |
+| T03 | [Wikipedia corpus and BM25 search](T03-corpus-and-bm25.md) | Sep 30 – Oct 6 |  |
+| T04 | [Model backend (plug-and-play roles)](T04-model-backend.md) | Sep 30 – Oct 6 |  |
+| T05 | [Run log](T05-run-log.md) | Oct 7 – 13 |  |
 | T06 | [Role prompts and output parsing](T06-role-prompts.md) | Oct 7 – 13 |  |
 | T07 | [Oracle judge](T07-oracle-judge.md) | Oct 7 – 13 |  |
 | T08 | [The loop and all seven settings](T08-loop-and-conditions.md) | Oct 14 – 20 |  |

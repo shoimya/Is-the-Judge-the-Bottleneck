@@ -4,55 +4,34 @@ Tier: 1 · Owner: _ · Depends: none
 
 ## What
 
-Set up this layout. The folders follow the pipeline: questions → retriever → judge → rewriter → answerer.
+`setup_project.py` at the top of the repo: the first script anyone runs after cloning. With no arguments it gets the machine ready to run the project, on the Mac and on Kaggle. **For everything it needs, it first checks whether it already exists and only downloads or installs what is missing.** Later tickets add their own steps the same way. Standard library only, and it must start even on the Mac's built-in Python 3.9 (it runs before anything is installed). Safe to run again; it never deletes anything.
 
-```
-Is-the-Judge-the-Bottleneck/
-├── pipeline/
-│   ├── dataset.py     # HotpotQA / MuSiQue → Pilot set & Test set questions
-│   ├── retriever.py   # BM25 search
-│   ├── judge.py       # LLM judge + Oracle judge (Stop decision, Steer signal)
-│   ├── rewriter.py    # Steer signal → next query
-│   ├── answerer.py    # Evidence → answer
-│   ├── llm.py         # the one place that talks to the model
-│   └── loop.py        # wires the pieces together; Conditions A–D, reference points
-├── run.py             # run one setting on one question set → writes the run log
-├── evaluate.py        # scores, statistics, tables, figures
-├── test_pipeline.py   # small checks, run with `pytest`
-├── kaggle.ipynb       # setup + run on Kaggle
-├── config.yaml        # every setting
-├── requirements.txt
-├── NOTES.md           # pilot choices, run sheet, throughput numbers
-├── README.md
-├── results/           # final tables + figures for the paper (committed)
-├── data/              # git-ignored
-└── runs/              # git-ignored
-```
+Steps, one function each:
+1. **Find Python 3.12 or newer:** the Python running the script if it is new enough, otherwise an installed `python3.12`/`python3.13`, otherwise install `python@3.12` with Homebrew on the Mac. If none of that works, stop and say how to install it.
+2. **Detect the machine:** Mac or Kaggle, GPU or not.
+3. **Create the folders** the project needs: `data/`, `data/cache/`, `runs/`, `results/` (skipping any that exist), and **`pytest.ini`** if missing, so `pytest` finds the tests in `test/` and they can import the scripts at the top of the repo.
+4. **Create `.venv`** on the Mac with that Python, if it doesn't exist yet (Kaggle starts fresh each session, so it uses Kaggle's Python).
+5. **Install what `requirements.txt` lists but is missing** (or at the wrong version) in that Python, with pip's download cache in `data/cache/pip` (never the home folder).
+6. **Install `requirements-gpu.txt`** only on a GPU machine and only once that file exists (it arrives with vLLM in T04).
+7. **Check the setup:** every folder writable; list the installed library versions.
+8. **Log it** to `runs/setup/<date>/setup_<time>.log`: machine, Python, what already existed, what was installed, installed versions, and loud warnings (e.g. no GPU on Kaggle). A failed setup is logged too.
 
-For this ticket, the pipeline files can be empty stubs with one line saying what goes there. Later tickets fill them in.
+It ends with **Setup OK** and the next step. Datasets, the search index and the model are added as steps by the tickets that need them (T02, T03, T04), each checking first.
 
-- **Python 3.12** (matches Kaggle's 3.12.12 and Colab).
-- `requirements.txt` with exact versions (`name==x.y.z`). Only `pyyaml` for now; each later ticket adds what it needs.
-- `config.yaml` with every setting, starting with `rounds: 3`, `seeds`, and `models.judge / rewriter / answerer`. Values not decided yet are `null` with a comment.
-- `.gitignore` for `data/`, `runs/`, `.venv/`, `__pycache__/` and `.DS_Store`.
-- `kaggle.ipynb`: clones the repo, installs requirements, points `runs/` at persistent storage (`/kaggle/working`, or Google Drive on Colab), and runs `python run.py --check`.
-- `run.py --check`: prints the Python version, loads `config.yaml`, and confirms `runs/` is writable.
+Also in this ticket:
+- `requirements.txt` with exact versions (`name==x.y.z`): only `pytest` for now; each ticket adds what it needs.
+- `.gitignore` for `data/`, `runs/`, `.venv/`, `__pycache__/`, `.DS_Store`.
 
 ## Done when
 
-A teammate can clone, install, and run `python run.py --check` on the Mac and on Kaggle.
+A teammate can clone the repo, run `python3 setup_project.py` (any Python 3, even the Mac's built-in 3.9), and see **Setup OK**, on the Mac and on Kaggle. Running it a second time installs nothing new.
 
 ## Description
 
-1. **Folders follow the pipeline.** Each piece of the pipeline is one file in `pipeline/`. `data/` and `runs/` stay off GitHub because they're large and change constantly.
-2. **Same software for everyone.** Same Python version, exact library versions, and one settings file. No settings buried in code.
-3. **Plug-and-play roles.** `config.yaml` names a model per role, and `pipeline/llm.py` is the only file that loads models. Swapping the Judge is a one-line config change.
-4. **Kaggle notebook.** Kaggle and Colab reset every session, so the notebook redoes the setup each time and keeps `runs/` somewhere that survives a disconnect.
+Everyone runs the same Python, the same exact library versions, and the same folders, set up by one script instead of a list of manual steps. Kaggle resets every session, so the same script is simply run again there.
 
 ## Notes
 
-- Verified Sep 23: `python run.py --check` passes on the Mac (Python 3.12.14) and on Kaggle.
-
-- Python 3.12 was chosen on Sep 23 because Kaggle, where every reported number is produced, runs 3.12.12. Mac: `brew install python@3.12`.
-- Generate the final exact pins on Kaggle (`pip freeze` after install) and reuse them everywhere, so a version that only exists for the Mac never gets pinned.
-- Kaggle needs **Internet** switched on in the notebook settings (requires a phone-verified account). `kaggle.ipynb` stops with that hint if it's off.
+- Oct 9: rebuilt from scratch under the owner's coding rules (CLAUDE.md). Decided with the owner: the script is `setup_project.py` (not `setup.py`, which pip treats as a packaging script); logs go in `runs/`; folders `data/`, `data/cache/`, `runs/`, `results/`; the script creates `.venv` itself. Replaces the earlier `run.py --check`, stub files and `config.yaml`.
+- Python: the Mac runs 3.12, Kaggle 3.13; both are supported.
+- Kaggle needs **Internet** switched on in the notebook settings (requires a phone-verified account).

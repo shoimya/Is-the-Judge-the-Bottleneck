@@ -1,2 +1,0 @@
-# Kaggle GPUs only (vLLM does not install on the Mac). Install after requirements.txt.
-vllm==0.30.0

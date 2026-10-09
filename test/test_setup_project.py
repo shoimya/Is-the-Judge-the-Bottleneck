@@ -1,0 +1,26 @@
+"""Checks for setup_project.py (T01). Run `pytest` from the repo folder, after `python3 setup_project.py` has set it up.
+
+The full check is running setup_project.py itself on the Mac and on Kaggle; these tests cover the two pieces
+agreed with the owner, using a temporary folder so nothing real is touched.
+"""
+
+from setup_project import PROJECT_FOLDERS, create_project_folders, is_supported_python
+
+
+def test_every_project_folder_is_created_and_a_second_run_changes_nothing(tmp_path):
+    """The first run makes every project folder; the second finds them all and creates nothing."""
+    created_first_time = create_project_folders(tmp_path)
+    created_second_time = create_project_folders(tmp_path)
+
+    for folder_name in PROJECT_FOLDERS:
+        assert (tmp_path / folder_name).is_dir()
+    assert len(created_first_time) == len(PROJECT_FOLDERS)
+    assert created_second_time == []
+
+
+def test_python_3_12_and_newer_are_supported_and_older_versions_are_not():
+    """3.12 (the Mac) and 3.13 (Kaggle) are accepted; 3.11 and the Mac's built-in 3.9 are refused."""
+    assert is_supported_python((3, 12))
+    assert is_supported_python((3, 13))
+    assert not is_supported_python((3, 11))
+    assert not is_supported_python((3, 9))

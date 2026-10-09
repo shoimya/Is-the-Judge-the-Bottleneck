@@ -1,16 +1,11 @@
-# Large or per-machine folders: keep the folder, skip its contents
-data/*
-!data/.gitkeep
-runs/*
-!runs/.gitkeep
+# Large or per-machine folders (made by setup_project.py)
+data/
+runs/
+.venv/
 
 # Python
 __pycache__/
 .pytest_cache/
-.venv/
-
-# Notebooks
-.ipynb_checkpoints/
 
 # OS / editor
 .DS_Store
@@ -19,7 +14,5 @@ __pycache__/
 
 # Private Claude instructions (kept local, not on GitHub)
 CLAUDE.md
+CONTEXT.md
 
-# Made by `pip install -e .`
-*.egg-info/
-build/
