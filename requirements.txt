@@ -8,3 +8,5 @@ PyStemmer==3.1.0
 numba==0.67.0
 ollama==0.6.3
 pandas==3.0.6
+# This repo's own code (see pyproject.toml), so `from pipeline import ...` works from any file.
+-e .

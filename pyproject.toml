@@ -1,0 +1,12 @@
+# Makes the pipeline/ folder installable, so `from pipeline import ...` works from any file, with Run and Debug.
+# requirements.txt installs it with its `-e .` line: "-e" points at these files, so edits apply straight away.
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "judge-bottleneck"
+version = "0.1.0"
+
+[tool.setuptools]
+packages = ["pipeline"]

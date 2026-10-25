@@ -6,7 +6,7 @@ one search query. ask() fills the prompt, calls llm.generate("rewriter",
 prompt), and parses the query; an empty output is flagged parse_error.
 """
 
-from pipeline import llm
+from pipeline import llm, llm2, load_config
 
 PROMPT_VERSION = "v0"
 
@@ -53,3 +53,88 @@ def ask(question: str, past_queries, steer: str, *, config: dict | None = None) 
         "completion_tokens": out["completion_tokens"],
         **parse(out),
     }
+# ------
+# The Rewriter on llm2: press Run to rewrite a made-up Steer signal into a search query, then search with it
+# ---------------------------------------------------------------------------
+
+# Here are the Rewriter's rules, sent as the system prompt of every call.
+REWRITER_SYSTEM_PROMPT = ("You are the Rewriter in a search loop. Write one short search query (a few words, "
+                          "no punctuation) that finds the missing information in a Wikipedia keyword search.")
+
+# Here is the JSON shape every reply must have: one "query" text.
+QUERY_FORMAT = {
+    "type": "object",
+    "properties": {"query": {"type": "string"}},
+    "required": ["query"],
+}
+
+
+def rewriter_prompt(question: str, past_queries: list[str], steer: str) -> str:
+    """The prompt the Rewriter reads: the question, the queries already tried, and what the Evidence is missing."""
+    # Here an empty Steer signal is written as "nothing", as the Judge writes it when nothing is missing.
+    return REWRITER_PROMPT.format(question=question, queries=render_queries(past_queries), steer=steer or "nothing")
+
+
+def rewrite_query(question: str, past_queries: list[str], steer: str) -> dict:
+    """Turn the question, the queries already tried and the Steer signal into the next search query.
+
+    Returns a dictionary with:
+        query             the next search query ("" if the model never gave one in the right format)
+        reply             the model's full reply, exactly as it wrote it (the last attempt's)
+        prompt            exactly what the Rewriter read (on a retry, the model also saw a correction note)
+        prompt_version    which version of the prompts was used
+        attempts          how many calls it took (send_to_ollama_with_retries)
+        answer_problems   what is still wrong with the reply ([] = it fits the JSON shape)
+        tokens_read, tokens_written, seconds, prompt_may_be_cut, reply_was_cut   the call's costs and warnings
+    """
+    config = load_config()
+    prompt = rewriter_prompt(question, past_queries, steer)
+    # Here the model, reply limit, temperature and seed all come from config.yaml, the same for every method.
+    result = llm2.send_to_ollama_with_retries(
+        llm2.model_for_role("rewriter"), REWRITER_SYSTEM_PROMPT, prompt, QUERY_FORMAT,
+        temperature=config["llm"]["temperature"], seed=config["seeds"][0],
+        reply_limit_in_tokens=llm2.reply_limit_for_role("rewriter"),
+    )
+    # Here a reply that never fitted its shape (after every attempt) counts as an empty query.
+    query_text = (result["answer"] or {}).get("query", "")
+    return {
+        # Here we drop surrounding spaces and quotes, which the search would only treat as noise.
+        "query": query_text.strip().strip('"').strip(),
+        "reply": result["reply"],
+        "prompt": prompt,
+        "prompt_version": PROMPT_VERSION,
+        "attempts": result["attempts"],
+        "answer_problems": result["answer_problems"],
+        "tokens_read": result["tokens_read"],
+        "tokens_written": result["tokens_written"],
+        "seconds": result["seconds"],
+        "prompt_may_be_cut": result["prompt_may_be_cut"],
+        "reply_was_cut": result["reply_was_cut"],
+    }
+
+
+if __name__ == "__main__":
+    from pipeline.retriever import Retriever
+
+    demo_question = "Which river flows through the capital city of Hungary?"
+    demo_past_queries = [demo_question]
+    demo_steer = "the name of the river that flows through Budapest"
+
+    server_started_here = llm2.start_ollama_server()
+    try:
+        rewrite_result = rewrite_query(demo_question, demo_past_queries, demo_steer)
+        print(f"\nQuestion:     {demo_question}")
+        print(f"Steer signal: {demo_steer}")
+        print(f"New query:    {rewrite_result['query']}")
+        print(f"Attempts: {rewrite_result['attempts']}   Tokens read: {rewrite_result['tokens_read']}, "
+              f"written: {rewrite_result['tokens_written']}, in {rewrite_result['seconds']} s")
+
+        # Here we search with the new query, to see whether it finds better pages than the question did.
+        print("\nTop 3 pages for the new query:")
+        for rank, paragraph in enumerate(Retriever.load().search(rewrite_result["query"], k=3), start=1):
+            print(f"  {rank}. [{paragraph['score']:.1f}] {paragraph['title']}")
+        print()
+    finally:
+        # Here we stop the server only if this demo started it.
+        if server_started_here:
+            llm2.stop_ollama_server()
