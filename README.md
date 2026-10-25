@@ -6,43 +6,63 @@ Terms (Round, Evidence, Stop decision, Steer signal, …) are defined in [CONTEX
 
 ## Layout
 
-The code follows the pipeline: questions → retriever → judge → rewriter → answerer.
+The code follows the pipeline: questions → retriever → judge → rewriter → answerer. Every file runs on its own: open it and press Run (or Debug) to see a short demo.
 
 ```
 pipeline/
-  dataset.py     HotpotQA / MuSiQue → Pilot set & Test set questions
-  retriever.py   BM25 search
-  judge.py       LLM judge + Oracle judge (Stop decision, Steer signal)
-  rewriter.py    Steer signal → next query
-  answerer.py    Evidence → answer
-  llm.py         the one place that talks to the model
-  loop.py        wires the pieces together; Conditions A–D, reference points
-run.py           run one setting on one question set → writes the run log
-evaluate.py      scores, statistics, tables, figures
-test_pipeline.py small checks (pytest)
-kaggle.ipynb     setup + run on Kaggle / Colab
-config.yaml      every setting
-NOTES.md         pilot choices, run sheet, throughput numbers
-results/         final tables + figures for the paper
-backlog/         build tickets T01–T19, worked in order
-data/, runs/     datasets and run logs (not on GitHub)
+  dataset.py         HotpotQA → Pilot set (100) and Test set (1,000) questions
+  retriever.py       BM25 search over HotpotQA's 2017 Wikipedia; also builds the search index
+  answerer.py        question + Evidence → short answer
+  judge.py           LLM judge (Stop decision, Steer signal, p_yes) + Oracle judge
+  rewriter.py        Steer signal → next search query
+  llm2.py            the one place that talks to the model (Ollama); starts and stops our Ollama server
+  llm.py             earlier model code, still used by the roles' older functions
+  scoring.py         exact match against the gold answer
+  settings.py        what differs between the Mac and Kaggle (models folder, port, context window)
+  Methods/
+    closed_book.py   answer from memory, no search
+    single_turn.py   one search with the question, then answer
+    always_loop.py   3 Rounds of search steered by the Judge, then answer
+project_set_up.py    sets this machine up in one run (Python, .venv, libraries, questions, model)
+project_check.py     checks the setup without changing anything
+config.yaml          experiment settings: model per role, k, Rounds, seeds, reply limits
+pyproject.toml       makes pipeline/ importable from any file, so every file runs with Run
+requirements.txt     pinned libraries
+requirements-gpu.txt vLLM pins (not used since the move to Ollama)
+kaggle.ipynb         setup + run on Kaggle / Colab (not yet updated for the changes above)
+NOTES.md             pilot choices, run sheet, throughput numbers
+results/             committed question id lists and BM25 recall checks
+Knowledge-Resources/ the Sep 25 specification and glossary (background reading)
+Archive/             earlier code no longer used (run.py, loop.py, evaluate.py, tests, …)
+backlog/             build tickets T01–T19
+data/, runs/         questions, search index, model files and run logs (not on GitHub)
 ```
 
-Don't hard-code settings. Add them to `config.yaml` and read them with `pipeline.load_config()`.
+Don't hard-code settings. Experiment settings go in `config.yaml`, read with `pipeline.load_config()`; anything that differs between the Mac and Kaggle goes in `pipeline/settings.py`. Each method writes one log per run to `runs/<method>/<date>/<HHMMSS>.txt`.
 
 ## Setup on Mac
 
-Requires Python 3.12 (`brew install python@3.12`).
+1. **Get the code** (the current work is on the `SC.V3` branch):
+   ```bash
+   git clone -b SC.V3 https://github.com/shoimya/Is-the-Judge-the-Bottleneck.git
+   ```
+2. **Install the two programs setup can't install for you:** Python 3.13 (the version Kaggle uses) and Ollama (runs the model on the Mac).
+   ```bash
+   brew install python@3.13 ollama
+   ```
+3. **Run the setup:** open the repo in VS Code, open `project_set_up.py` and press Run (any Python 3 can start it). Quit the Ollama app first. In one run, it:
+   - makes `.venv` with Python 3.13 and installs `requirements.txt`
+   - builds the Pilot and Test sets in `data/hotpotqa/` (they match `results/question_ids/`)
+   - downloads the model named in `config.yaml` (`qwen3:8b`, ~5 GB) into `data/ollama/`
+   - checks that the search index is there
 
-```bash
-git clone https://github.com/shoimya/Is-the-Judge-the-Bottleneck.git
-cd Is-the-Judge-the-Bottleneck
-python3.12 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python run.py --check
-pytest
-```
+   Each step checks first, so running it again changes nothing. Anything it can't do is listed at the end.
+4. **Get the search index** (~2.8 GB; setup prints these steps if it's missing): on kaggle.com, download the private dataset `hotpotqa-bm25-index` (ask the repo owner for access) and unzip it so its files sit directly in `data/wiki/bm25_index/`.
+5. **Select the interpreter:** in VS Code, Cmd+Shift+P > Python: Select Interpreter > `.venv`.
+6. **Check everything:** open `project_check.py` and press Run. It should say 4 of 4 checks passed.
+7. **Try it out:** press Run on `pipeline/retriever.py` (a search), `pipeline/llm2.py` (one model call), then on a method in `pipeline/Methods/`. Each method's settings (`QUESTION_SET`, `HOW_MANY_QUESTIONS`) are at the top of its file.
+
+Everything stays inside the repo on the SSD, never in the home folder.
 
 ## Setup on Kaggle / Colab
 
