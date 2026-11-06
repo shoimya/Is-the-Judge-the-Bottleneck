@@ -21,7 +21,7 @@ from pipeline.scoring import exact_match
 
 # --- Settings: edit them, then press Run ---
 QUESTION_SET = "pilot"       # "pilot" (100 questions) or "test" (1,000)
-HOW_MANY_QUESTIONS = None        # how many from the start of the set; None = all of them
+HOW_MANY_QUESTIONS = 5        # how many from the start of the set; None = all of them
 LOG_FULL_PROMPTS = False     # True = also log every call's full prompt and reply (use it for small test runs)
 
 

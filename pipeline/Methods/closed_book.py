@@ -17,8 +17,8 @@ from pipeline.dataset import load_questions
 from pipeline.scoring import exact_match
 
 # --- Settings: edit them, then press Run ---
-QUESTION_SET = "test"       # "pilot" (100 questions) or "test" (1,000)
-HOW_MANY_QUESTIONS = 500       # how many from the start of the set; None = all of them
+QUESTION_SET = "pilot"       # "pilot" (100 questions) or "test" (1,000)
+HOW_MANY_QUESTIONS = 10       # how many from the start of the set; None = all of them
 
 
 def new_log_file(start_time: datetime) -> Path:
