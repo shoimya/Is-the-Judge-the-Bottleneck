@@ -31,6 +31,7 @@ requirements.txt     pinned libraries
 requirements-gpu.txt vLLM pins (not used since the move to Ollama)
 Notebooks/
   kaggle_methods.ipynb     runs one method (Closed-book, Single-turn or Always-loop) on Kaggle with Ollama
+  kaggle_condition_d.ipynb runs Condition D (Oracle stops and steers) on Kaggle with Ollama
   kaggle_WikiIndex.ipynb   builds the HotpotQA BM25 index on Kaggle (only needed to rebuild it)
 NOTES.md             pilot choices, run sheet, throughput numbers
 results/             committed question id lists and BM25 recall checks
