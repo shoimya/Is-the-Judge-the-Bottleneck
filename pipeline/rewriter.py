@@ -8,7 +8,8 @@ prompt), and parses the query; an empty output is flagged parse_error.
 
 from pipeline import llm, llm2, load_config
 
-PROMPT_VERSION = "v0"
+# Here v1 = the few-shot Rewriter prompt (Nov 10); v0 = the earlier prompt without examples.
+PROMPT_VERSION = "v1"
 
 REWRITER_PROMPT = """Question: {question}
 
@@ -18,7 +19,13 @@ Search queries already tried:
 What the evidence is still missing:
 {steer}
 
-Write one short search query (a few words, no punctuation) for a Wikipedia keyword search that finds the missing information."""
+Write one short search query (a few words, no punctuation) for a Wikipedia keyword search that finds the missing information. Name the missing person, place or thing directly, and never repeat a query already tried.
+
+Examples (question / still missing -> query):
+- Which gaming console was both Yakuza Kiwami and Yakuza 0 released on? / which consoles Yakuza 0 was released on -> Yakuza 0 release consoles
+- In the NASA mission where Moon trees were taken into space, what was the nickname of the Command Module? / the nickname of the Apollo 14 Command Module -> Apollo 14 Command Module
+- Which airport is located further north in the United States, San Angelo Regional Airport or Grand Junction Regional Airport? / where Grand Junction Regional Airport is located -> Grand Junction Regional Airport location
+- Are both American Foxhound and Löwchen types of Foxhounds? / what kind of dog the Löwchen is -> Löwchen dog breed"""
 
 
 def render_queries(queries) -> str:

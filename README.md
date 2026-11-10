@@ -29,7 +29,9 @@ config.yaml          experiment settings: model per role, k, Rounds, seeds, repl
 pyproject.toml       makes pipeline/ importable from any file, so every file runs with Run
 requirements.txt     pinned libraries
 requirements-gpu.txt vLLM pins (not used since the move to Ollama)
-kaggle.ipynb         setup + run on Kaggle / Colab (not yet updated for the changes above)
+Notebooks/
+  kaggle_methods.ipynb     runs one method (Closed-book, Single-turn or Always-loop) on Kaggle with Ollama
+  kaggle_WikiIndex.ipynb   builds the HotpotQA BM25 index on Kaggle (only needed to rebuild it)
 NOTES.md             pilot choices, run sheet, throughput numbers
 results/             committed question id lists and BM25 recall checks
 Knowledge-Resources/ the Sep 25 specification and glossary (background reading)

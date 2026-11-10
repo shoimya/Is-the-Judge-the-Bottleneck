@@ -20,8 +20,6 @@ import os
 import shutil
 import subprocess
 import sys
-import time
-import urllib.request
 from pathlib import Path
 
 # The repo's top folder: this file sits directly in it.
@@ -32,9 +30,6 @@ REQUIREMENTS_FILE = REPO_ROOT / "requirements.txt"
 PROJECT_PACKAGE_NAME = "judge-bottleneck"         # the name pyproject.toml gives this repo's own code
 
 KAGGLE_PYTHON_VERSION = (3, 13)                   # the Python Kaggle runs; change it here if Kaggle moves
-OLLAMA_MODELS_DIR = REPO_ROOT / "data" / "ollama"  # Ollama keeps its models here, never in the home folder
-OLLAMA_ADDRESS = "http://127.0.0.1:11434"         # where a running Ollama server answers
-OLLAMA_START_WAIT_SECONDS = 30                    # how long to wait for the Ollama server to start
 
 # Set just before the restart, so the second run of this file knows the first half is done.
 RESTARTED_VARIABLE = "PROJECT_SET_UP_RESTARTED"
@@ -200,48 +195,12 @@ def check_search_index() -> list:
     ]
 
 
-def ollama_model_is_downloaded(model_name: str) -> bool:
-    """True if data/ollama/ already holds this model, e.g. "qwen3:8b"."""
-    # Here a name without a tag means Ollama's "latest" tag, as `ollama pull` treats it.
-    name, _, tag = model_name.partition(":")
-    manifest_file = OLLAMA_MODELS_DIR / "manifests" / "registry.ollama.ai" / "library" / name / (tag or "latest")
-    return manifest_file.exists()
-
-
-def ollama_server_is_running() -> bool:
-    """True if an Ollama server is already answering on this machine."""
-    try:
-        urllib.request.urlopen(OLLAMA_ADDRESS + "/api/version", timeout=2)
-        return True
-    except OSError:
-        return False
-
-
-def start_ollama_server() -> subprocess.Popen:
-    """Start an Ollama server that keeps its models in data/ollama/, and wait until it answers."""
-    OLLAMA_MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    # Here OLLAMA_MODELS points the server at the repo, so downloads never land in the home folder.
-    server_settings = dict(os.environ, OLLAMA_MODELS=str(OLLAMA_MODELS_DIR))
-    server = subprocess.Popen(["ollama", "serve"], env=server_settings,
-                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    give_up_at = time.time() + OLLAMA_START_WAIT_SECONDS
-    while time.time() < give_up_at:
-        if ollama_server_is_running():
-            return server
-        time.sleep(1)
-    server.terminate()
-    print(f"WARNING  the Ollama server didn't start within {OLLAMA_START_WAIT_SECONDS} seconds; rerun this file.")
-    sys.exit(1)
-
-
-def stop_ollama_server(server: subprocess.Popen) -> None:
-    """Stop the Ollama server this script started (and no other)."""
-    server.terminate()
-    server.wait()
-
-
 def get_ollama_models(model_names: list) -> list:
-    """Download every model in model_names into data/ollama/ if it isn't there. Returns the steps left by hand."""
+    """Download every model in model_names into the models folder if it isn't there. Returns the steps left by hand.
+
+    It uses the project's own server functions (pipeline/llm2.py), the same ones the methods and Kaggle use.
+    """
+    from pipeline import llm2, settings
     if not shutil.which("ollama"):
         print("WARNING  Ollama isn't installed. It's system software, so it's a step for you.")
         return [
@@ -250,23 +209,21 @@ def get_ollama_models(model_names: list) -> list:
             "       (no Homebrew? download it from https://ollama.com/download instead)\n"
             "    2. Run this file again; it then downloads the model into data/ollama/."
         ]
-    missing_models = [name for name in model_names if not ollama_model_is_downloaded(name)]
+    missing_models = [name for name in model_names if not settings.model_is_downloaded(name)]
     if not missing_models:
-        print(f"OK       Ollama is installed and {', '.join(model_names)} is in data/ollama/")
+        print(f"OK       Ollama is installed and {', '.join(model_names)} is in {settings.MODELS_FOLDER}")
         return []
-    if ollama_server_is_running():
-        # Here a server someone else started may keep its models in the home folder, so we don't download through it.
-        print("WARNING  an Ollama server is already running, maybe storing models in your home folder.")
-        return ["Quit the running Ollama (the menu-bar app, or Ctrl+C in its terminal), then run this file again."]
 
-    print(f"DOWNLOAD the Ollama model(s) {', '.join(missing_models)} into data/ollama/")
-    server = start_ollama_server()
+    print(f"DOWNLOAD the Ollama model(s) {', '.join(missing_models)} into {settings.MODELS_FOLDER}")
+    # Here we use this project's own server, on its own port, so the Ollama app never gets involved.
+    server_started_here = llm2.start_ollama_server()
     try:
         for model_name in missing_models:
-            run_command(["ollama", "pull", model_name])
+            llm2.download_model(model_name)
     finally:
-        # Here we close the server this script opened, even if a download failed.
-        stop_ollama_server(server)
+        # Here we close the server only if this script opened it, even if a download failed.
+        if server_started_here:
+            llm2.stop_ollama_server()
     return []
 
 

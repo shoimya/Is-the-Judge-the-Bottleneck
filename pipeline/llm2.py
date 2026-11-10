@@ -145,6 +145,22 @@ def stop_ollama_server() -> None:
     print(f"WARNING  the Ollama server at {settings.OLLAMA_ADDRESS} is still running.")
 
 
+def download_model(model_name: str) -> None:
+    """Download a model, such as "qwen3:8b", into this machine's models folder, unless it is already there.
+
+    This project's server must be running (start_ollama_server), because the server is what stores the model.
+    """
+    if settings.model_is_downloaded(model_name):
+        print(f"{model_name} is already in {settings.MODELS_FOLDER}.")
+        return
+    if not ollama_server_is_running():
+        raise RuntimeError(f"Start this project's Ollama server first (start_ollama_server), then download {model_name}.")
+
+    print(f"Downloading {model_name} into {settings.MODELS_FOLDER} ...")
+    # Here ollama_environment() points `ollama pull` at our server's port, so the model lands in our models folder.
+    subprocess.run(["ollama", "pull", model_name], env=settings.ollama_environment(), check=True)
+
+
 # ---------------------------------------------------------------------------
 # One call to the model
 # ---------------------------------------------------------------------------
