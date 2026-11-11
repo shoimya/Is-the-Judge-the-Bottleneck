@@ -154,7 +154,8 @@ def download_model(model_name: str) -> None:
         print(f"{model_name} is already in {settings.MODELS_FOLDER}.")
         return
     if not ollama_server_is_running():
-        raise RuntimeError(f"Start this project's Ollama server first (start_ollama_server), then download {model_name}.")
+        raise RuntimeError(f"Start this project's Ollama server first (start_ollama_server), "
+                           f"then download {model_name}.")
 
     print(f"Downloading {model_name} into {settings.MODELS_FOLDER} ...")
     # Here ollama_environment() points `ollama pull` at our server's port, so the model lands in our models folder.
@@ -249,7 +250,7 @@ def send_to_ollama(model: str, system_prompt: str, prompt: str, answer_format: d
         # Here we ask for the odds of the words the model weighed at each position (p_yes reads them).
         "logprobs": True,
         "top_logprobs": TOP_ALTERNATIVES,
-        # num_ctx lets the model read this call's whole window; without it Ollama reads only about 2,000 tokens and
+        # Here num_ctx lets the model read this call's whole window; without it Ollama reads only about 2,000 tokens and
         # silently drops the rest of the prompt. num_predict stops the reply at the room kept free for it.
         # The temperature and seed are the caller's, so the call's randomness is fixed and can be repeated.
         "options": {

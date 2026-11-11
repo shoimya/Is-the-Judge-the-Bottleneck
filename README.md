@@ -23,6 +23,9 @@ pipeline/
     closed_book.py   answer from memory, no search
     single_turn.py   one search with the question, then answer
     always_loop.py   3 Rounds of search steered by the Judge, then answer
+    condition_a.py   the LLM judge stops and steers (the deployed system); the Oracle labels each Stop decision
+    condition_b.py   the LLM judge stops, the Oracle steers (B − A = the cost of steering)
+    condition_d.py   the Oracle stops and steers (the best case)
 project_set_up.py    sets this machine up in one run (Python, .venv, libraries, questions, model)
 project_check.py     checks the setup without changing anything
 config.yaml          experiment settings: model per role, k, Rounds, seeds, reply limits
@@ -31,6 +34,8 @@ requirements.txt     pinned libraries
 requirements-gpu.txt vLLM pins (not used since the move to Ollama)
 Notebooks/
   kaggle_methods.ipynb     runs one method (Closed-book, Single-turn or Always-loop) on Kaggle with Ollama
+  kaggle_condition_a.ipynb runs Condition A (LLM judge stops and steers) on Kaggle with Ollama
+  kaggle_condition_b.ipynb runs Condition B (LLM judge stops, Oracle steers) on Kaggle with Ollama
   kaggle_condition_d.ipynb runs Condition D (Oracle stops and steers) on Kaggle with Ollama
   kaggle_WikiIndex.ipynb   builds the HotpotQA BM25 index on Kaggle (only needed to rebuild it)
 NOTES.md             pilot choices, run sheet, throughput numbers

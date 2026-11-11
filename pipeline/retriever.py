@@ -157,7 +157,10 @@ def unpack_archive(archive_path: Path, unpacked_dir: Path) -> None:
 
 
 def download_and_unpack_wikipedia(dump_dir: Path) -> list[Path]:
-    """Make sure Wikipedia is downloaded and unpacked in dump_dir, skipping finished steps; return its files in order."""
+    """Make sure Wikipedia is downloaded and unpacked in dump_dir, skipping finished steps.
+
+    Returns the unpacked files, in order.
+    """
     dump_dir.mkdir(parents=True, exist_ok=True)
     archive_path = dump_dir / Path(WIKI_DUMP_URL).name
     if not archive_path.exists():
@@ -209,7 +212,9 @@ def word_ids_for_batch(batch_texts: list[str], vocabulary: dict, word_ids_per_pa
 
 
 def build_index(dump_files: list[Path], index_folder: Path) -> int:
-    """Build the BM25 index over every paragraph's title + text and save it to index_folder. Returns the paragraph count.
+    """Build the BM25 index over every paragraph's title + text and save it to index_folder.
+
+    Returns the number of paragraphs indexed.
 
     It reads Wikipedia twice: first to cut every paragraph into words and index them, then to save the paragraphs
     next to the index (search results show their text). It saves into "<index_folder>.part" and renames it only
@@ -384,8 +389,10 @@ def count_gold_found(gold_titles: list[str], top_titles: list[str]) -> int:
     return sum(gold_title in top_titles for gold_title in gold_titles)
 
 
-def write_pilot_recall_metric_csv(pilot_questions: list[dict], ranked_titles_per_question: list[list[str]]) -> list[dict]:
-    """For each cutoff k, save the share of Pilot questions with ALL, and with AT LEAST ONE, Gold paragraph in the top k.
+def write_pilot_recall_metric_csv(pilot_questions: list[dict],
+                                  ranked_titles_per_question: list[list[str]]) -> list[dict]:
+    """For each cutoff k, save the share of Pilot questions with ALL, and with AT LEAST ONE, Gold paragraph in the top k
+    (from ranked_titles_for_questions).
 
     One row per k (k, all_found, at_least_one_found), shares rounded to 3 decimals. Returns the same rows.
     """
