@@ -240,8 +240,10 @@ def second_half() -> None:
     """Get the question sets, the search index and the models in place, then list what's left by hand."""
     from pipeline import load_config
     config = load_config()
-    # Here the models to download come from config.yaml, so editing the config is all it takes to change them.
+    # Here the models to download come from config.yaml, so editing the config is all it takes to change them:
+    # one per role, plus the embedding model that scores answers by meaning.
     model_names = sorted(set(config["models"].values()))
+    model_names.append(config["scoring"]["embedder"])
     steps_left = []
     steps_left += make_question_sets(config)
     steps_left += check_search_index()

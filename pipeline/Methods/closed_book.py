@@ -14,7 +14,7 @@ from pathlib import Path
 from pipeline import REPO_ROOT, llm2, load_config
 from pipeline.answerer import ANSWERER_SYSTEM_PROMPT, PROMPT_VERSION, answer_question
 from pipeline.dataset import load_questions
-from pipeline.scoring import exact_match
+from pipeline.scoring import average_score, score_answer
 
 # --- Settings: edit them, then press Run ---
 QUESTION_SET = "pilot"       # "pilot" (100 questions) or "test" (1,000)
@@ -47,6 +47,7 @@ def log_header(log_file: Path, start_time: datetime, question_count: int) -> Non
         f"Model:          {llm2.model_for_role('answerer')}",
         f"Prompt version: {PROMPT_VERSION}",
         f"Temperature:    {config['llm']['temperature']}   Seed: {config['seeds'][0]}",
+        f"Cosine scoring: {config['scoring']['embedder']}, threshold {config['scoring']['cosine_threshold']}",
         "",
     ]))
 
@@ -54,7 +55,8 @@ def log_header(log_file: Path, start_time: datetime, question_count: int) -> Non
 def answer_one_question(question: dict) -> dict:
     """Answer one question from memory (no Evidence), and check the answer against the gold answer."""
     result = answer_question(question["question"], evidence=[])
-    result["correct"] = exact_match(result["answer"], question["answer"])
+    # Here we add the four scores to the result: correct (exact match), precision, recall and f1.
+    result.update(score_answer(result["answer"], question["answer"]))
     return result
 
 
@@ -72,6 +74,10 @@ def log_closed_book(log_file: Path, question_number: int, question_count: int, q
         f"Answer:      {result['answer']}",
         f"Gold answer: {question['answer']}",
         f"Correct:     {'yes' if result['correct'] else 'no'}",
+        f"Precision:   {result['precision']:.2f}",
+        f"Recall:      {result['recall']:.2f}",
+        f"F1:          {result['f1']:.2f}",
+        f"Cosine similarity: {result['cosine']:.3f}",
         f"Attempts: {result['attempts']}   Tokens read: {result['tokens_read']}, "
         f"written: {result['tokens_written']}, in {result['seconds']} s",
     ]
@@ -90,11 +96,19 @@ def log_summary(log_file: Path, results: list[dict], question_count: int, start_
     correct_count = sum(result["correct"] for result in results)
     answered_count = len(results)
     share_correct = correct_count / answered_count if answered_count else 0
+    # Here we count the answers correct by meaning (exact match, or cosine at or above the threshold).
+    cosine_correct_count = sum(result["correct_cosine"] for result in results)
+    share_cosine_correct = cosine_correct_count / answered_count if answered_count else 0
+    cosine_threshold = load_config()["scoring"]["cosine_threshold"]
     minutes_taken = (datetime.now() - start_time).total_seconds() / 60
     write_to_log(log_file, "\n".join([
         "===== Summary =====",
         f"Answered: {answered_count} of {question_count}",
         f"Correct:  {correct_count} of {answered_count} ({share_correct:.0%})",
+        f"Correct (cosine ≥ {cosine_threshold}): {cosine_correct_count} of {answered_count} ({share_cosine_correct:.0%})",
+        f"Precision: {average_score(results, 'precision'):.2f} (average)",
+        f"Recall:    {average_score(results, 'recall'):.2f} (average)",
+        f"F1:        {average_score(results, 'f1'):.2f} (average)",
         f"Tokens read: {sum(result['tokens_read'] for result in results)}, "
         f"written: {sum(result['tokens_written'] for result in results)}",
         f"Time: {minutes_taken:.1f} minutes",

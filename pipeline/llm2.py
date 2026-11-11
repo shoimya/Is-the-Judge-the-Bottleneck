@@ -32,6 +32,10 @@ ROOM_FOR_THINKING_IN_TOKENS = 12288 if THINKING_ON else 0
 # Here we wait longer for a reply when the model thinks, because thinking can write thousands of tokens.
 SECONDS_TO_WAIT_FOR_A_REPLY = 7200 if THINKING_ON else 1800
 
+# Here we set how long to wait for an embedding: a short answer embeds in well under a second, but the first call
+# also loads the embedding model.
+SECONDS_TO_WAIT_FOR_EMBEDDINGS = 300
+
 # Here we round every context window up to whole blocks of 8,192 tokens, so most calls share a few sizes:
 # Ollama reloads the model each time the window size changes.
 CONTEXT_WINDOW_BLOCK_IN_TOKENS = 8192
@@ -206,8 +210,8 @@ def send_to_ollama(model: str, system_prompt: str, prompt: str, answer_format: d
                    temperature: float, seed: int, reply_limit_in_tokens: int) -> dict:
     """Make one call: send a role's rules and a prompt to the model, and return its answer and what the call cost.
 
-    One call = one prompt sent to one model and its one reply. This is the only code that talks to a model,
-    and it writes no log: each method's own log function records what it needs from the returned dictionary.
+    One call = one prompt sent to one model and its one reply. This is the only code that sends a prompt to a model
+    (embed_texts, below, is the only code that asks for embeddings), and it writes no log: each method's own log function records what it needs from the returned dictionary.
     Methods normally call send_to_ollama_with_retries(), which uses this function.
 
     Inputs:
@@ -347,6 +351,30 @@ def send_to_ollama_with_retries(model: str, system_prompt: str, prompt: str, ans
     result["attempts"] = attempt_number
     result["answer_problems"] = problems
     return result
+
+
+# ---------------------------------------------------------------------------
+# Embeddings (scoring.py uses them to compare answers by meaning)
+# ---------------------------------------------------------------------------
+
+def embed_texts(model: str, texts: list[str]) -> list[list[float]]:
+    """Turn each text into its embedding (a long list of numbers that stands for its meaning), in one call.
+
+    model is an Ollama embedding model, such as config.yaml's scoring.embedder ("qwen3-embedding:0.6b").
+    Returns one embedding per text, in the same order as the texts.
+    """
+    request_body = {"model": model, "input": texts}
+    # Here we address the texts to this project's server, at Ollama's embedding address.
+    request = urllib.request.Request(settings.OLLAMA_ADDRESS + "/api/embed",
+                                     data=json.dumps(request_body).encode(),
+                                     headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=SECONDS_TO_WAIT_FOR_EMBEDDINGS) as response:
+            server_answer = json.load(response)
+    except urllib.error.HTTPError as http_error:
+        # Here we pass on Ollama's own explanation (e.g. "model 'x' not found"), not just "HTTP Error 404".
+        raise RuntimeError(f"Ollama refused the embedding call to {model}: {http_error.read().decode()}") from http_error
+    return server_answer["embeddings"]
 
 
 # ---------------------------------------------------------------------------

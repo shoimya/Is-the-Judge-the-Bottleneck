@@ -17,7 +17,7 @@ pipeline/
   rewriter.py        Steer signal → next search query
   llm2.py            the one place that talks to the model (Ollama); starts and stops our Ollama server
   llm.py             earlier model code, still used by the roles' older functions
-  scoring.py         exact match against the gold answer
+  scoring.py         answer vs gold answer: exact match, precision, recall, F1, cosine similarity (embedding model)
   settings.py        what differs between the Mac and Kaggle (models folder, port, context window)
   Methods/
     closed_book.py   answer from memory, no search

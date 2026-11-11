@@ -32,6 +32,13 @@ loop:
   rounds: 3         # maximum Rounds per question
   token_budget: null  # T10: max Evidence tokens shown to the Judge and Answerer
 
+# Scoring (pipeline/scoring.py). Exact match, precision, recall and F1 need no model; the cosine similarity
+# compares the meaning of the answer and the gold answer through an embedding model. The embedder sits here, not
+# under `models`, because the Kaggle notebooks test every `models` entry with a chat call, which an embedder can't take.
+scoring:
+  embedder: qwen3-embedding:0.6b   # Ollama embedding model; project_set_up.py downloads it into data/ollama/
+  cosine_threshold: 0.90           # placeholder: cosine >= this counts as "Correct (cosine)"; change it any time
+
 paths:
   data_dir: data
   runs_dir: runs
