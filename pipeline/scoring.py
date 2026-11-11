@@ -81,12 +81,22 @@ def cosine_similarity(first_embedding: list[float], second_embedding: list[float
     return dot_product / (first_length * second_length)
 
 
-def answer_similarity(predicted: str, gold: str) -> float:
-    """How alike the two answers are in meaning: the cosine similarity of their embeddings, as written (not cleaned).
+def trim_ends(text: str) -> str:
+    """The text without spaces or punctuation at its two ends: '"The Yoruba." ' -> 'The Yoruba'.
+    Punctuation inside stays, so "J.R.R. Tolkien" keeps its dots."""
+    return text.strip().strip(string.punctuation).strip()
 
+
+def answer_similarity(predicted: str, gold: str) -> float:
+    """How alike the two answers are in meaning: the cosine similarity of their embeddings.
+
+    Both answers are trimmed first (trim_ends), because the embedding model builds the embedding from the text's last
+    token: a full stop at the end changed "The Yoruba." vs "The Yoruba" from about 1 to 0.849.
     An empty answer gets 0, since there is nothing to compare. Needs this project's Ollama server running.
     """
-    if not predicted.strip() or not gold.strip():
+    predicted = trim_ends(predicted)
+    gold = trim_ends(gold)
+    if not predicted or not gold:
         return 0.0
     embedder = load_config()["scoring"]["embedder"]
     # Here both answers go to the embedding model in one call, and come back in the same order.
