@@ -9,18 +9,18 @@ This is the **only place ticket status is tracked**. The research answers behind
 | # | Ticket | Target week | Status |
 |---|---|---|---|
 | T01 | [Repo and environment](T01-repo-and-environment.md) | Sep 23 – 29 | Done |
-| T02 | [Pilot set and Test set](T02-question-sets.md) | Sep 23 – 29 | Next |
-| T03 | [Wikipedia corpus and BM25 search](T03-corpus-and-bm25.md) | Sep 30 – Oct 6 |  |
-| T04 | [Model backend (plug-and-play roles)](T04-model-backend.md) | Sep 30 – Oct 6 |  |
-| T05 | [Run log](T05-run-log.md) | Oct 7 – 13 |  |
-| T06 | [Role prompts and output parsing](T06-role-prompts.md) | Oct 7 – 13 |  |
-| T07 | [Oracle judge](T07-oracle-judge.md) | Oct 7 – 13 |  |
-| T08 | [The loop and all seven settings](T08-loop-and-conditions.md) | Oct 14 – 20 |  |
-| T09 | [Scoring and per-run summary](T09-evaluation.md) | Oct 14 – 20 |  |
-| T10 | [Pilot and freeze](T10-pilot-and-freeze.md) | Oct 21 – 27 |  |
-| T11 | [Main runs on the Test set](T11-main-runs.md) | Oct 28 – Nov 6 |  |
-| T12 | [Analysis, statistics and figures](T12-analysis-and-statistics.md) | Nov 3 – 10 |  |
-| T13 | [Error analysis of the Judge](T13-error-analysis.md) | Nov 7 – 12 |  |
+| T02 | [Pilot set and Test set](T02-question-sets.md) | Sep 23 – 29 | Done |
+| T03 | [Wikipedia corpus and BM25 search](T03-corpus-and-bm25.md) | Sep 30 – Oct 6 | Done |
+| T04 | [Model backend (plug-and-play roles)](T04-model-backend.md) | Sep 30 – Oct 6 | Done |
+| T05 | [Run log](T05-run-log.md) | Oct 7 – 13 | Done |
+| T06 | [Role prompts and output parsing](T06-role-prompts.md) | Oct 7 – 13 | Done |
+| T07 | [Oracle judge](T07-oracle-judge.md) | Oct 7 – 13 | Done |
+| T08 | [The loop and all seven settings](T08-loop-and-conditions.md) | Oct 14 – 20 | Done |
+| T09 | [Scoring and per-run summary](T09-evaluation.md) | Oct 14 – 20 | Done |
+| T10 | [Pilot and freeze](T10-pilot-and-freeze.md) | Oct 21 – 27 | Done |
+| T11 | [Main runs on the Test set](T11-main-runs.md) | Oct 28 – Nov 6 | Done |
+| T12 | [Analysis, statistics and figures](T12-analysis-and-statistics.md) | Nov 3 – 10 | Done |
+| T13 | [Error analysis of the Judge](T13-error-analysis.md) | Nov 7 – 12 | Done |
 
 **Tier 1 finish line (~Nov 12):** a complete paper's worth of results.
 
