@@ -24,7 +24,7 @@ from pathlib import Path
 from pipeline import REPO_ROOT, answerer, judge, llm2, load_config, rewriter
 from pipeline.dataset import load_questions
 from pipeline.retriever import Retriever
-from pipeline.scoring import exact_match
+from pipeline.scoring import average_score, score_answer
 
 # --- Settings: edit them, then press Run ---
 QUESTION_SET = "pilot"       # "pilot" (100 questions) or "test" (1,000)
@@ -62,6 +62,7 @@ def log_header(log_file: Path, start_time: datetime, question_count: int) -> Non
         f"Prompt versions: judge {judge.PROMPT_VERSION}, rewriter {rewriter.PROMPT_VERSION}, "
         f"answerer {answerer.PROMPT_VERSION}",
         f"Temperature:     {config['llm']['temperature']}   Seed: {config['seeds'][0]}",
+        f"Cosine scoring:  {config['scoring']['embedder']}, threshold {config['scoring']['cosine_threshold']}",
         f"Full prompts:    {'logged' if LOG_FULL_PROMPTS else 'not logged'}",
         "",
     ]))
@@ -117,7 +118,8 @@ def answer_one_question(question: dict, retriever: Retriever) -> dict:
         "all_gold_found": rounds[-1]["oracle_enough"],
         "answer_result": answer_result,
         "answer": answer_result["answer"],
-        "correct": exact_match(answer_result["answer"], question["answer"]),
+        # Here we add every score: correct (exact match), precision, recall, f1, cosine and correct_cosine.
+        **score_answer(answer_result["answer"], question["answer"]),
         "calls": len(calls),
         "attempts": sum(call["attempts"] for call in calls),
         "tokens_read": sum(call["tokens_read"] for call in calls),
@@ -212,6 +214,10 @@ def log_condition_d(log_file: Path, question_number: int, question_count: int, q
         f"Answer:          {result['answer']}",
         f"Gold answer:     {question['answer']}",
         f"Correct:         {'yes' if result['correct'] else 'no'}",
+        f"Precision:       {result['precision']:.2f}",
+        f"Recall:          {result['recall']:.2f}",
+        f"F1:              {result['f1']:.2f}",
+        f"Cosine similarity: {result['cosine']:.3f}",
         f"All Gold found:  {'yes' if result['all_gold_found'] else 'no'}",
         f"Calls: {result['calls']}   Attempts: {result['attempts']}   Tokens read: {result['tokens_read']}, "
         f"written: {result['tokens_written']}, in {result['seconds']} s",
@@ -230,11 +236,16 @@ def log_summary(log_file: Path, results: list[dict], question_count: int, start_
 
     rounds_used = Counter(result["rounds_used"] for result in results)
     rounds_text = "   ".join(f"{rounds} Round(s): {rounds_used[rounds]}" for rounds in sorted(rounds_used))
+    cosine_threshold = load_config()["scoring"]["cosine_threshold"]
     minutes_taken = (datetime.now() - start_time).total_seconds() / 60
     write_to_log(log_file, "\n".join([
         "===== Summary =====",
         f"Answered:       {answered_count} of {question_count}",
         f"Correct:        {share(sum(result['correct'] for result in results))}",
+        f"Correct (cosine ≥ {cosine_threshold}): {share(sum(result['correct_cosine'] for result in results))}",
+        f"Precision:      {average_score(results, 'precision'):.2f} (average)",
+        f"Recall:         {average_score(results, 'recall'):.2f} (average)",
+        f"F1:             {average_score(results, 'f1'):.2f} (average)",
         f"All Gold found: {share(sum(result['all_gold_found'] for result in results))}"
         "   (T08 check: at least Condition A's)",
         f"Rounds used:    {rounds_text or 'none'}",
