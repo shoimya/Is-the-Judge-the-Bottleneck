@@ -62,10 +62,10 @@ Rules:
 Examples:
 Question: Which gaming console was both Yakuza Kiwami and Yakuza 0 released on?
 Evidence: [1] Yakuza Kiwami: "Yakuza Kiwami" was released exclusively on PlayStation 4 in Europe and North America in August 2017. [2] Yakuza 0: It was released in Japan for PlayStation 3 and for PlayStation 4 on March 12, 2015.
-Answer: {"answer": "PlayStation 4"}
+Answer: PlayStation 4
 Question: Which airport is located further north in the United States, San Angelo Regional Airport or Grand Junction Regional Airport?
 Evidence: [1] San Angelo Regional Airport: a public airport serving the city of San Angelo, in Tom Green County, Texas. [2] Grand Junction Regional Airport: a public airport three miles northeast of Grand Junction, in Mesa County, Colorado.
-Answer: {"answer": "Grand Junction Regional Airport"}"""
+Answer: Grand Junction Regional Airport"""
 
 # Here are the two prompts: one for when there is Evidence, one for when there is none (Closed-book).
 PROMPT_WITH_EVIDENCE = "Question: {question}\n\nEvidence:\n\n{evidence}\n\nAnswer the question using the evidence."

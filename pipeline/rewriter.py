@@ -29,11 +29,11 @@ Examples:
 Question: Who wrote the novel that the 2004 film Troy was based on?
 Tried: the question as written; "Troy 2004 film novel"
 Still missing: explicit confirmation that 'The Iliad' is the work the film was based on, and who wrote it
-Reply: { "The Iliad author"}
+Reply: The Iliad author
 Question: What record label is owned by one of the singers on the 1993 album Honky Tonk Angels?
 Tried: the question as written
 Still missing: ownership of a record label by one of Dolly Parton, Loretta Lynn or Tammy Wynette
-Reply: {"Dolly Parton record label"}"""
+Reply: Dolly Parton record label"""
 
 def render_queries(queries) -> str:
     """The past queries as the Rewriter reads them."""
