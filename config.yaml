@@ -26,7 +26,7 @@ llm:
     answerer: 128
 
 retrieval:
-  k: 2              # placeholder so T08 can run; T10: try 2, 5, 10
+  k: 3              # pipeline v1 (owner, Nov 12): 3 new paragraphs per Round, so 3 Rounds give at most 9
 
 loop:
   rounds: 3         # maximum Rounds per question

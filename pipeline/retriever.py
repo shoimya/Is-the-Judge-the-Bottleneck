@@ -306,6 +306,18 @@ class Retriever:
         return drop_titles_already_held(ranked_results, exclude_titles)[:k]
 
 
+def query_for_round(question: str, previous_steer: str | None) -> str:
+    """The search query for one Round: the question in Round 1, and after that the Judge's Steer signal from the
+    Round before, as written. There is no Rewriter: replaying the Kaggle logs on the index, the LLM judge's raw steer
+    found a new Gold paragraph more often than the Rewriter's query (33% vs 28% in the top 3), and the Oracle's bare
+    title did as well as it (47% vs 48%).
+    A steer of "nothing" (or none) searches with the question again; the search skips titles already held, so it
+    still brings new paragraphs."""
+    if previous_steer is None or previous_steer.strip().rstrip(".").casefold() in ("", "nothing"):
+        return question
+    return previous_steer
+
+
 def drop_titles_already_held(ranked_results: list[dict], exclude_titles: Collection[str]) -> list[dict]:
     """Remove results whose title is already in the Evidence, so every search brings something new."""
     return [result for result in ranked_results if result["title"] not in exclude_titles]

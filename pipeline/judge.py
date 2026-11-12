@@ -10,8 +10,8 @@ format (specification 6.3):
     MISSING: <what information is still needed, or "nothing">
 
 ask() fills the prompt, calls llm.generate("judge", prompt), and parses the
-three fields. ENOUGH is the Stop decision; MISSING is the Steer signal (only
-the Rewriter reads it). p_yes is P("yes") / (P("yes") + P("no")) from the
+three fields. ENOUGH is the Stop decision; MISSING is the Steer signal (the
+next Round's search query, as written). p_yes is P("yes") / (P("yes") + P("no")) from the
 token probabilities at the ENOUGH position. Malformed output counts as "no"
 and is flagged parse_error (the run log keeps judge_raw either way).
 """
@@ -112,9 +112,11 @@ def ask(question: str, evidence, *, config: dict | None = None) -> dict:
 #
 # The "perfect judge" the LLM judge is compared against (T07, specification
 # 6.5). Pure Python, no model calls: it looks at the answer key (the Gold
-# titles). For steering it only names WHICH paragraph is missing, never its
-# text, so the Rewriter still has to write a query and BM25 still has to find
-# it — that keeps the steering comparison fair.
+# titles). For steering it only names WHICH paragraph is missing (its title),
+# never its text, so BM25 still has to find it — that keeps the steering
+# comparison fair. Since Nov 12 there is no Rewriter: the steer goes to BM25
+# as written, so the Oracle's steer is the bare title (the old "Missing
+# information about:" prefix only added noise words to the search).
 
 
 def _normalize_title(title: str) -> str:
@@ -129,11 +131,11 @@ def oracle_stop(evidence_titles, gold_titles) -> bool:
 
 
 def oracle_steer(evidence_titles, gold_titles) -> str:
-    """The first missing Gold title, in the dataset's order, or "nothing"."""
+    """The first missing Gold title, in the dataset's order, or "nothing". It is also the next search query."""
     evidence = {_normalize_title(title) for title in evidence_titles}
     for title in gold_titles:
         if _normalize_title(title) not in evidence:
-            return f"Missing information about: {title}"
+            return title
     return "nothing"
 
 # -----
@@ -173,7 +175,7 @@ def judge_evidence(question: str, evidence: list[dict]) -> dict:
     Returns a dictionary with:
         reasoning         the Judge's reasoning
         enough            the Stop decision: "yes" or "no" ("no" if the reply never fitted its JSON shape)
-        missing           the Steer signal: what is still needed (only the Rewriter reads it)
+        missing           the Steer signal: what is still needed (the next Round searches with it as written)
         p_yes             how sure the Judge was that the Evidence is enough (None if the odds weren't there)
         reply             the model's full reply, exactly as it wrote it (the last attempt's)
         prompt            exactly what the Judge read (on a retry, the model also saw a correction note)

@@ -3,16 +3,16 @@
     Set the settings below, then press Run.
 
 Round 1 searches with the question. After each Round's search, the LLM judge reads the question and the Evidence: if it
-says the Evidence is enough, the loop stops; if not, its Steer signal ("missing") goes to the Rewriter, which writes the
-next query. At most config.yaml's loop.rounds Rounds, k new paragraphs per search (retrieval.k). Then the Answerer
-answers once from all the Evidence.
+says the Evidence is enough, the loop stops; if not, its Steer signal ("missing") is the next Round's search query, as
+written (no Rewriter). At most config.yaml's loop.rounds Rounds, k new paragraphs per search (retrieval.k). Then the
+Answerer answers once from all the Evidence.
 
 The Oracle judge (pure Python, it looks at the Gold titles, no model calls) is checked in every Round too. Its verdict
 is logged next to the LLM judge's, so each Stop decision is labelled "right", "early stop" (the LLM said enough with a
 Gold paragraph still missing) or "late stop" (the LLM said not enough with every Gold paragraph already there), but it
 never stops or steers anything here.
 
-Per question: one LLM judge call per Round used, one Rewriter call per Round after the first, one Answerer call.
+Per question: one LLM judge call per Round used, one Answerer call.
 Each run writes runs/condition_a/<date>/<HHMMSS>.txt: a header with the run's settings, one block per question
 (written as soon as it is answered, so a stopped run keeps what it finished), and a summary at the end.
 """
@@ -21,9 +21,9 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
-from pipeline import REPO_ROOT, answerer, judge, llm2, load_config, rewriter
+from pipeline import REPO_ROOT, answerer, judge, llm2, load_config
 from pipeline.dataset import load_questions
-from pipeline.retriever import Retriever
+from pipeline.retriever import Retriever, query_for_round
 from pipeline.scoring import average_score, score_answer
 
 # --- Settings: edit them, then press Run ---
@@ -57,10 +57,9 @@ def log_header(log_file: Path, start_time: datetime, question_count: int) -> Non
         f"Questions:       the first {question_count} of the {QUESTION_SET} set",
         f"Rounds:          at most {config['loop']['rounds']}",
         f"Retriever:       BM25, k = {config['retrieval']['k']} new paragraphs per Round",
-        f"Models:          judge {llm2.model_for_role('judge')}, rewriter {llm2.model_for_role('rewriter')}, "
-        f"answerer {llm2.model_for_role('answerer')}",
-        f"Prompt versions: judge {judge.PROMPT_VERSION}, rewriter {rewriter.PROMPT_VERSION}, "
-        f"answerer {answerer.PROMPT_VERSION}",
+        "Queries:         Round 1 = the question; later Rounds = the LLM judge's steer as written (no Rewriter)",
+        f"Models:          judge {llm2.model_for_role('judge')}, answerer {llm2.model_for_role('answerer')}",
+        f"Prompt versions: judge {judge.PROMPT_VERSION}, answerer {answerer.PROMPT_VERSION}",
         f"Temperature:     {config['llm']['temperature']}   Seed: {config['seeds'][0]}",
         f"Cosine scoring:  {config['scoring']['embedder']}, threshold {config['scoring']['cosine_threshold']}",
         f"Full prompts:    {'logged' if LOG_FULL_PROMPTS else 'not logged'}",
@@ -86,20 +85,12 @@ def answer_one_question(question: dict, retriever: Retriever) -> dict:
     config = load_config()
     gold_titles = question["gold_titles"]
     evidence = []
-    past_queries = []
     rounds = []
     for round_number in range(1, config["loop"]["rounds"] + 1):
-        # Here Round 1 searches with the question; later Rounds search with the Rewriter's query,
-        # built from the LLM judge's steer in the Round before.
-        rewrite_result = None
-        query = question["question"]
-        if round_number > 1:
-            previous_steer = rounds[-1]["judgment"]["missing"]
-            # Here the Rewriter also sees the steers of the earlier Rounds, next to the queries it wrote for them.
-            earlier_steers = [earlier_round["judgment"]["missing"] for earlier_round in rounds[:-1]]
-            rewrite_result = rewriter.rewrite_query(question["question"], past_queries, previous_steer, earlier_steers)
-            query = rewrite_result["query"]
-        past_queries.append(query)
+        # Here Round 1 searches with the question; later Rounds search with the LLM judge's steer from the Round
+        # before, sent to BM25 as written.
+        previous_steer = rounds[-1]["judgment"]["missing"] if rounds else None
+        query = query_for_round(question["question"], previous_steer)
 
         # Here the search skips paragraphs already in the Evidence, so each Round brings new ones.
         titles_held = {paragraph["title"] for paragraph in evidence}
@@ -113,7 +104,7 @@ def answer_one_question(question: dict, retriever: Retriever) -> dict:
         # Here the Oracle judge is only checked, to label the LLM judge's decision; nothing below acts on it.
         evidence_titles = [paragraph["title"] for paragraph in evidence]
         oracle_enough = judge.oracle_stop(evidence_titles, gold_titles)
-        rounds.append({"round_number": round_number, "rewrite": rewrite_result, "query": query, "found": found,
+        rounds.append({"round_number": round_number, "query": query, "found": found,
                        "judgment": judgment, "llm_enough": llm_enough, "oracle_enough": oracle_enough,
                        "oracle_steer": judge.oracle_steer(evidence_titles, gold_titles),
                        "stop_error": stop_error(llm_enough, oracle_enough)})
@@ -123,7 +114,6 @@ def answer_one_question(question: dict, retriever: Retriever) -> dict:
     answer_result = answerer.answer_question(question["question"], evidence)
     # Here we gather every model call this question made, to add up its costs. The Oracle judge makes none.
     calls = [round_record["judgment"] for round_record in rounds]
-    calls += [round_record["rewrite"] for round_record in rounds if round_record["rewrite"]]
     calls.append(answer_result)
     return {
         "rounds": rounds,
@@ -169,7 +159,7 @@ def full_prompt_lines(system_prompt: str, call_result: dict) -> list[str]:
 
 
 def log_condition_a(log_file: Path, question_number: int, question_count: int, question: dict, result: dict) -> None:
-    """Write one question's block, in the order things happened: each Round's rewrite, search, the LLM judge's
+    """Write one question's block, in the order things happened: each Round's search, the LLM judge's
     decision and the Oracle's logged verdict, then the final answer and the totals."""
     lines = [
         f"===== Question {question_number} of {question_count} (id {question['id']}) =====",
@@ -180,16 +170,7 @@ def log_condition_a(log_file: Path, question_number: int, question_count: int, q
     last_round_allowed = load_config()["loop"]["rounds"]
     for round_record in result["rounds"]:
         lines += ["", f"--- Round {round_record['round_number']} ---"]
-
-        # Here a later Round opens with the LLM judge's steer the Rewriter read and the query it wrote from it.
-        rewrite_result = round_record["rewrite"]
-        if rewrite_result:
-            previous_steer = result["rounds"][round_record["round_number"] - 2]["judgment"]["missing"]
-            lines.append(f'Rewriter: "{previous_steer}"  ->  "{rewrite_result["query"]}"')
-            if LOG_FULL_PROMPTS:
-                lines += full_prompt_lines(rewriter.REWRITER_SYSTEM_PROMPT, rewrite_result)
-            lines += call_warnings("Rewriter", rewrite_result)
-
+        # Here the query is the question in Round 1, and the steer from the Round before after that.
         lines.append(f"Retriever query: {round_record['query']}")
         scores_and_titles = [f"[{paragraph['score']:.1f}] {paragraph['title']}" for paragraph in round_record["found"]]
         lines.append(f"Retriever found: {'   '.join(scores_and_titles) if scores_and_titles else 'nothing'}")
