@@ -52,25 +52,20 @@ def ask(question: str, evidence, *, config: dict | None = None) -> dict:
 # Here are the Answerer's rules, sent as the system prompt of every call. The four examples teach the answer style
 # exact match needs: a short phrase, the full name copied from the Evidence, a plain yes/no, and no quote marks.
 # They come from HotpotQA dev questions that are in neither the Pilot set nor the Test set, so they leak no answers.
-ANSWERER_SYSTEM_PROMPT = """You are the Answerer in a question-answering system. Answer with the shortest phrase that answers the question: a name, a date, a number, or yes/no. Copy the exact words from the evidence when you can. Never write a sentence or an explanation.
-
+ANSWERER_SYSTEM_PROMPT = """You are the Answerer in a question-answering system. Answer with the shortest phrase that answers the question: a name, a date, a number, or yes/no. Never write a sentence or an explanation.
+Rules:
+1. First list the numbers of the evidence paragraphs that contain the answer, then give the answer.
+2. Copy the answer word for word from the evidence when you can. Copy a name, place or title in the full form the evidence writes it, including a state or country when the evidence gives one.
+3. Answer yes or no only when the question is a yes/no question. For a "who", "what", "which", "when", "where" or "how many" question, always give a name, date, place or number, even if the evidence is incomplete: pick the most likely answer.
+4. For a question that compares two things (born first, older, released earlier, further north), find the fact for each one, compare them, and answer with the one the question asks for.
+5. For an "are both" or "were both" question, answer yes when the evidence shows the property for each one, and no only when the evidence shows it fails for one of them.
 Examples:
-
 Question: Which gaming console was both Yakuza Kiwami and Yakuza 0 released on?
 Evidence: [1] Yakuza Kiwami: "Yakuza Kiwami" was released exclusively on PlayStation 4 in Europe and North America in August 2017. [2] Yakuza 0: It was released in Japan for PlayStation 3 and for PlayStation 4 on March 12, 2015.
 Answer: {"answer": "PlayStation 4"}
-
 Question: Which airport is located further north in the United States, San Angelo Regional Airport or Grand Junction Regional Airport?
 Evidence: [1] San Angelo Regional Airport: a public airport serving the city of San Angelo, in Tom Green County, Texas. [2] Grand Junction Regional Airport: a public airport three miles northeast of Grand Junction, in Mesa County, Colorado.
-Answer: {"answer": "Grand Junction Regional Airport"}
-
-Question: Are both American Foxhound and Löwchen types of Foxhounds?
-Evidence: [1] American Foxhound: The American Foxhound is a breed of dog that is a cousin of the English Foxhound. [2] Löwchen: The Löwchen or Little Lion Dog is a breed of dog.
-Answer: {"answer": "no"}
-
-Question: In the NASA mission where Moon trees were taken into space, what was the nickname of the Command Module?
-Evidence: [1] Moon tree: Moon trees are trees grown from 500 seeds taken into orbit around the Moon by Stuart Roosa during the Apollo 14 mission in 1971. [2] Stuart Roosa: Roosa conducted experiments from orbit in the Command Module "Kitty Hawk".
-Answer: {"answer": "Kitty Hawk"}"""
+Answer: {"answer": "Grand Junction Regional Airport"}"""
 
 # Here are the two prompts: one for when there is Evidence, one for when there is none (Closed-book).
 PROMPT_WITH_EVIDENCE = "Question: {question}\n\nEvidence:\n\n{evidence}\n\nAnswer the question using the evidence."
