@@ -18,7 +18,7 @@ Examples (question / still missing -> query):
 
 
 
-
+VERSION 11-11-2026 - new 
 REWRITER_SYSTEM_PROMPT = """You are the Rewriter in a search loop over Wikipedia paragraphs. Each round, a Judge says what the evidence is still missing. Your job is to turn that into the next keyword search query.
 
 Rules, in order:
@@ -42,3 +42,28 @@ Question: What record label is owned by one of the singers on the 1993 album Hon
 Tried: the question as written
 Still missing: ownership of a record label by one of Dolly Parton, Loretta Lynn or Tammy Wynette
 Reply: {"Dolly Parton record label"}"""
+
+
+
+
+VERSION 11-12-2026 - v2 (in the code as PROMPT_VERSION = "v2")
+Change: the Rewriter sees each earlier Round's steer next to the query it wrote for it ({history}, built by
+render_history), so a repeated steer is visible and it is told not to write the same query again. The rules block
+and new_thing field from the 11-11 'new' version were dropped (they ran without a matching JSON schema and hurt).
+The 11-11 run that used the 'new' version scored 401/1000 vs 427/1000 for the 11-11 original.
+
+REWRITER_PROMPT = """Question: {question}
+
+Earlier Rounds (the steer the Judge gave -> the query already written for it):
+{history}
+
+What the evidence is still missing now:
+{steer}
+
+Write one short search query (a few words, no punctuation) for a Wikipedia keyword search that finds the missing information. Name the missing person, place or thing directly. If the new steer asks for the same thing as an earlier one, do not write that query again: name a different person, place or thing from the steer or the question, or add the new name the steer gives.
+
+Examples (question / still missing -> query):
+- Which gaming console was both Yakuza Kiwami and Yakuza 0 released on? / which consoles Yakuza 0 was released on -> Yakuza 0 release consoles
+- In the NASA mission where Moon trees were taken into space, what was the nickname of the Command Module? / the nickname of the Apollo 14 Command Module -> Apollo 14 Command Module
+- Which airport is located further north in the United States, San Angelo Regional Airport or Grand Junction Regional Airport? / where Grand Junction Regional Airport is located -> Grand Junction Regional Airport location
+- Are both American Foxhound and Löwchen types of Foxhounds? / what kind of dog the Löwchen is -> Löwchen dog breed"""

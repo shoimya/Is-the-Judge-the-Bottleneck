@@ -83,7 +83,9 @@ def answer_one_question(question: dict, retriever: Retriever) -> dict:
         query = question["question"]
         if round_number > 1:
             previous_steer = rounds[-1]["oracle_steer"]
-            rewrite_result = rewriter.rewrite_query(question["question"], past_queries, previous_steer)
+            # Here the Rewriter also sees the steers of the earlier Rounds, next to the queries it wrote for them.
+            earlier_steers = [earlier_round["oracle_steer"] for earlier_round in rounds[:-1]]
+            rewrite_result = rewriter.rewrite_query(question["question"], past_queries, previous_steer, earlier_steers)
             query = rewrite_result["query"]
         past_queries.append(query)
 

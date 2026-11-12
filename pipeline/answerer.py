@@ -11,8 +11,10 @@ from pipeline import llm, llm2, load_config
 from pipeline.dataset import load_questions
 from pipeline.judge import render_evidence
 
-# Here v1 = the few-shot Answerer prompt (Nov 10); v0 = the earlier prompt without examples.
-PROMPT_VERSION = "v1"
+# Here v3 = v2 without the "copy the full form from the evidence" rule, which made answers longer than the gold
+# answer (Nov 12). v2 = rules + two examples (Nov 11, scored 401/1000 in Condition A). v1 = the few-shot prompt
+# (Nov 10, scored 427/1000). v0 = the earlier prompt without examples.
+PROMPT_VERSION = "v3"
 
 ANSWERER_PROMPT = """Question: {question}
 
@@ -49,16 +51,15 @@ def ask(question: str, evidence, *, config: dict | None = None) -> dict:
 # The Answerer on llm2: press Run to answer Pilot question 1 with no Evidence (as Closed-book does)
 # ---------------------------------------------------------------------------
 
-# Here are the Answerer's rules, sent as the system prompt of every call. The four examples teach the answer style
-# exact match needs: a short phrase, the full name copied from the Evidence, a plain yes/no, and no quote marks.
+# Here are the Answerer's rules, sent as the system prompt of every call. The two examples teach the answer style
+# exact match needs: a short phrase with no sentence around it.
 # They come from HotpotQA dev questions that are in neither the Pilot set nor the Test set, so they leak no answers.
 ANSWERER_SYSTEM_PROMPT = """You are the Answerer in a question-answering system. Answer with the shortest phrase that answers the question: a name, a date, a number, or yes/no. Never write a sentence or an explanation.
 Rules:
 1. First list the numbers of the evidence paragraphs that contain the answer, then give the answer.
-2. Copy the answer word for word from the evidence when you can. Copy a name, place or title in the full form the evidence writes it, including a state or country when the evidence gives one.
-3. Answer yes or no only when the question is a yes/no question. For a "who", "what", "which", "when", "where" or "how many" question, always give a name, date, place or number, even if the evidence is incomplete: pick the most likely answer.
-4. For a question that compares two things (born first, older, released earlier, further north), find the fact for each one, compare them, and answer with the one the question asks for.
-5. For an "are both" or "were both" question, answer yes when the evidence shows the property for each one, and no only when the evidence shows it fails for one of them.
+2. Answer yes or no only when the question is a yes/no question. For a "who", "what", "which", "when", "where" or "how many" question, always give a name, date, place or number, even if the evidence is incomplete: pick the most likely answer.
+3. For a question that compares two things (born first, older, released earlier, further north), find the fact for each one, compare them, and answer with the one the question asks for.
+4. For an "are both" or "were both" question, answer yes when the evidence shows the property for each one, and no only when the evidence shows it fails for one of them.
 Examples:
 Question: Which gaming console was both Yakuza Kiwami and Yakuza 0 released on?
 Evidence: [1] Yakuza Kiwami: "Yakuza Kiwami" was released exclusively on PlayStation 4 in Europe and North America in August 2017. [2] Yakuza 0: It was released in Japan for PlayStation 3 and for PlayStation 4 on March 12, 2015.
