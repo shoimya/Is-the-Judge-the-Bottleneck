@@ -1,5 +1,7 @@
 # Is the Judge the Bottleneck?
 
+<img width="2172" height="724" alt="Is the Judge the Bottleneck_" src="https://github.com/user-attachments/assets/267d62a4-8245-43c0-914e-256d361445ad" />
+
 In a self-correcting retrieval loop for multi-hop QA, how much does an LLM sufficiency judge lose compared with an oracle judge, and is the loss from **stopping** ("enough, answer now") or **steering** ("here's what's missing")?
 
 Terms (Round, Evidence, Stop decision, Steer signal, …) are defined in [CONTEXT.md](CONTEXT.md). Every decision is in [specification.md](specification.md); tickets and their status are in [backlog/](backlog/README.md).
