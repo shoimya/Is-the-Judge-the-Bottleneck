@@ -1,0 +1,197 @@
+Method:          Always-loop (every Round runs; the Judge steers each new search, but never stops the loop)
+Started:         2026-11-12 14:42:20
+Questions:       the first 5 of the pilot set
+Rounds:          3
+Retriever:       BM25, k = 3 new paragraphs per Round
+Queries:         Round 1 = the question; later Rounds = the Judge's steer as written (no Rewriter)
+Models:          judge qwen3:8b, answerer qwen3:8b
+Prompt versions: judge v0, answerer v3
+Temperature:     0   Seed: 0
+Cosine scoring:  qwen3-embedding:0.6b, threshold 0.9
+Full prompts:    not logged
+
+===== Question 1 of 5 (id 5a70eee85542994082a3e3f0) =====
+Question:    Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+Gold answer: The Yoruba
+
+--- Round 1 ---
+Retriever query: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+Retriever found: [21.4] Geography of Guinea   [21.1] Liptena bia   [20.6] Euriphene leonis
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence provided discusses geographical locations and butterfly species found in parts of West Africa, including Ghana, Ivory Coast, Liberia, and Sierra Leone. However, it does not mention any group of people or the use of the Ida. The Ida is not referenced in any of the provided evidence.
+           steer: the identity of the group of people and the context of their use of the Ida
+
+--- Round 2 ---
+Retriever query: the identity of the group of people and the context of their use of the Ida
+Retriever found: [8.5] Identity driven networking   [8.5] The Context Group   [8.4] Partitive case
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence does not mention any group of people in West Africa who use the Ida. The evidence includes geographical information, butterfly species, networking concepts, and linguistic terms, but none relate to a group of people using the Ida. The question is about a specific cultural or linguistic group, which is not addressed in the provided evidence.
+           steer: a group of people in West Africa who use the Ida
+
+--- Round 3 ---
+Retriever query: a group of people in West Africa who use the Ida
+Retriever found: [10.2] Ida (sword)   [8.5] Fulse people   [8.3] Kuteb people
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence mentions that the Ida is a sword used by the Yoruba people of West Africa. However, the question asks about a group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia, and Sierra Leone who use the Ida. The Yoruba people are primarily located in Nigeria, not in the countries mentioned in the question. Therefore, the evidence does not directly answer the question about which group in the specified countries use the Ida.
+           steer: the specific group of people in Ghana, Ivory Coast, Liberia, and Sierra Leone who use the Ida   (last Round: steer not used)
+
+--- Answer (from all 9 paragraphs) ---
+Answer:      Yoruba people
+Gold answer: The Yoruba
+Correct:     no
+Precision:   0.50
+Recall:      1.00
+F1:          0.67
+Cosine similarity: 0.926
+Calls: 4   Attempts: 4   Tokens read: 2319, written: 353, in 37.5 s
+
+===== Question 2 of 5 (id 5a70f0a75542994082a3e403) =====
+Question:    Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+Gold answer: Scanian dialects
+
+--- Round 1 ---
+Retriever query: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+Retriever found: [19.6] Spettekaka   [12.1] Wood Frisian   [11.8] Haikou dialect
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence supports that Spettekaka is a dessert from Scania (Skåne) and that its Scanian name is 'spiddekaga'. However, it does not provide any direct information about the dialect within Scania that specifically calls it 'spiddekaga'. The other entries discuss unrelated dialects.
+           steer: the specific dialect within Scania that calls Spettekaka 'spiddekaga'
+
+--- Round 2 ---
+Retriever query: the specific dialect within Scania that calls Spettekaka 'spiddekaga'
+Retriever found: [9.1] Savonian dialects   [8.6] Scania AB   [8.1] Kansai dialect
+Judge:     enough = yes (p_yes 1.00)
+           reasoning: The evidence supports that Spettekaka is a dessert from Scania (Skåne) and that its name in native Scanian is 'spiddekaga'. The other entries discuss unrelated dialects and do not provide additional information about the Scanian dialect or the term 'spiddekaga'.
+           steer: nothing
+
+--- Round 3 ---
+Retriever query: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+Retriever found: [11.8] Nagoya dialect   [11.1] Zaans   [11.1] Fu'an dialect
+Judge:     enough = yes (p_yes 1.00)
+           reasoning: The evidence supports that Spettekaka is a dessert from Scania (Skåne) and that its name in native Scanian is 'spiddekaga'. The other entries discuss different dialects and are not relevant to the question. The evidence directly answers the question by providing the Scanian name for Spettekaka.
+           steer: nothing   (last Round: steer not used)
+
+--- Answer (from all 9 paragraphs) ---
+Answer:      Scanian
+Gold answer: Scanian dialects
+Correct:     no
+Precision:   1.00
+Recall:      0.50
+F1:          0.67
+Cosine similarity: 0.859
+Calls: 4   Attempts: 4   Tokens read: 3015, written: 292, in 24.9 s
+
+===== Question 3 of 5 (id 5a70f0e75542994082a3e408) =====
+Question:    Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+
+--- Round 1 ---
+Retriever query: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+Retriever found: [17.6] Whiting School of Engineering   [16.9] Johns Hopkins University   [16.6] Northwestern Oklahoma State University
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence provides information about the locations of Johns Hopkins University and Northwestern Oklahoma State University. However, it does not mention any campuses of Northwestern University outside of the United States territories. The evidence only states that Johns Hopkins University is located in Baltimore, Maryland, and that Northwestern Oklahoma State University has satellite campuses within the United States.
+           steer: information about Northwestern University's campuses outside of the United States territories
+
+--- Round 2 ---
+Retriever query: information about Northwestern University's campuses outside of the United States territories
+Retriever found: [12.4] Northwestern University School of Communication   [11.6] Northwestern State University   [10.8] The Rock (Northwestern University)
+Judge:     enough = yes (p_yes 1.00)
+           reasoning: The evidence shows that Johns Hopkins University is located in the United States and does not have a campus outside of U.S. territories. Northwestern University has a campus in Doha, Qatar, which is not part of the United States. Therefore, the evidence supports that Northwestern University has a campus outside of the United States territories.
+           steer: nothing
+
+--- Round 3 ---
+Retriever query: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+Retriever found: [15.7] Johns Hopkins Club   [15.6] Evergreen Museum &amp; Library   [15.5] Johns Hopkins University Press
+Judge:     enough = yes (p_yes 1.00)
+           reasoning: The evidence shows that Johns Hopkins University is located in the United States and does not have a campus outside of U.S. territories. Northwestern University has a campus in Doha, Qatar, which is part of the State of Qatar, not a U.S. territory. Therefore, the evidence supports that Northwestern University has a campus outside of the United States territories.
+           steer: nothing   (last Round: steer not used)
+
+--- Answer (from all 9 paragraphs) ---
+Answer:      Northwestern University
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+Correct:     no
+Precision:   0.00
+Recall:      0.00
+F1:          0.00
+Cosine similarity: 0.587
+Calls: 4   Attempts: 4   Tokens read: 3032, written: 294, in 24.7 s
+
+===== Question 4 of 5 (id 5a70f9335542994082a3e46a) =====
+Question:    Which magazine is published more in a year, Essence or Alt for Damerne?
+Gold answer: ALT for Damerne
+
+--- Round 1 ---
+Retriever query: Which magazine is published more in a year, Essence or Alt for Damerne?
+Retriever found: [19.5] Alt for Damerne   [13.4] Lene Thiesen   [9.0] More (magazine)
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence confirms that 'Alt for Damerne' is a weekly Danish women's magazine, implying it is published 52 times a year. However, there is no information provided about the publication frequency of 'Essence'. The evidence also mentions 'More' as a magazine with a 10-times-a-year schedule, but this is unrelated to the question. Therefore, the evidence supports the frequency of 'Alt for Damerne' but not that of 'Essence'.
+           steer: publication frequency of Essence
+
+--- Round 2 ---
+Retriever query: publication frequency of Essence
+Retriever found: [6.8] The Frequency E.P.   [6.5] Essence to Essence   [6.3] Philosophical Inquiries into the Essence of Human Freedom
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence confirms that 'Alt for Damerne' is a Danish weekly magazine, implying it is published approximately 52 times a year. The evidence does not provide any information about the publication frequency of 'Essence'.
+           steer: publication frequency of Essence
+
+--- Round 3 ---
+Retriever query: publication frequency of Essence
+Retriever found: [6.2] Essence (disambiguation)   [6.2] Essence–energies distinction (Eastern Orthodox theology)   [6.1] Herbal Essences
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence confirms that 'Alt for Damerne' is a Danish weekly magazine, implying it is published 52 times a year. The evidence mentions 'Essence' in various contexts, but none of these references indicate how often the magazine 'Essence' is published. The evidence does not provide any information about the publication frequency of 'Essence'.
+           steer: publication frequency of Essence   (last Round: steer not used)
+
+--- Answer (from all 9 paragraphs) ---
+Answer:      Alt for Damerne
+Gold answer: ALT for Damerne
+Correct:     yes
+Precision:   1.00
+Recall:      1.00
+F1:          1.00
+Cosine similarity: 0.974
+Calls: 4   Attempts: 4   Tokens read: 2289, written: 309, in 23.3 s
+
+===== Question 5 of 5 (id 5a7103b35542994082a3e4c0) =====
+Question:    Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+Gold answer: Khunyang Chhish
+
+--- Round 1 ---
+Retriever query: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+Retriever found: [21.2] Khunyang Chhish   [19.6] Kunyang Chhish East   [15.8] Pumari Chhish
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence provides the height of Khunyang Chhish as 7823 m and ranks it 21st in the world. It also mentions Pumari Chhish as a high peak near Khunyang Chhish but does not provide its exact height. There is no direct information about the height of Masherbrum. Therefore, the evidence supports that Khunyang Chhish is taller than Pumari Chhish but does not provide a direct comparison with Masherbrum.
+           steer: height of Masherbrum
+
+--- Round 2 ---
+Retriever query: height of Masherbrum
+Retriever found: [9.1] Masherbrum Mountains   [8.0] Masherbrum   [6.8] Shingu Charpa
+Judge:     enough = yes (p_yes 1.00)
+           reasoning: The evidence provides the heights of both Khunyang Chhish (7823 m) and Masherbrum (7821 m). It clearly states that Khunyang Chhish is 7823 m tall and Masherbrum is 7821 m tall. This allows for a direct comparison of their heights.
+           steer: nothing
+
+--- Round 3 ---
+Retriever query: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+Retriever found: [12.7] K6 (mountain)   [11.3] List of mountain ranges of Pakistan   [10.5] Goldfield Mountains
+Judge:     enough = yes (p_yes 1.00)
+           reasoning: The evidence provides the heights of both Masherbrum (7821 m) and Khunyang Chhish (7823 m). It clearly states that Khunyang Chhish is 7823 m tall and is ranked 21st in the world, while Masherbrum is 7821 m tall and is ranked 22nd in the world. This directly answers the question of which mountain is taller.
+           steer: nothing   (last Round: steer not used)
+
+--- Answer (from all 9 paragraphs) ---
+Answer:      Khunyang Chhish
+Gold answer: Khunyang Chhish
+Correct:     yes
+Precision:   1.00
+Recall:      1.00
+F1:          1.00
+Cosine similarity: 1.000
+Calls: 4   Attempts: 4   Tokens read: 3265, written: 368, in 30.1 s
+
+===== Summary =====
+Answered: 5 of 5
+Correct:  2 of 5 (40%)
+Correct (cosine ≥ 0.9): 3 of 5 (60%)
+Precision: 0.70 (average)
+Recall:    0.70 (average)
+F1:        0.67 (average)
+Model calls: 20
+Tokens read: 13920, written: 1616
+Time: 2.5 minutes

@@ -1,0 +1,252 @@
+Method:          Condition A (the LLM judge stops and steers; the Oracle is logged, not used)
+Started:         2026-11-11 20:49:27
+Questions:       the first 10 of the pilot set
+Rounds:          at most 3
+Retriever:       BM25, k = 2 new paragraphs per Round
+Models:          judge qwen3:8b, rewriter qwen3:8b, answerer qwen3:8b
+Prompt versions: judge v0, rewriter v1, answerer v1
+Temperature:     0   Seed: 0
+Cosine scoring:  qwen3-embedding:0.6b, threshold 0.9
+Full prompts:    not logged
+
+===== Question 1 of 10 (id 5a70eee85542994082a3e3f0) =====
+Question:    Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+Gold answer: The Yoruba
+Gold titles: Ida (sword)   Yoruba people
+
+--- Round 1 ---
+Retriever query: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+Retriever found: [21.4] Geography of Guinea   [21.1] Liptena bia
+LLM judge: enough = no (p_yes 0.00)   go on; steer: information about the group of people who use the Ida
+           reasoning: The evidence mentions the geographical locations of Guinea and the distribution of the butterfly Liptena bia in several West African countries. However, it does not identify which specific group of people in these countries uses the Ida. The Ida is not mentioned in the provided evidence, and there is no information about any cultural, linguistic, or ethnic group associated with its use.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Ida (sword); logged only, not used)
+
+--- Round 2 ---
+Rewriter: "information about the group of people who use the Ida"  ->  "Ida language group"
+Retriever query: Ida language group
+Retriever found: [8.5] Ida'an language   [8.3] Ida Maze
+LLM judge: enough = no (p_yes 0.00)   go on; steer: a group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone who use the Ida
+           reasoning: The evidence does not mention any group of people in West Africa who use the Ida. The Ida is not clearly defined in the provided evidence, and none of the entries refer to a language, people, or cultural group in the specified West African countries. The evidence includes information about geography, a butterfly, a language in Malaysia, and a Canadian poet, none of which are relevant to the question.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Ida (sword); logged only, not used)
+
+--- Round 3 ---
+Rewriter: "a group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone who use the Ida"  ->  "Mano River Union"
+Retriever query: Mano River Union
+Retriever found: [12.0] Mano River Union   [9.5] International Contact Group on the Mano River Basin
+LLM judge: enough = no (p_yes 0.00)   no Rounds left
+           reasoning: The evidence does not directly identify a group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia, and Sierra Leone who use the Ida. The term 'Ida' is not clearly defined in the provided evidence. While there is mention of the Ida'an language and Ida Maze, these are not related to the regions in question. The Mano River Union and geography of Guinea are relevant to the region but do not connect to the use of 'Ida'.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Ida (sword); logged only, not used)
+
+--- Answer (from all 6 paragraphs, after 3 Round(s)) ---
+Answer:          Ida'an people
+Gold answer:     The Yoruba
+Correct:         no
+Precision:       0.00
+Recall:          0.00
+F1:              0.00
+Cosine similarity: 0.538
+All Gold found:  no
+Calls: 6   Attempts: 6   Tokens read: 3083, written: 414, in 50.8 s
+
+===== Question 2 of 10 (id 5a70f0a75542994082a3e403) =====
+Question:    Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+Gold answer: Scanian dialects
+Gold titles: Spettekaka   Scanian dialect
+
+--- Round 1 ---
+Retriever query: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+Retriever found: [19.6] Spettekaka   [12.1] Wood Frisian
+LLM judge: enough = yes (p_yes 1.00)   stop
+           reasoning: The evidence supports that Spettekaka is a dessert from Scania (Skåne) and that its Scanian name is 'spiddekaga'. It also provides information about Wood Frisian, which is unrelated to the question. The evidence directly answers the question by confirming that the Scanian dialect name for Spettekaka is 'spiddekaga'.
+Oracle:    enough = no   Stop decision: early stop   (would steer: Missing information about: Scanian dialect; logged only, not used)
+
+--- Answer (from all 2 paragraphs, after 1 Round(s)) ---
+Answer:          Scanian
+Gold answer:     Scanian dialects
+Correct:         no
+Precision:       1.00
+Recall:          0.50
+F1:              0.67
+Cosine similarity: 0.859
+All Gold found:  no
+Calls: 2   Attempts: 2   Tokens read: 984, written: 110, in 11.3 s
+
+===== Question 3 of 10 (id 5a70f0e75542994082a3e408) =====
+Question:    Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+Gold titles: Johns Hopkins University   Northwestern University
+
+--- Round 1 ---
+Retriever query: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+Retriever found: [17.6] Whiting School of Engineering   [16.9] Johns Hopkins University
+LLM judge: enough = no (p_yes 0.00)   go on; steer: information about Northwestern University's campuses
+           reasoning: The evidence confirms that Johns Hopkins University is located in Baltimore, Maryland, United States. There is no mention of any campus outside of the United States territories for either university. However, the evidence does not explicitly state whether Northwestern University has a campus outside of the United States territories.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Northwestern University; logged only, not used)
+
+--- Round 2 ---
+Rewriter: "information about Northwestern University's campuses"  ->  "Northwestern University campuses"
+Retriever query: Northwestern University campuses
+Retriever found: [9.9] List of Northwestern University buildings   [9.6] Northwestern University in Qatar
+LLM judge: enough = yes (p_yes 1.00)   stop
+           reasoning: The evidence shows that Johns Hopkins University is located in the United States and has no campus outside of U.S. territories. Northwestern University has a campus in Qatar, which is not a U.S. territory. Therefore, the evidence supports that Northwestern University has a campus outside of the United States territories.
+Oracle:    enough = no   Stop decision: early stop   (would steer: Missing information about: Northwestern University; logged only, not used)
+
+--- Answer (from all 4 paragraphs, after 2 Round(s)) ---
+Answer:          Northwestern University
+Gold answer:     with other campuses located in Chicago and Doha, Qatar
+Correct:         no
+Precision:       0.00
+Recall:          0.00
+F1:              0.00
+Cosine similarity: 0.587
+All Gold found:  no
+Calls: 4   Attempts: 4   Tokens read: 2286, written: 189, in 20.3 s
+
+===== Question 4 of 10 (id 5a70f9335542994082a3e46a) =====
+Question:    Which magazine is published more in a year, Essence or Alt for Damerne?
+Gold answer: ALT for Damerne
+Gold titles: Essence (magazine)   Alt for Damerne
+
+--- Round 1 ---
+Retriever query: Which magazine is published more in a year, Essence or Alt for Damerne?
+Retriever found: [19.5] Alt for Damerne   [13.4] Lene Thiesen
+LLM judge: enough = no (p_yes 0.00)   go on; steer: publication frequency of Essence
+           reasoning: The evidence confirms that 'Alt for Damerne' is a Danish weekly women's magazine, implying it is published weekly. However, there is no information about how often 'Essence' is published. The evidence does not provide the frequency of publication for either magazine, so a direct comparison cannot be made.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Essence (magazine); logged only, not used)
+
+--- Round 2 ---
+Rewriter: "publication frequency of Essence"  ->  "Essence publication frequency"
+Retriever query: Essence publication frequency
+Retriever found: [6.8] The Frequency E.P.   [6.5] Essence to Essence
+LLM judge: enough = no (p_yes 0.00)   go on; steer: publication frequency of Essence
+           reasoning: The evidence confirms that 'Alt for Damerne' is a weekly Danish women's magazine, implying it is published multiple times per year. However, there is no information about how frequently 'Essence' is published. The evidence mentions 'Essence to Essence' as an album by Donovan, which is unrelated to a magazine. Therefore, the evidence does not provide enough information to determine which magazine is published more in a year.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Essence (magazine); logged only, not used)
+
+--- Round 3 ---
+Rewriter: "publication frequency of Essence"  ->  "Essence publication frequency"
+Retriever query: Essence publication frequency
+Retriever found: [6.3] Philosophical Inquiries into the Essence of Human Freedom   [6.2] Essence (disambiguation)
+LLM judge: enough = no (p_yes 0.00)   no Rounds left
+           reasoning: The evidence confirms that 'Alt for Damerne' is a weekly Danish women's magazine, implying it is published multiple times per year. 'Essence' is mentioned in various contexts, including a book title, a philosophical concept, and an album, but there is no direct evidence that 'Essence' is a magazine or how frequently it is published. The evidence does not provide the publication frequency of 'Essence' as a magazine.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Essence (magazine); logged only, not used)
+
+--- Answer (from all 6 paragraphs, after 3 Round(s)) ---
+Answer:          Alt for Damerne
+Gold answer:     ALT for Damerne
+Correct:         yes
+Precision:       1.00
+Recall:          1.00
+F1:              1.00
+Cosine similarity: 0.974
+All Gold found:  no
+Calls: 6   Attempts: 6   Tokens read: 2862, written: 358, in 32.9 s
+
+===== Question 5 of 10 (id 5a7103b35542994082a3e4c0) =====
+Question:    Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+Gold answer: Khunyang Chhish
+Gold titles: Masherbrum   Khunyang Chhish
+
+--- Round 1 ---
+Retriever query: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+Retriever found: [21.2] Khunyang Chhish   [19.6] Kunyang Chhish East
+LLM judge: enough = no (p_yes 0.00)   go on; steer: height of Masherbrum
+           reasoning: The evidence states that Khunyang Chhish is the second-highest mountain in the Hispar Muztagh and is ranked 21st in the world at 7823 m. Masherbrum is not mentioned in the provided evidence. Therefore, the evidence supports that Khunyang Chhish is taller than Masherbrum if Masherbrum is shorter than 7823 m, but the exact height of Masherbrum is not provided.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Masherbrum; logged only, not used)
+
+--- Round 2 ---
+Rewriter: "height of Masherbrum"  ->  "height of Masherbrum"
+Retriever query: height of Masherbrum
+Retriever found: [9.1] Masherbrum Mountains   [8.0] Masherbrum
+LLM judge: enough = yes (p_yes 1.00)   stop
+           reasoning: The evidence states that Khunyang Chhish is 7823 m and ranked 21st in the world, while Masherbrum is 7821 m and ranked 22nd in the world. This directly compares their heights and allows a determination of which is taller.
+Oracle:    enough = yes   Stop decision: right   (would steer: nothing; logged only, not used)
+
+--- Answer (from all 4 paragraphs, after 2 Round(s)) ---
+Answer:          Khunyang Chhish
+Gold answer:     Khunyang Chhish
+Correct:         yes
+Precision:       1.00
+Recall:          1.00
+F1:              1.00
+Cosine similarity: 1.000
+All Gold found:  yes
+Calls: 4   Attempts: 4   Tokens read: 2273, written: 244, in 24.8 s
+
+===== Question 6 of 10 (id 5a7109e95542994082a3e4fa) =====
+Question:    What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+Gold answer: Tallaght, South Dublin
+Gold titles: Sean Francis (footballer)   Shamrock Rovers F.C.
+
+--- Round 1 ---
+Retriever query: What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+Retriever found: [15.0] Sean Francis (footballer)   [11.8] Alan McLoughlin
+LLM judge: enough = no (p_yes 0.00)   go on; steer: confirmation that Shamrock Rovers was the most successful club in the Republic of Ireland during the time Sean Robert Francis played for them
+           reasoning: The evidence mentions Sean Robert Francis played for Cobh Ramblers, Shamrock Rovers, and Longford Town in the League of Ireland. Shamrock Rovers is widely regarded as one of the most successful clubs in the Republic of Ireland. However, the evidence does not explicitly state that Shamrock Rovers was the most successful club at the time or confirm that Sean Robert Francis played for them as part of that most successful club.
+Oracle:    enough = no   Stop decision: right   (would steer: Missing information about: Shamrock Rovers F.C.; logged only, not used)
+
+--- Round 2 ---
+Rewriter: "confirmation that Shamrock Rovers was the most successful club in the Republic of Ireland during the time Sean Robert Francis played for them"  ->  "Shamrock Rovers most successful club Republic of Ireland"
+Retriever query: Shamrock Rovers most successful club Republic of Ireland
+Retriever found: [17.8] Shamrock Rovers Ladies F.C.   [17.7] Shamrock Rovers F.C.
+LLM judge: enough = no (p_yes 0.00)   go on; steer: the specific town associated with Sean Robert Francis's time at Shamrock Rovers
+           reasoning: The evidence indicates that Sean Robert Francis played for Shamrock Rovers in the League of Ireland. It also states that Shamrock Rovers F.C. is the most successful club in the Republic of Ireland. However, the evidence does not explicitly state which town Sean Robert Francis played in as part of the most successful club. The town associated with Shamrock Rovers is Tallaght, South Dublin, but this connection to Sean Robert Francis is not directly stated.
+Oracle:    enough = yes   Stop decision: late stop   (would steer: nothing; logged only, not used)
+
+--- Round 3 ---
+Rewriter: "the specific town associated with Sean Robert Francis's time at Shamrock Rovers"  ->  "Sean Robert Francis town"
+Retriever query: Sean Robert Francis town
+Retriever found: [9.3] Sean Roberts (footballer)   [8.2] Sean Bobbitt
+LLM judge: enough = no (p_yes 0.00)   no Rounds left
+           reasoning: The evidence indicates that Sean Robert Francis played for Shamrock Rovers, which is stated to be the most successful club in the Republic of Ireland. However, the evidence does not explicitly state which town Sean Robert Francis played in while at Shamrock Rovers. The town associated with Shamrock Rovers is Tallaght, South Dublin, but the evidence does not directly link Sean Robert Francis to playing in that town.
+Oracle:    enough = yes   Stop decision: late stop   (would steer: nothing; logged only, not used)
+
+--- Answer (from all 6 paragraphs, after 3 Round(s)) ---
+Answer:          Dublin
+Gold answer:     Tallaght, South Dublin
+Correct:         no
+Precision:       1.00
+Recall:          0.33
+F1:              0.50
+Cosine similarity: 0.846
+All Gold found:  yes
+Calls: 6   Attempts: 6   Tokens read: 3593, written: 422, in 41.8 s
+
+===== Question 7 of 10 (id 5a710d155542994082a3e520) =====
+Question:    Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+Gold answer: Erich Schmidt-Leichner
+Gold titles: Erich Schmidt-Leichner   Anneliese Michel
+
+--- Round 1 ---
+Retriever query: Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+Retriever found: [18.2] Anneliese Michel   [14.0] Erich Schmidt-Leichner
+LLM judge: enough = no (p_yes 0.00)   go on; steer: whether Erich Schmidt-Leichner was the defense counsel for Anneliese Michel, not her parents
+           reasoning: The evidence identifies Anneliese Michel as the German woman who underwent Catholic exorcism rites during the year before her death. It also mentions Erich Schmidt-Leichner as the defense counsel in the 'Klingenberg Case', which is linked to Anneliese Michel's case. The evidence supports that Erich Schmidt-Leichner was the defense counsel for the parents of Anneliese Michel, who were charged with negligent homicide. However, it does not explicitly state that Erich Schmidt-Leichner was the defense counsel for Anneliese Michel herself.
+Oracle:    enough = yes   Stop decision: late stop   (would steer: nothing; logged only, not used)
+
+--- Round 2 ---
+Rewriter: "whether Erich Schmidt-Leichner was the defense counsel for Anneliese Michel, not her parents"  ->  "Anneliese Michel defense counsel"
+Retriever query: Anneliese Michel defense counsel
+Retriever found: [10.5] Anneliese: The Exorcist Tapes   [10.4] The Exorcism of Emily Rose
+LLM judge: enough = no (p_yes 0.00)   go on; steer: explicit confirmation that Erich Schmidt-Leichner was the defense counsel during the year before Anneliese Michel's death
+           reasoning: The evidence supports that Anneliese Michel was the German woman who underwent Catholic exorcism rites during the year before her death. It also identifies Erich Schmidt-Leichner as the defense counsel in the 'Klingenberg Case' involving Anneliese Michel. However, the evidence does not explicitly state that Erich Schmidt-Leichner was the defense counsel during the year before her death, only that he was involved in the case after her death. The connection between the defense counsel and the year before her death is not directly confirmed.
+Oracle:    enough = yes   Stop decision: late stop   (would steer: nothing; logged only, not used)
+
+--- Round 3 ---
+Rewriter: "explicit confirmation that Erich Schmidt-Leichner was the defense counsel during the year before Anneliese Michel's death"  ->  "Erich Schmidt-Leichner Anneliese Michel"
+Retriever query: Erich Schmidt-Leichner Anneliese Michel
+Retriever found: [11.2] Erich Schmidt (historian)   [9.5] Erich Schmidt (archaeologist)
+LLM judge: enough = no (p_yes 0.00)   no Rounds left
+           reasoning: The evidence supports that Anneliese Michel was a German woman who underwent Catholic exorcism rites during the year before her death. It also identifies Erich Schmidt-Leichner as the defense counsel in the 'Klingenberg Case' involving Anneliese Michel. However, the evidence does not explicitly state that Erich Schmidt-Leichner was the defense counsel at the time of her death or during the exorcism rites. The connection between Schmidt-Leichner and the exorcism rites is implied but not directly confirmed.
+Oracle:    enough = yes   Stop decision: late stop   (would steer: nothing; logged only, not used)
+
+--- Answer (from all 6 paragraphs, after 3 Round(s)) ---
+Answer:          Erich Schmidt-Leichner
+Gold answer:     Erich Schmidt-Leichner
+Correct:         yes
+Precision:       1.00
+Recall:          1.00
+F1:              1.00
+Cosine similarity: 1.000
+All Gold found:  yes
+Calls: 6   Attempts: 6   Tokens read: 4169, written: 510, in 50.4 s
+

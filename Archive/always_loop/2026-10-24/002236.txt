@@ -1,0 +1,166 @@
+Method:          Always-loop (every Round runs; the Judge steers each new search, but never stops the loop)
+Started:         2026-10-24 00:22:36
+Questions:       the first 1 of the pilot set
+Rounds:          3
+Retriever:       BM25, k = 2 new paragraphs per Round
+Models:          judge qwen3:8b, rewriter qwen3:8b, answerer qwen3:8b
+Prompt versions: judge v0, rewriter v0, answerer v0
+Temperature:     0   Seed: 0
+Full prompts:    logged
+
+===== Question 1 of 1 (id 5a70eee85542994082a3e3f0) =====
+Question:    Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+Gold answer: The Yoruba
+
+--- Round 1 ---
+Retriever query: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+Retriever found: [21.4] Geography of Guinea   [21.1] Liptena bia
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence mentions the geographical locations of Guinea and the distribution of the butterfly Liptena bia in several West African countries. However, it does not identify which specific group of people in these countries uses the Ida. The Ida is not mentioned in the provided evidence, and there is no information about any cultural, linguistic, or ethnic group associated with its use.
+           steer: information about the group of people who use the Ida
+          [system] You are the Judge in a search loop. Decide whether the evidence is enough to answer the question. Reason briefly first, then decide. If it is not enough, name exactly which fact or entity is still missing.
+          [user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Evidence:
+
+[1] Geography of Guinea
+Guinea is a country on the coast of West Africa and is bordered by Guinea-Bissau, Senegal, Mali, Ivory Coast, Liberia, and Sierra Leone.
+
+[2] Liptena bia
+Liptena bia is a butterfly in the Lycaenidae family. It is found in Ghana, Ivory Coast, Liberia and Sierra Leone.
+
+Answer as JSON with keys reasoning (a few sentences about what the evidence supports and what it does not), enough (yes or no), and missing (what is still needed, or nothing).
+          Full reply: {
+  "reasoning": "The evidence mentions the geographical locations of Guinea and the distribution of the butterfly Liptena bia in several West African countries. However, it does not identify which specific group of people in these countries uses the Ida. The Ida is not mentioned in the provided evidence, and there is no information about any cultural, linguistic, or ethnic group associated with its use.",
+  "enough": "no",
+  "missing": "information about the group of people who use the Ida"
+}
+
+--- Round 2 ---
+Rewriter: "information about the group of people who use the Ida"  ->  "ida language people west africa"
+          [system] You are the Rewriter in a search loop. Write one short search query (a few words, no punctuation) that finds the missing information in a Wikipedia keyword search.
+          [user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Search queries already tried:
+- Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+What the evidence is still missing:
+information about the group of people who use the Ida
+
+Write one short search query (a few words, no punctuation) for a Wikipedia keyword search that finds the missing information.
+          Full reply: { "query": "ida language people west africa" }
+Retriever query: ida language people west africa
+Retriever found: [9.7] Ida'an language   [9.1] Balanta language
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence does not mention any group of people in West Africa who use the Ida. The Ida is not clearly defined as a language, dialect, or cultural term in the provided information. The Ida'an language is mentioned, but it is associated with Sabah, Malaysia, not the specified West African countries. None of the other entries refer to a group using the Ida.
+           steer: a group of people in West Africa (specifically in Ghana, Ivory Coast, Liberia, and Sierra Leone) who use the Ida
+          [system] You are the Judge in a search loop. Decide whether the evidence is enough to answer the question. Reason briefly first, then decide. If it is not enough, name exactly which fact or entity is still missing.
+          [user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Evidence:
+
+[1] Geography of Guinea
+Guinea is a country on the coast of West Africa and is bordered by Guinea-Bissau, Senegal, Mali, Ivory Coast, Liberia, and Sierra Leone.
+
+[2] Liptena bia
+Liptena bia is a butterfly in the Lycaenidae family. It is found in Ghana, Ivory Coast, Liberia and Sierra Leone.
+
+[3] Ida'an language
+The Ida'an (also Idahan) language is a Malayo-Polynesian language spoken by the Ida'an people of Sabah, Malaysia. The language has a long literary history, the first known writing in Idahan language was a manuscript dated 1408 A.D. The Jawi manuscript gives an account of an Ida'an man named Abdullah in Darvel Bay who embraced Islam and became one of the earliest known regions in Malaysia to embraced Islam.
+
+[4] Balanta language
+Balanta (or Balant) is a group of two closely related Bak languages of West Africa spoken by the Balanta people.
+
+Answer as JSON with keys reasoning (a few sentences about what the evidence supports and what it does not), enough (yes or no), and missing (what is still needed, or nothing).
+          Full reply: {
+  "reasoning": "The evidence does not mention any group of people in West Africa who use the Ida. The Ida is not clearly defined as a language, dialect, or cultural term in the provided information. The Ida'an language is mentioned, but it is associated with Sabah, Malaysia, not the specified West African countries. None of the other entries refer to a group using the Ida.",
+  "enough": "no",
+  "missing": "a group of people in West Africa (specifically in Ghana, Ivory Coast, Liberia, and Sierra Leone) who use the Ida"
+}
+
+--- Round 3 ---
+Rewriter: "a group of people in West Africa (specifically in Ghana, Ivory Coast, Liberia, and Sierra Leone) who use the Ida"  ->  "ida people west africa"
+          [system] You are the Rewriter in a search loop. Write one short search query (a few words, no punctuation) that finds the missing information in a Wikipedia keyword search.
+          [user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Search queries already tried:
+- Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+- ida language people west africa
+
+What the evidence is still missing:
+a group of people in West Africa (specifically in Ghana, Ivory Coast, Liberia, and Sierra Leone) who use the Ida
+
+Write one short search query (a few words, no punctuation) for a Wikipedia keyword search that finds the missing information.
+          Full reply: { "query": "ida people west africa" }
+Retriever query: ida people west africa
+Retriever found: [9.0] Ida (sword)   [7.8] Cal-Ida, California
+Judge:     enough = no (p_yes 0.00)
+           reasoning: The evidence mentions the Ida as a sword used by the Yoruba people of West Africa. However, the question asks about a group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia, and Sierra Leone who use the Ida. The evidence does not identify which specific group uses the Ida, nor does it link the Ida to any of the specified countries beyond the Yoruba people, who are not primarily associated with the listed countries. The other entries are unrelated or provide insufficient context.
+           steer: specific group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia, and Sierra Leone who use the Ida   (last Round: steer not used)
+          [system] You are the Judge in a search loop. Decide whether the evidence is enough to answer the question. Reason briefly first, then decide. If it is not enough, name exactly which fact or entity is still missing.
+          [user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Evidence:
+
+[1] Geography of Guinea
+Guinea is a country on the coast of West Africa and is bordered by Guinea-Bissau, Senegal, Mali, Ivory Coast, Liberia, and Sierra Leone.
+
+[2] Liptena bia
+Liptena bia is a butterfly in the Lycaenidae family. It is found in Ghana, Ivory Coast, Liberia and Sierra Leone.
+
+[3] Ida'an language
+The Ida'an (also Idahan) language is a Malayo-Polynesian language spoken by the Ida'an people of Sabah, Malaysia. The language has a long literary history, the first known writing in Idahan language was a manuscript dated 1408 A.D. The Jawi manuscript gives an account of an Ida'an man named Abdullah in Darvel Bay who embraced Islam and became one of the earliest known regions in Malaysia to embraced Islam.
+
+[4] Balanta language
+Balanta (or Balant) is a group of two closely related Bak languages of West Africa spoken by the Balanta people.
+
+[5] Ida (sword)
+The Ida is a kind of sword used by the Yoruba people of West Africa. It is a long sword with a narrow to wide blade and sheathe. The sword is sharp, and cuts on contact but typically begins to dull if not sharpened regularly. It can be single-edged or double-edged. These blades are typically heavier by the tip of the blade.
+
+[6] Cal-Ida, California
+Cal-Ida is an unincorporated community in Sierra County, California, United States. Cal-Ida is 7 mi west of Goodyears Bar.
+
+Answer as JSON with keys reasoning (a few sentences about what the evidence supports and what it does not), enough (yes or no), and missing (what is still needed, or nothing).
+          Full reply: {
+  "reasoning": "The evidence mentions the Ida as a sword used by the Yoruba people of West Africa. However, the question asks about a group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia, and Sierra Leone who use the Ida. The evidence does not identify which specific group uses the Ida, nor does it link the Ida to any of the specified countries beyond the Yoruba people, who are not primarily associated with the listed countries. The other entries are unrelated or provide insufficient context.",
+  "enough": "no",
+  "missing": "specific group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia, and Sierra Leone who use the Ida"
+}
+
+--- Answer (from all 6 paragraphs) ---
+          [system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+          [user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Evidence:
+
+[1] Geography of Guinea
+Guinea is a country on the coast of West Africa and is bordered by Guinea-Bissau, Senegal, Mali, Ivory Coast, Liberia, and Sierra Leone.
+
+[2] Liptena bia
+Liptena bia is a butterfly in the Lycaenidae family. It is found in Ghana, Ivory Coast, Liberia and Sierra Leone.
+
+[3] Ida'an language
+The Ida'an (also Idahan) language is a Malayo-Polynesian language spoken by the Ida'an people of Sabah, Malaysia. The language has a long literary history, the first known writing in Idahan language was a manuscript dated 1408 A.D. The Jawi manuscript gives an account of an Ida'an man named Abdullah in Darvel Bay who embraced Islam and became one of the earliest known regions in Malaysia to embraced Islam.
+
+[4] Balanta language
+Balanta (or Balant) is a group of two closely related Bak languages of West Africa spoken by the Balanta people.
+
+[5] Ida (sword)
+The Ida is a kind of sword used by the Yoruba people of West Africa. It is a long sword with a narrow to wide blade and sheathe. The sword is sharp, and cuts on contact but typically begins to dull if not sharpened regularly. It can be single-edged or double-edged. These blades are typically heavier by the tip of the blade.
+
+[6] Cal-Ida, California
+Cal-Ida is an unincorporated community in Sierra County, California, United States. Cal-Ida is 7 mi west of Goodyears Bar.
+
+Answer the question using the evidence.
+          Full reply: { "answer": "Yoruba" }
+Answer:      Yoruba
+Gold answer: The Yoruba
+Correct:     yes
+Calls: 6   Attempts: 6   Tokens read: 1823, written: 427, in 36.9 s
+
+===== Summary =====
+Answered: 1 of 1
+Correct:  1 of 1 (100%)
+Model calls: 6
+Tokens read: 1823, written: 427
+Time: 0.7 minutes

@@ -1,0 +1,24 @@
+Method:          Condition A (the LLM judge stops and steers; the Oracle is logged, not used)
+Started:         2026-11-11 20:44:51
+Questions:       the first 10 of the pilot set
+Rounds:          at most 3
+Retriever:       BM25, k = 2 new paragraphs per Round
+Models:          judge qwen3:8b, rewriter qwen3:8b, answerer qwen3:8b
+Prompt versions: judge v0, rewriter v1, answerer v1
+Temperature:     0   Seed: 0
+Cosine scoring:  qwen3-embedding:0.6b, threshold 0.9
+Full prompts:    not logged
+
+===== Summary =====
+Answered:       0 of 10
+Correct:        0 of 0 (0%)
+Correct (cosine ≥ 0.9): 0 of 0 (0%)
+Precision:      0.00 (average)
+Recall:         0.00 (average)
+F1:             0.00 (average)
+All Gold found: 0 of 0 (0%)   (Condition D should reach at least this)
+Rounds used:    none
+Stop decisions: right 0 of 0 (0%), early stops 0, late stops 0
+Model calls: 0
+Tokens read: 0, written: 0
+Time: 0.3 minutes

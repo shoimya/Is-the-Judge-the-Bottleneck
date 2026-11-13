@@ -1,0 +1,87 @@
+Method:         Closed-book (the Answerer answers from memory, with no Evidence)
+Started:        2026-10-23 23:04:26
+Questions:      the first 5 of the pilot set
+Model:          qwen3:8b
+Prompt version: v0
+Temperature:    0   Seed: 0
+
+===== Question 1 of 5 (id 5a70eee85542994082a3e3f0) =====
+Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Mandinka" }
+Answer:      Mandinka
+Gold answer: The Yoruba
+Correct:     no
+Attempts: 1   Tokens read: 98, written: 11, in 8.8 s
+
+===== Question 2 of 5 (id 5a70f0a75542994082a3e403) =====
+Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Scandinavian"}
+Answer:      Scandinavian
+Gold answer: Scanian dialects
+Correct:     no
+Attempts: 1   Tokens read: 94, written: 9, in 0.8 s
+
+===== Question 3 of 5 (id 5a70f0e75542994082a3e408) =====
+Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Johns Hopkins University" }
+Answer:      Johns Hopkins University
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 12, in 1.0 s
+
+===== Question 4 of 5 (id 5a70f9335542994082a3e46a) =====
+Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Essence" }
+Answer:      Essence
+Gold answer: ALT for Damerne
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 10, in 0.9 s
+
+===== Question 5 of 5 (id 5a7103b35542994082a3e4c0) =====
+Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Masherbrum" }
+Answer:      Masherbrum
+Gold answer: Khunyang Chhish
+Correct:     no
+Attempts: 1   Tokens read: 93, written: 12, in 1.0 s
+
+===== Summary =====
+Answered: 5 of 5
+Correct:  0 of 5 (0%)
+Tokens read: 470, written: 54
+Time: 0.2 minutes

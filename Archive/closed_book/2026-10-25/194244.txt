@@ -1,0 +1,164 @@
+Method:         Closed-book (the Answerer answers from memory, with no Evidence)
+Started:        2026-10-25 19:42:44
+Questions:      the first 10 of the pilot set
+Model:          qwen3:8b
+Prompt version: v0
+Temperature:    0   Seed: 0
+
+===== Question 1 of 10 (id 5a70eee85542994082a3e3f0) =====
+Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Mandinka" }
+Answer:      Mandinka
+Gold answer: The Yoruba
+Correct:     no
+Attempts: 1   Tokens read: 98, written: 11, in 10.0 s
+
+===== Question 2 of 10 (id 5a70f0a75542994082a3e403) =====
+Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Scandinavian"}
+Answer:      Scandinavian
+Gold answer: Scanian dialects
+Correct:     no
+Attempts: 1   Tokens read: 94, written: 9, in 0.9 s
+
+===== Question 3 of 10 (id 5a70f0e75542994082a3e408) =====
+Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Johns Hopkins University" }
+Answer:      Johns Hopkins University
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 12, in 1.1 s
+
+===== Question 4 of 10 (id 5a70f9335542994082a3e46a) =====
+Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Essence" }
+Answer:      Essence
+Gold answer: ALT for Damerne
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 10, in 0.9 s
+
+===== Question 5 of 10 (id 5a7103b35542994082a3e4c0) =====
+Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Masherbrum" }
+Answer:      Masherbrum
+Gold answer: Khunyang Chhish
+Correct:     no
+Attempts: 1   Tokens read: 93, written: 12, in 1.1 s
+
+===== Question 6 of 10 (id 5a7109e95542994082a3e4fa) =====
+Question: What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Limerick" }
+Answer:      Limerick
+Gold answer: Tallaght, South Dublin
+Correct:     no
+Attempts: 1   Tokens read: 94, written: 11, in 1.2 s
+
+===== Question 7 of 10 (id 5a710d155542994082a3e520) =====
+Question: Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Father Joseph Hofmann" }
+Answer:      Father Joseph Hofmann
+Gold answer: Erich Schmidt-Leichner
+Correct:     no
+Attempts: 1   Tokens read: 96, written: 12, in 1.2 s
+
+===== Question 8 of 10 (id 5a711c535542994082a3e59b) =====
+Question: Albanians in Montenegro which make up 4.91 of the county's total population could be members of the Albanian Coalation Perspect which is a what? 
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Albanians in Montenegro which make up 4.91 of the county's total population could be members of the Albanian Coalation Perspect which is a what? 
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "political party" }
+Answer:      political party
+Gold answer: Albanian political party in Montenegro
+Correct:     no
+Attempts: 1   Tokens read: 109, written: 10, in 1.1 s
+
+===== Question 9 of 10 (id 5a711cb45542994082a3e59f) =====
+Question: Who has won more Grand Slam women's doubles titles, Lisa Raymond or Liezel Huber?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who has won more Grand Slam women's doubles titles, Lisa Raymond or Liezel Huber?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Lisa Raymond" }
+Answer:      Lisa Raymond
+Gold answer: Liezel Huber
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 10, in 1.0 s
+
+===== Question 10 of 10 (id 5a71224f5542994082a3e5c1) =====
+Question: When was the actor born who starred in Nambia: The Struggle for Liberation and played Roger Murtaugh in the "Lethal Weapon" film series?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When was the actor born who starred in Nambia: The Struggle for Liberation and played Roger Murtaugh in the "Lethal Weapon" film series?
+
+Answer the question from what you know.
+
+Full reply:  {
+  "answer": "1944"
+}
+Answer:      1944
+Gold answer: July 22, 1946
+Correct:     no
+Attempts: 1   Tokens read: 106, written: 13, in 1.2 s
+
+===== Summary =====
+Answered: 10 of 10
+Correct:  0 of 10 (0%)
+Tokens read: 967, written: 110
+Time: 0.3 minutes

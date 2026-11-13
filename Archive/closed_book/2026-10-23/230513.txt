@@ -1,0 +1,1522 @@
+Method:         Closed-book (the Answerer answers from memory, with no Evidence)
+Started:        2026-10-23 23:05:13
+Questions:      the first 100 of the pilot set
+Model:          qwen3:8b
+Prompt version: v0
+Temperature:    0   Seed: 0
+
+===== Question 1 of 100 (id 5a70eee85542994082a3e3f0) =====
+Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Mandinka" }
+Answer:      Mandinka
+Gold answer: The Yoruba
+Correct:     no
+Attempts: 1   Tokens read: 98, written: 11, in 10.1 s
+
+===== Question 2 of 100 (id 5a70f0a75542994082a3e403) =====
+Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Scandinavian"}
+Answer:      Scandinavian
+Gold answer: Scanian dialects
+Correct:     no
+Attempts: 1   Tokens read: 94, written: 9, in 0.8 s
+
+===== Question 3 of 100 (id 5a70f0e75542994082a3e408) =====
+Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Johns Hopkins University" }
+Answer:      Johns Hopkins University
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 12, in 1.0 s
+
+===== Question 4 of 100 (id 5a70f9335542994082a3e46a) =====
+Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Essence" }
+Answer:      Essence
+Gold answer: ALT for Damerne
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 10, in 0.8 s
+
+===== Question 5 of 100 (id 5a7103b35542994082a3e4c0) =====
+Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Masherbrum" }
+Answer:      Masherbrum
+Gold answer: Khunyang Chhish
+Correct:     no
+Attempts: 1   Tokens read: 93, written: 12, in 0.9 s
+
+===== Question 6 of 100 (id 5a7109e95542994082a3e4fa) =====
+Question: What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Limerick" }
+Answer:      Limerick
+Gold answer: Tallaght, South Dublin
+Correct:     no
+Attempts: 1   Tokens read: 94, written: 11, in 0.9 s
+
+===== Question 7 of 100 (id 5a710d155542994082a3e520) =====
+Question: Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Father Joseph Hofmann" }
+Answer:      Father Joseph Hofmann
+Gold answer: Erich Schmidt-Leichner
+Correct:     no
+Attempts: 1   Tokens read: 96, written: 12, in 0.9 s
+
+===== Question 8 of 100 (id 5a711c535542994082a3e59b) =====
+Question: Albanians in Montenegro which make up 4.91 of the county's total population could be members of the Albanian Coalation Perspect which is a what? 
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Albanians in Montenegro which make up 4.91 of the county's total population could be members of the Albanian Coalation Perspect which is a what? 
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "political party" }
+Answer:      political party
+Gold answer: Albanian political party in Montenegro
+Correct:     no
+Attempts: 1   Tokens read: 109, written: 10, in 0.9 s
+
+===== Question 9 of 100 (id 5a711cb45542994082a3e59f) =====
+Question: Who has won more Grand Slam women's doubles titles, Lisa Raymond or Liezel Huber?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who has won more Grand Slam women's doubles titles, Lisa Raymond or Liezel Huber?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Lisa Raymond" }
+Answer:      Lisa Raymond
+Gold answer: Liezel Huber
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 10, in 0.8 s
+
+===== Question 10 of 100 (id 5a71224f5542994082a3e5c1) =====
+Question: When was the actor born who starred in Nambia: The Struggle for Liberation and played Roger Murtaugh in the "Lethal Weapon" film series?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When was the actor born who starred in Nambia: The Struggle for Liberation and played Roger Murtaugh in the "Lethal Weapon" film series?
+
+Answer the question from what you know.
+
+Full reply:  {
+  "answer": "1944"
+}
+Answer:      1944
+Gold answer: July 22, 1946
+Correct:     no
+Attempts: 1   Tokens read: 106, written: 13, in 0.9 s
+
+===== Question 11 of 100 (id 5a713dcb5542994082a3e6d9) =====
+Question: What pursuit did both Gevork Minaskanian and George Stambolian have in common?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What pursuit did both Gevork Minaskanian and George Stambolian have in common?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "art" }
+Answer:      art
+Gold answer: American educator, writer,
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 9, in 0.7 s
+
+===== Question 12 of 100 (id 5a71419f5542994082a3e70d) =====
+Question: Riema Juhani Karppinen won the silver medal at what event held outside of Munich, Germany?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Riema Juhani Karppinen won the silver medal at what event held outside of Munich, Germany?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "1972 Summer Olympics" }
+Answer:      1972 Summer Olympics
+Gold answer: 1981 World Rowing Championships
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 14, in 1.0 s
+
+===== Question 13 of 100 (id 5a71474b5542994082a3e74f) =====
+Question: What was triggered by the resignation of Conservative MP Stephen Phillips on 4 November 2016 and was when Caroline Johnson became a Member of Parliament?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What was triggered by the resignation of Conservative MP Stephen Phillips on 4 November 2016 and was when Caroline Johnson became a Member of Parliament?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "By-election"}
+Answer:      By-election
+Gold answer: The Sleaford and North Hykeham by-election
+Correct:     no
+Attempts: 1   Tokens read: 104, written: 8, in 0.8 s
+
+===== Question 14 of 100 (id 5a7147fd5542994082a3e758) =====
+Question: When was the king that started coin production in Copenhagen born?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When was the king that started coin production in Copenhagen born?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "1577"}
+Answer:      1577
+Gold answer: 2 February 1455
+Correct:     no
+Attempts: 1   Tokens read: 85, written: 10, in 0.9 s
+
+===== Question 15 of 100 (id 5a7149cf5542994082a3e773) =====
+Question: What 2015 British-Canadian-Irish romantic drama was Finola Dwyer a producer of?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What 2015 British-Canadian-Irish romantic drama was Finola Dwyer a producer of?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "The Theory of Everything"}
+Answer:      The Theory of Everything
+Gold answer: Brooklyn
+Correct:     no
+Attempts: 1   Tokens read: 96, written: 10, in 0.9 s
+
+===== Question 16 of 100 (id 5a714de95542994082a3e7a8) =====
+Question: Alexander Young, also known as George Alexander, is the uncle to which Scottish musician who replaced Malcolm Young in the band AC/DC in 2014?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Alexander Young, also known as George Alexander, is the uncle to which Scottish musician who replaced Malcolm Young in the band AC/DC in 2014?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Brian Johnson" }
+Answer:      Brian Johnson
+Gold answer: Stephen Crawford Young
+Correct:     no
+Attempts: 1   Tokens read: 106, written: 10, in 0.9 s
+
+===== Question 17 of 100 (id 5a71674f5542994082a3e819) =====
+Question: When was the magazine Sam Duckworth got his name Get Cape. Wear Cape. Fly from launched?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When was the magazine Sam Duckworth got his name Get Cape. Wear Cape. Fly from launched?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "1999" }
+Answer:      1999
+Gold answer: January 2004
+Correct:     no
+Attempts: 1   Tokens read: 93, written: 12, in 1.0 s
+
+===== Question 18 of 100 (id 5a716c415542994082a3e827) =====
+Question: Which airline partners with Gogo Inflight Internet and opened in 1984?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which airline partners with Gogo Inflight Internet and opened in 1984?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Delta Air Lines"}
+Answer:      Delta Air Lines
+Gold answer: Virgin Atlantic
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 9, in 0.8 s
+
+===== Question 19 of 100 (id 5a716dc15542994082a3e82b) =====
+Question: Who is younger Kirk Humphreys or Tom Coburn?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who is younger Kirk Humphreys or Tom Coburn?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Kirk Humphreys" }
+Answer:      Kirk Humphreys
+Gold answer: Kirk Humphreys
+Correct:     yes
+Attempts: 1   Tokens read: 85, written: 13, in 1.0 s
+
+===== Question 20 of 100 (id 5a721a7655429971e9dc9271) =====
+Question: What actor from the show Murphy Brown also had a role in a show with fellow actor Steve Howey? 
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What actor from the show Murphy Brown also had a role in a show with fellow actor Steve Howey? 
+
+Answer the question from what you know.
+
+Full reply:  {
+  "answer": "Diane Ladd"
+}
+Answer:      Diane Ladd
+Gold answer: Christopher Rich
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 13, in 1.0 s
+
+===== Question 21 of 100 (id 5a72224755429971e9dc92be) =====
+Question: Which was founded first, Dain Rauscher Wessels or Berenberg Bank?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was founded first, Dain Rauscher Wessels or Berenberg Bank?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Berenberg Bank" }
+Answer:      Berenberg Bank
+Gold answer: Dain Rauscher Wessels
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 12, in 0.9 s
+
+===== Question 22 of 100 (id 5a722c2255429971e9dc932c) =====
+Question: What type of development, currently existing in Pasay, is currently being considered for malls such as one in M.A. Roxas Avenue in Clark Freeport, Angeles City in Pampanga Philippines?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What type of development, currently existing in Pasay, is currently being considered for malls such as one in M.A. Roxas Avenue in Clark Freeport, Angeles City in Pampanga Philippines?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Freeport development"}
+Answer:      Freeport development
+Gold answer: SM Lifestyle Cities
+Correct:     no
+Attempts: 1   Tokens read: 113, written: 9, in 0.7 s
+
+===== Question 23 of 100 (id 5a72334755429971e9dc934c) =====
+Question: "Heartbreak Hurricane" was recorded by which country artist, that also goes by the name Ricky Skaggs?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: "Heartbreak Hurricane" was recorded by which country artist, that also goes by the name Ricky Skaggs?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Ricky Skaggs"}
+Answer:      Ricky Skaggs
+Gold answer: Rickie Lee Skaggs
+Correct:     no
+Attempts: 1   Tokens read: 96, written: 11, in 0.9 s
+
+===== Question 24 of 100 (id 5a7243915542990c210a4086) =====
+Question: Where is the University of North Carolina at Wilmington, population 112,067 located?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Where is the University of North Carolina at Wilmington, population 112,067 located?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Wilmington, North Carolina" }
+Answer:      Wilmington, North Carolina
+Gold answer: Wilmington, North Carolina
+Correct:     yes
+Attempts: 1   Tokens read: 94, written: 13, in 1.2 s
+
+===== Question 25 of 100 (id 5a724ba25542990c210a40c7) =====
+Question: What is the English translation of the social group which Baran Khan Kudezai was a part of?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What is the English translation of the social group which Baran Khan Kudezai was a part of?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "The English translation of the social group which Baran Khan Kudezai was a part of is 'Khanzada'." }
+Answer:      The English translation of the social group which Baran Khan Kudezai was a part of is 'Khanzada'
+Gold answer: grand assembly
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 34, in 3.0 s
+
+===== Question 26 of 100 (id 5a7264ed5542990c210a411a) =====
+Question: What was the slogan  that came about from the idea of Lebensraum which had its most extreme form supported by the Nazi Party until the end of World War II?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What was the slogan  that came about from the idea of Lebensraum which had its most extreme form supported by the Nazi Party until the end of World War II?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Ein Volk, ein Reich, ein Führer"}
+Answer:      Ein Volk, ein Reich, ein Führer
+Gold answer: Blood and soil
+Correct:     no
+Attempts: 1   Tokens read: 107, written: 16, in 1.5 s
+
+===== Question 27 of 100 (id 5a7283365542991f9a20c4b2) =====
+Question: Allison Gross is a character in a story which applies what writing technique that introduces characters in threes? 
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Allison Gross is a character in a story which applies what writing technique that introduces characters in threes? 
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "triangulation"}
+Answer:      triangulation
+Gold answer: rule of three
+Correct:     no
+Attempts: 1   Tokens read: 94, written: 9, in 0.8 s
+
+===== Question 28 of 100 (id 5a7293655542991f9a20c4ff) =====
+Question: What 1996 book was written by the founder of Media Matter for America?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What 1996 book was written by the founder of Media Matter for America?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Yes"}
+Answer:      Yes
+Gold answer: The Seduction of Hillary Rodham
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 7, in 0.7 s
+
+===== Question 29 of 100 (id 5a7294b65542991f9a20c509) =====
+Question: What is the name of the umcoming horror film adaptation starring Melanie Griffiths daughter?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What is the name of the umcoming horror film adaptation starring Melanie Griffiths daughter?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "The Woman in the Window"}
+Answer:      The Woman in the Window
+Gold answer: Suspiria
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 11, in 0.9 s
+
+===== Question 30 of 100 (id 5a72953b5542994cef4bc357) =====
+Question: What Labor member of the House of Representatives in the Australian Parliament was a member of the Australian Labor Party Australian Young Labor?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What Labor member of the House of Representatives in the Australian Parliament was a member of the Australian Labor Party Australian Young Labor?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "John Howson" }
+Answer:      John Howson
+Gold answer: Tony Burke
+Correct:     no
+Attempts: 1   Tokens read: 97, written: 11, in 0.9 s
+
+===== Question 31 of 100 (id 5a72a2935542991f9a20c546) =====
+Question: Is Velvetpark or Shape magazine written more for a lesbian and queer-identified female readership?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Is Velvetpark or Shape magazine written more for a lesbian and queer-identified female readership?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Velvetpark" }
+Answer:      Velvetpark
+Gold answer: Velvetpark
+Correct:     yes
+Attempts: 1   Tokens read: 92, written: 11, in 1.0 s
+
+===== Question 32 of 100 (id 5a72a3c45542994cef4bc3ac) =====
+Question: What is the birth name of the woman that "A Woman Called Moses" is based on?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What is the birth name of the woman that "A Woman Called Moses" is based on?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Moses" }
+Answer:      Moses
+Gold answer: Araminta Ross
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 10, in 0.9 s
+
+===== Question 33 of 100 (id 5a72a9ac5542991f9a20c55f) =====
+Question: Which show co-hosted by Hoda Kotb was produced by Brian Balthazar?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which show co-hosted by Hoda Kotb was produced by Brian Balthazar?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "The Today Show" }
+Answer:      The Today Show
+Gold answer: the fourth hour of the TODAY Show
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 11, in 1.0 s
+
+===== Question 34 of 100 (id 5a72c6f65542994cef4bc402) =====
+Question: Wheat salad is composed typically of what red fruit?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Wheat salad is composed typically of what red fruit?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "grape" }
+Answer:      grape
+Gold answer: tomato
+Correct:     no
+Attempts: 1   Tokens read: 83, written: 10, in 0.8 s
+
+===== Question 35 of 100 (id 5a72e4375542992359bc31bf) =====
+Question: Who is older, Lucy Gichuhi or Bob Day?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who is older, Lucy Gichuhi or Bob Day?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Lucy Gichuhi" }
+Answer:      Lucy Gichuhi
+Gold answer: Bob Day
+Correct:     no
+Attempts: 1   Tokens read: 86, written: 14, in 1.1 s
+
+===== Question 36 of 100 (id 5a73024f5542991f9a20c5fc) =====
+Question: what year was the cover artist of Multiverse: Exploring Poul Anderson's Worlds born ?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: what year was the cover artist of Multiverse: Exploring Poul Anderson's Worlds born ?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "1936" }
+Answer:      1936
+Gold answer: September 13, 1960
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 12, in 1.0 s
+
+===== Question 37 of 100 (id 5a7312675542994cef4bc43d) =====
+Question: Which one of Ricardo Rodríguez Saá's relatives would become governor from 1983 to 2001?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which one of Ricardo Rodríguez Saá's relatives would become governor from 1983 to 2001?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Carlos Menem"}
+Answer:      Carlos Menem
+Gold answer: Adolfo Rodríguez Saá
+Correct:     no
+Attempts: 1   Tokens read: 100, written: 9, in 0.8 s
+
+===== Question 38 of 100 (id 5a7319bc5542992359bc3235) =====
+Question: Who lived longer, Leonid Khachiyan or Nikolai Lobachevsky?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who lived longer, Leonid Khachiyan or Nikolai Lobachevsky?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Nikolai Lobachevsky" }
+Answer:      Nikolai Lobachevsky
+Gold answer: Nikolai Ivanovich Lobachevsky
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 16, in 1.3 s
+
+===== Question 39 of 100 (id 5a7324e055429901807daf8f) =====
+Question: What rapper on the song "Wij zijn Ajax" plays for the Turkish club Beşiktaş?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What rapper on the song "Wij zijn Ajax" plays for the Turkish club Beşiktaş?
+
+Answer the question from what you know.
+
+Full reply:  {
+  "answer": "No answer"
+}
+Answer:      No answer
+Gold answer: Ryan Babel
+Correct:     no
+Attempts: 1   Tokens read: 94, written: 11, in 1.0 s
+
+===== Question 40 of 100 (id 5a7329a15542991f9a20c65f) =====
+Question: What record officially started in 1519 in the same state that holds the city Augustus Chapman Allen used his inheritance to fund the founding of?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What record officially started in 1519 in the same state that holds the city Augustus Chapman Allen used his inheritance to fund the founding of?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "The first recorded use of the term 'record' in a legal context" }
+Answer:      The first recorded use of the term 'record' in a legal context
+Gold answer: The recorded History of Texas
+Correct:     no
+Attempts: 1   Tokens read: 104, written: 22, in 1.6 s
+
+===== Question 41 of 100 (id 5a7331705542991f9a20c67a) =====
+Question: Who was the Goal keeper for Iraq in the 1996 AFC Asian Cup played in the United Arab Emirates?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who was the Goal keeper for Iraq in the 1996 AFC Asian Cup played in the United Arab Emirates?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Abdulrahman Al-Mutawa" }
+Answer:      Abdulrahman Al-Mutawa
+Gold answer: Emad Hashim
+Correct:     no
+Attempts: 1   Tokens read: 97, written: 17, in 1.4 s
+
+===== Question 42 of 100 (id 5a7337715542991f9a20c690) =====
+Question: For which Thomas Rickman film did Sissy Spacek win an Academy Award for Best Actress?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: For which Thomas Rickman film did Sissy Spacek win an Academy Award for Best Actress?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "The Outlaw Josey Wales"}
+Answer:      The Outlaw Josey Wales
+Gold answer: Coal Miner's Daughter
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 12, in 1.1 s
+
+===== Question 43 of 100 (id 5a7345185542992359bc32cb) =====
+Question: Which continent are both magazines, Sayidaty and Closer published?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which continent are both magazines, Sayidaty and Closer published?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Africa" }
+Answer:      Africa
+Gold answer: Europe
+Correct:     no
+Attempts: 1   Tokens read: 87, written: 9, in 1.0 s
+
+===== Question 44 of 100 (id 5a734a205542992359bc32e2) =====
+Question: Which director won an Academy Award for best director for his work on the film, "Midnight Cowboy?"
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which director won an Academy Award for best director for his work on the film, "Midnight Cowboy?"
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "John Schlesinger" }
+Answer:      John Schlesinger
+Gold answer: John Schlesinger
+Correct:     yes
+Attempts: 1   Tokens read: 94, written: 12, in 1.2 s
+
+===== Question 45 of 100 (id 5a734db15542994cef4bc523) =====
+Question: Which musician was born first, Constantine Orbelian or Lili Chookasian?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which musician was born first, Constantine Orbelian or Lili Chookasian?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Constantine Orbelian" }
+Answer:      Constantine Orbelian
+Gold answer: Lili Chookasian
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 13, in 1.2 s
+
+===== Question 46 of 100 (id 5a73583455429901807dafcf) =====
+Question: In which professional wrestling promotion did Randy Savage perform, after he left the World Wrestling Federation?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: In which professional wrestling promotion did Randy Savage perform, after he left the World Wrestling Federation?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "World Wrestling Entertainment" }
+Answer:      World Wrestling Entertainment
+Gold answer: World Championship Wrestling
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 11, in 1.4 s
+
+===== Question 47 of 100 (id 5a735bae55429901807dafef) =====
+Question: Which indigenous people of the Ryukyu Islands were massacred in the Mudan incident of 1871?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which indigenous people of the Ryukyu Islands were massacred in the Mudan incident of 1871?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Miyako people" }
+Answer:      Miyako people
+Gold answer: Ryukyuan people
+Correct:     no
+Attempts: 1   Tokens read: 97, written: 12, in 1.5 s
+
+===== Question 48 of 100 (id 5a735e9155429901807db00d) =====
+Question: What country is home to both Guadarrama National Park and Doñana National Park? 
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What country is home to both Guadarrama National Park and Doñana National Park? 
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Spain" }
+Answer:      Spain
+Gold answer: Spain
+Correct:     yes
+Attempts: 1   Tokens read: 92, written: 9, in 1.8 s
+
+===== Question 49 of 100 (id 5a73626b55429901807db01e) =====
+Question: Mount Austin Barracks is located near the Peak Tram terminus at what mountain that is also known as Mount Austin?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Mount Austin Barracks is located near the Peak Tram terminus at what mountain that is also known as Mount Austin?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Mount Austin" }
+Answer:      Mount Austin
+Gold answer: Victoria Peak
+Correct:     no
+Attempts: 1   Tokens read: 97, written: 10, in 1.2 s
+
+===== Question 50 of 100 (id 5a7365b155429901807db02a) =====
+Question: Which war was HMS Clonmel in where over nine million combatants died?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which war was HMS Clonmel in where over nine million combatants died?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "World War I"}
+Answer:      World War I
+Gold answer: World War I
+Correct:     yes
+Attempts: 1   Tokens read: 89, written: 9, in 1.0 s
+
+===== Question 51 of 100 (id 5a737fff554299623ed4abb9) =====
+Question: What was built near the residential neighborhood of Ramsay, Calgary in 1983?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What was built near the residential neighborhood of Ramsay, Calgary in 1983?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Calgary Zoo" }
+Answer:      Calgary Zoo
+Gold answer: Scotiabank Saddledome
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 11, in 1.0 s
+
+===== Question 52 of 100 (id 5a7380e055429908901be2d6) =====
+Question: Which building is newer, The Spiral, or the New York World Building?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which building is newer, The Spiral, or the New York World Building?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "The Spiral" }
+Answer:      The Spiral
+Gold answer: The Spiral
+Correct:     yes
+Attempts: 1   Tokens read: 88, written: 10, in 1.3 s
+
+===== Question 53 of 100 (id 5a7384755542992d56e7e354) =====
+Question: Which soccer club's head coach was born August 1, 1973?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which soccer club's head coach was born August 1, 1973?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Jürgen Klopp"}
+Answer:      Jürgen Klopp
+Gold answer: Columbus Crew Soccer Club
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 11, in 1.2 s
+
+===== Question 54 of 100 (id 5a738a5955429908901be2f6) =====
+Question: A book that attracted 600 people at a 2015 reading is based on a person who is documented for what attribute of the transgender movement?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: A book that attracted 600 people at a 2015 reading is based on a person who is documented for what attribute of the transgender movement?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "activism" }
+Answer:      activism
+Gold answer: youngest person to become a national transgender figure
+Correct:     no
+Attempts: 1   Tokens read: 106, written: 10, in 0.9 s
+
+===== Question 55 of 100 (id 5a738fb4554299623ed4abf9) =====
+Question: Which of these is further south in China, the Pulandian District or Kaiyuan, Liaoning?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which of these is further south in China, the Pulandian District or Kaiyuan, Liaoning?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Kaiyuan, Liaoning" }
+Answer:      Kaiyuan, Liaoning
+Gold answer: Pulandian District
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 15, in 1.1 s
+
+===== Question 56 of 100 (id 5a73984355429908901be307) =====
+Question: What singer-songwriter performed the country pop sing "Fifteen"?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What singer-songwriter performed the country pop sing "Fifteen"?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Taylor Swift" }
+Answer:      Taylor Swift
+Gold answer: Taylor Swift
+Correct:     yes
+Attempts: 1   Tokens read: 87, written: 10, in 0.8 s
+
+===== Question 57 of 100 (id 5a739d8c55429905862fe073) =====
+Question: Near which town did the family of author of the "Adventures of Huckleberry Finn" own several tracts of land?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Near which town did the family of author of the "Adventures of Huckleberry Finn" own several tracts of land?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Flora" }
+Answer:      Flora
+Gold answer: Santa Fe
+Correct:     no
+Attempts: 1   Tokens read: 100, written: 10, in 0.8 s
+
+===== Question 58 of 100 (id 5a739ef955429978a71e904b) =====
+Question: What festival is held every June in Bartlesville, Oklahoma?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What festival is held every June in Bartlesville, Oklahoma?
+
+Answer the question from what you know.
+
+Full reply:  {
+  "answer": "Oklahoma State Fair"
+}
+Answer:      Oklahoma State Fair
+Gold answer: OK Mozart
+Correct:     no
+Attempts: 1   Tokens read: 86, written: 14, in 1.1 s
+
+===== Question 59 of 100 (id 5a73a7c755429978a71e9068) =====
+Question: What american actress/singer born in 1956 recorded the song Something there for beauty and the beast?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What american actress/singer born in 1956 recorded the song Something there for beauty and the beast?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Barbra Streisand" }
+Answer:      Barbra Streisand
+Gold answer: Donna Paige Helmintoller
+Correct:     no
+Attempts: 1   Tokens read: 96, written: 13, in 1.1 s
+
+===== Question 60 of 100 (id 5a73b1855542992d56e7e388) =====
+Question: Which actor in the film Equus is also in the film The Informers?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which actor in the film Equus is also in the film The Informers?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Anthony Hopkins" }
+Answer:      Anthony Hopkins
+Gold answer: Colin Blakely
+Correct:     no
+Attempts: 1   Tokens read: 89, written: 10, in 0.9 s
+
+===== Question 61 of 100 (id 5a73c958554299623ed4ac5c) =====
+Question: What community is the team Isaac Gómez played midfielder for located?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What community is the team Isaac Gómez played midfielder for located?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Cerro Porteño" }
+Answer:      Cerro Porteño
+Gold answer: the autonomous community of Madrid
+Correct:     no
+Attempts: 1   Tokens read: 87, written: 12, in 1.0 s
+
+===== Question 62 of 100 (id 5a73cbe4554299623ed4ac5f) =====
+Question: What series did Tom Mandrake collaborate on that was based on a fictional superhero?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What series did Tom Mandrake collaborate on that was based on a fictional superhero?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Tom Mandrake collaborated on the series 'The Adventures of Jimmy Neutron: Boy Genius' which was based on a fictional superhero." }
+Answer:      Tom Mandrake collaborated on the series 'The Adventures of Jimmy Neutron: Boy Genius' which was based on a fictional superhero
+Gold answer: Martian Manhunter
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 34, in 2.2 s
+
+===== Question 63 of 100 (id 5a74547755429979e2882900) =====
+Question: the head football coach at the University of Houston from 2007 to 2011, is the current team coach of which football team ?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: the head football coach at the University of Houston from 2007 to 2011, is the current team coach of which football team ?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Tulsa" }
+Answer:      Tulsa
+Gold answer: Texas A&M Aggies football
+Correct:     no
+Attempts: 1   Tokens read: 105, written: 11, in 0.9 s
+
+===== Question 64 of 100 (id 5a7458ff55429979e2882918) =====
+Question: That Darn Cat and Honey, I Blew Up the Kid are both what?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: That Darn Cat and Honey, I Blew Up the Kid are both what?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "comedy films" }
+Answer:      comedy films
+Gold answer: comedy
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 11, in 0.9 s
+
+===== Question 65 of 100 (id 5a745e1455429929fddd83fd) =====
+Question: What drug is among the list of illegal drugs in the Philippines and can be taken by mouth or by injection?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What drug is among the list of illegal drugs in the Philippines and can be taken by mouth or by injection?
+
+Answer the question from what you know.
+
+Full reply:  {
+  "answer": "Shabu"
+}
+Answer:      Shabu
+Gold answer: Ephedrine
+Correct:     no
+Attempts: 1   Tokens read: 95, written: 12, in 0.9 s
+
+===== Question 66 of 100 (id 5a74670855429929fddd840d) =====
+Question: Which CNN journalist and two-time Pulitzer winner inspired the Half the Sky Movement?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which CNN journalist and two-time Pulitzer winner inspired the Half the Sky Movement?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Rachel B. Tashman" }
+Answer:      Rachel B. Tashman
+Gold answer: Nicholas Kristof
+Correct:     no
+Attempts: 1   Tokens read: 88, written: 14, in 1.1 s
+
+===== Question 67 of 100 (id 5a74701655429979e2882952) =====
+Question: Which band has released the most studio albums, Blonde Redhead or Rob Zombie's band White Zombie?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which band has released the most studio albums, Blonde Redhead or Rob Zombie's band White Zombie?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Blonde Redhead" }
+Answer:      Blonde Redhead
+Gold answer: Blonde Redhead
+Correct:     yes
+Attempts: 1   Tokens read: 93, written: 12, in 1.0 s
+
+===== Question 68 of 100 (id 5a7471f655429979e2882955) =====
+Question: Which American main title designer designed sequences for the founder of the Sundance Film Festival?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which American main title designer designed sequences for the founder of the Sundance Film Festival?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Yes" }
+Answer:      Yes
+Gold answer: Wayne Fitzgerald
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 9, in 0.8 s
+
+===== Question 69 of 100 (id 5a749e1855429979e28829c3) =====
+Question: Which tennis player is older, Emilio Sánchez or Andrei Olhovskiy?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which tennis player is older, Emilio Sánchez or Andrei Olhovskiy?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Emilio Sánchez" }
+Answer:      Emilio Sánchez
+Gold answer: Emilio Ángel Sánchez Vicario
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 12, in 1.0 s
+
+===== Question 70 of 100 (id 5a74bdce55429929fddd84e1) =====
+Question: Who died last Vladimir Arnold or Georg Cantor?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who died last Vladimir Arnold or Georg Cantor?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Vladimir Arnold" }
+Answer:      Vladimir Arnold
+Gold answer: Vladimir Igorevich Arnold
+Correct:     no
+Attempts: 1   Tokens read: 83, written: 12, in 0.9 s
+
+===== Question 71 of 100 (id 5a74e9c255429974ef308c93) =====
+Question: The book translated as "School of Religions" was suggested to be written by whom?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: The book translated as "School of Religions" was suggested to be written by whom?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Plato" }
+Answer:      Plato
+Gold answer: Mohsin Fani
+Correct:     no
+Attempts: 1   Tokens read: 92, written: 10, in 0.8 s
+
+===== Question 72 of 100 (id 5a751bbe5542993748c897ba) =====
+Question: Which 1962 film starring Tom Courtenay is based on a short story of the same name?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which 1962 film starring Tom Courtenay is based on a short story of the same name?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "The 1962 film starring Tom Courtenay based on a short story of the same name is 'The Loneliness of the Long Distance Runner'." }
+Answer:      The 1962 film starring Tom Courtenay based on a short story of the same name is 'The Loneliness of the Long Distance Runner'
+Gold answer: The Loneliness of the Long Distance Runner
+Correct:     no
+Attempts: 1   Tokens read: 96, written: 40, in 2.6 s
+
+===== Question 73 of 100 (id 5a75447b55429974ef308cbf) =====
+Question: Which battle came first, the Battle of Okinawa or Operation Diadem?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which battle came first, the Battle of Okinawa or Operation Diadem?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Operation Diadem" }
+Answer:      Operation Diadem
+Gold answer: Operation Diadem
+Correct:     yes
+Attempts: 1   Tokens read: 89, written: 11, in 0.9 s
+
+===== Question 74 of 100 (id 5a75462d5542996c70cfaed3) =====
+Question: Who was born first, Kwok Kin Pong or Edison Chen?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who was born first, Kwok Kin Pong or Edison Chen?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Kwok Kin Pong" }
+Answer:      Kwok Kin Pong
+Gold answer: Edison Koon-hei Chen
+Correct:     no
+Attempts: 1   Tokens read: 87, written: 14, in 1.1 s
+
+===== Question 75 of 100 (id 5a756b175542996c70cfaef7) =====
+Question: Which peak stands higher, Muztagh Ata or Manaslu?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which peak stands higher, Muztagh Ata or Manaslu?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Manaslu" }
+Answer:      Manaslu
+Gold answer: Manaslu
+Correct:     yes
+Attempts: 1   Tokens read: 89, written: 11, in 0.9 s
+
+===== Question 76 of 100 (id 5a756dd65542996c70cfaef9) =====
+Question: Which documentary was produced first, The Saimaa Gesture or Eclipse of Reason?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which documentary was produced first, The Saimaa Gesture or Eclipse of Reason?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "The Saimaa Gesture"}
+Answer:      The Saimaa Gesture
+Gold answer: The Saimaa Gesture
+Correct:     yes
+Attempts: 1   Tokens read: 89, written: 11, in 0.9 s
+
+===== Question 77 of 100 (id 5a7577145542996c70cfaf03) =====
+Question: Which park is larger, Timanfaya National Park or Sierra Nevada National Park?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which park is larger, Timanfaya National Park or Sierra Nevada National Park?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Timanfaya National Park" }
+Answer:      Timanfaya National Park
+Gold answer: Sierra Nevada National Park
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 14, in 1.1 s
+
+===== Question 78 of 100 (id 5a75a4135542992d0ec05fcd) =====
+Question: The Woodvale Historic District was built buy a company headquartered where?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: The Woodvale Historic District was built buy a company headquartered where?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "New York City" }
+Answer:      New York City
+Gold answer: Rockhill Furnace, Pennsylvania
+Correct:     no
+Attempts: 1   Tokens read: 86, written: 11, in 0.9 s
+
+===== Question 79 of 100 (id 5a75a76b5542992db9473697) =====
+Question: Which animal-themed Disney classic film appeared first: That Darn Cat! or Perri?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which animal-themed Disney classic film appeared first: That Darn Cat! or Perri?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Perri"}
+Answer:      Perri
+Gold answer: That Darn Cat!
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 8, in 0.8 s
+
+===== Question 80 of 100 (id 5a75c02f5542992db94736b4) =====
+Question: Which mountain is higher, Tongshanjiabu or Himalchuli?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which mountain is higher, Tongshanjiabu or Himalchuli?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Himalchuli" }
+Answer:      Himalchuli
+Gold answer: Himalchuli has three main peaks: East (7893 m), West (7540 m) and North (7371 m)
+Correct:     no
+Attempts: 1   Tokens read: 88, written: 12, in 0.9 s
+
+===== Question 81 of 100 (id 5a75da235542992db94736f9) =====
+Question: One of the signatories of the Chicago Statement on Biblical Inerrancy was which Presbyterian pastor, known for taking a more presuppositional approach to apologetics?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: One of the signatories of the Chicago Statement on Biblical Inerrancy was which Presbyterian pastor, known for taking a more presuppositional approach to apologetics?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "John Frame" }
+Answer:      John Frame
+Gold answer: Francis Schaeffer
+Correct:     no
+Attempts: 1   Tokens read: 107, written: 10, in 0.9 s
+
+===== Question 82 of 100 (id 5a75e814554299109176e5c7) =====
+Question: Which Republican Chairman was born June 1, 1956? 
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which Republican Chairman was born June 1, 1956? 
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "John Boehner" }
+Answer:      John Boehner
+Gold answer: Gregg Harper
+Correct:     no
+Attempts: 1   Tokens read: 89, written: 10, in 0.8 s
+
+===== Question 83 of 100 (id 5a75ebfc5542992d0ec06018) =====
+Question: What indigenous American ethnic group that inhabits land in the northern United States and southern Canada was part of the Treaty of Springwells?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What indigenous American ethnic group that inhabits land in the northern United States and southern Canada was part of the Treaty of Springwells?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Potawatomi" }
+Answer:      Potawatomi
+Gold answer: Odawa
+Correct:     no
+Attempts: 1   Tokens read: 100, written: 12, in 1.0 s
+
+===== Question 84 of 100 (id 5a75f0ea5542994ccc91866c) =====
+Question: What major truck road is located in Backford Cross?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What major truck road is located in Backford Cross?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "A428" }
+Answer:      A428
+Gold answer: The A41
+Correct:     no
+Attempts: 1   Tokens read: 84, written: 12, in 0.8 s
+
+===== Question 85 of 100 (id 5a75f1a755429976ec32bcb1) =====
+Question: Which actress played a character that dated Mark Brendanawicz?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which actress played a character that dated Mark Brendanawicz?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Jennifer Aniston"}
+Answer:      Jennifer Aniston
+Gold answer: Rashida Jones
+Correct:     no
+Attempts: 1   Tokens read: 85, written: 9, in 0.8 s
+
+===== Question 86 of 100 (id 5a760dcd5542994ccc9186a1) =====
+Question: What component was included on the iPad4 that is now a registered trademark in Jamaica? 
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What component was included on the iPad4 that is now a registered trademark in Jamaica? 
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Apple Inc." }
+Answer:      Apple Inc
+Gold answer: Retina Display
+Correct:     no
+Attempts: 1   Tokens read: 91, written: 10, in 0.9 s
+
+===== Question 87 of 100 (id 5a761e855542994ccc9186e0) =====
+Question: Where are Catcha Lake and Hedley Mascot Mine located?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Where are Catcha Lake and Hedley Mascot Mine located?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "British Columbia" }
+Answer:      British Columbia
+Gold answer: British Columbia, Canada
+Correct:     no
+Attempts: 1   Tokens read: 86, written: 10, in 0.8 s
+
+===== Question 88 of 100 (id 5a762cf0554299109176e6a4) =====
+Question: Who is older, Bertalan Farkas or Hans Schlegel?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who is older, Bertalan Farkas or Hans Schlegel?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Bertalan Farkas" }
+Answer:      Bertalan Farkas
+Gold answer: Bertalan Farkas
+Correct:     yes
+Attempts: 1   Tokens read: 88, written: 14, in 1.1 s
+
+===== Question 89 of 100 (id 5a7630105542992d0ec0605a) =====
+Question: What album was released by 1948-born French composer in 1998?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What album was released by 1948-born French composer in 1998?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "L'Album de la Vie"}
+Answer:      L'Album de la Vie
+Gold answer: Odyssey Through O
+Correct:     no
+Attempts: 1   Tokens read: 93, written: 12, in 1.0 s
+
+===== Question 90 of 100 (id 5a7631c05542994ccc91870b) =====
+Question: Which university is located more east, Indiana University or University of Pennsylvania?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which university is located more east, Indiana University or University of Pennsylvania?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "University of Pennsylvania" }
+Answer:      University of Pennsylvania
+Gold answer: University of Pennsylvania
+Correct:     yes
+Attempts: 1   Tokens read: 87, written: 11, in 0.9 s
+
+===== Question 91 of 100 (id 5a7633ad5542992db9473741) =====
+Question: Which was fought earlier in our nation's history, the Seven Days Battles or the Battle of Manila?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was fought earlier in our nation's history, the Seven Days Battles or the Battle of Manila?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Seven Days Battles" }
+Answer:      Seven Days Battles
+Gold answer: The Seven Days Battles
+Correct:     yes
+Attempts: 1   Tokens read: 93, written: 11, in 0.9 s
+
+===== Question 92 of 100 (id 5a7642f7554299109176e6e8) =====
+Question: who is younger Ulrich Walter or  Luca Parmitano?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: who is younger Ulrich Walter or  Luca Parmitano?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Luca Parmitano" }
+Answer:      Luca Parmitano
+Gold answer: Luca Parmitano
+Correct:     yes
+Attempts: 1   Tokens read: 86, written: 13, in 1.0 s
+
+===== Question 93 of 100 (id 5a765fe85542992d0ec060c5) =====
+Question: The Black Star identified closely with this American magazine magnate who was called what?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: The Black Star identified closely with this American magazine magnate who was called what?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "The Black Star identified closely with this American magazine magnate who was called what?"}
+Answer:      The Black Star identified closely with this American magazine magnate who was called what?
+Gold answer: the most influential private citizen in the America of his day"
+Correct:     no
+Attempts: 1   Tokens read: 89, written: 22, in 1.5 s
+
+===== Question 94 of 100 (id 5a7666095542992d0ec060db) =====
+Question: What American gangster, businessman, casino owner and philanthropist was the inspiration for Morris "Moe" Greene in "The Godfather"?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What American gangster, businessman, casino owner and philanthropist was the inspiration for Morris "Moe" Greene in "The Godfather"?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "Meyer Lansky"}
+Answer:      Meyer Lansky
+Gold answer: Moe Dalitz
+Correct:     no
+Attempts: 1   Tokens read: 102, written: 10, in 0.9 s
+
+===== Question 95 of 100 (id 5a769b0d5542993569682c50) =====
+Question: Which documentary film was created first, The End of Suburbia or Super High Me?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which documentary film was created first, The End of Suburbia or Super High Me?
+
+Answer the question from what you know.
+
+Full reply:  {"answer": "The End of Suburbia"}
+Answer:      The End of Suburbia
+Gold answer: The End of Suburbia
+Correct:     yes
+Attempts: 1   Tokens read: 91, written: 12, in 1.0 s
+
+===== Question 96 of 100 (id 5a76db3555429972597f13e7) =====
+Question: When did the first bank come into existence that is part of an organization that serves rural areas of India with basic banking and financial services?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When did the first bank come into existence that is part of an organization that serves rural areas of India with basic banking and financial services?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "1955" }
+Answer:      1955
+Gold answer: on 20 July 2009
+Correct:     no
+Attempts: 1   Tokens read: 100, written: 12, in 1.0 s
+
+===== Question 97 of 100 (id 5a76fe7b5542994aec3b71b2) =====
+Question: Eric Stark Maskin was a  teacher for which university, located in New Jersey?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Eric Stark Maskin was a  teacher for which university, located in New Jersey?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Princeton University" }
+Answer:      Princeton University
+Gold answer: The Institute for Advanced Study
+Correct:     no
+Attempts: 1   Tokens read: 90, written: 11, in 1.0 s
+
+===== Question 98 of 100 (id 5a771e0b55429966f1a36c75) =====
+Question: Jessica Lee, former MP for Erewash, served as Parliamentary Private Secretary to the experienced representative for Beaconsfield, when he held which office?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Jessica Lee, former MP for Erewash, served as Parliamentary Private Secretary to the experienced representative for Beaconsfield, when he held which office?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Home Secretary" }
+Answer:      Home Secretary
+Gold answer: Attorney General
+Correct:     no
+Attempts: 1   Tokens read: 103, written: 10, in 0.9 s
+
+===== Question 99 of 100 (id 5a7723fa55429966f1a36ca0) =====
+Question: Which was published earlier, La Belle Assemblée or VIVmag?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was published earlier, La Belle Assemblée or VIVmag?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "La Belle Assemblée" }
+Answer:      La Belle Assemblée
+Gold answer: La Belle Assemblée
+Correct:     yes
+Attempts: 1   Tokens read: 88, written: 13, in 1.0 s
+
+===== Question 100 of 100 (id 5a772c925542993735360208) =====
+Question: Which was published first Polarity or The Farming Game?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was published first Polarity or The Farming Game?
+
+Answer the question from what you know.
+
+Full reply:  { "answer": "Polarity" }
+Answer:      Polarity
+Gold answer: The Farming Game
+Correct:     no
+Attempts: 1   Tokens read: 85, written: 10, in 0.7 s
+
+===== Summary =====
+Answered: 100 of 100
+Correct:  18 of 100 (18%)
+Tokens read: 9306, written: 1220
+Time: 1.9 minutes

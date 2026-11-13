@@ -1,0 +1,148 @@
+Method:         Single-turn (one search with the question, then the Answerer answers from it)
+Started:        2026-10-25 19:45:56
+Questions:      the first 5 of the pilot set
+Retriever:      BM25, k = 2 paragraphs, query = the question as written
+Model:          qwen3:8b
+Prompt version: v0
+Temperature:    0   Seed: 0
+
+===== Question 1 of 5 (id 5a70eee85542994082a3e3f0) =====
+Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Retriever (query = the question):
+  1. [21.4] Geography of Guinea
+  2. [21.1] Liptena bia
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Evidence:
+
+[1] Geography of Guinea
+Guinea is a country on the coast of West Africa and is bordered by Guinea-Bissau, Senegal, Mali, Ivory Coast, Liberia, and Sierra Leone.
+
+[2] Liptena bia
+Liptena bia is a butterfly in the Lycaenidae family. It is found in Ghana, Ivory Coast, Liberia and Sierra Leone.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "The Ida is used by the Mandinka people." }
+Answer:      The Ida is used by the Mandinka people
+Gold answer: The Yoruba
+Correct:     no
+Attempts: 1   Tokens read: 180, written: 18, in 10.3 s
+
+===== Question 2 of 5 (id 5a70f0a75542994082a3e403) =====
+Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Retriever (query = the question):
+  1. [19.6] Spettekaka
+  2. [12.1] Wood Frisian
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Evidence:
+
+[1] Spettekaka
+Spettekaka or spettkaka ("spiddekaga" in native Scanian) is a local dessert of the southern parts of Sweden, chiefly in the province of Scania (Skåne) but also in Halland. It is an important part of the Scanian culinary heritage. The name means "cake on a spit", and this describes the method of preparation: it is the Swedish variation on the spit cake.
+
+[2] Wood Frisian
+Wood Frisian (West Frisian: "Wâldfrysk") is a dialect of the West Frisian language spoken in the eastern part of the Dutch province of Friesland, which is called "Wâlden" (English: "woods"). The dialect is also spoken in parts of Groningen, the province to the east of Friesland.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Scanian"}
+Answer:      Scanian
+Gold answer: Scanian dialects
+Correct:     no
+Attempts: 1   Tokens read: 277, written: 8, in 1.7 s
+
+===== Question 3 of 5 (id 5a70f0e75542994082a3e408) =====
+Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Retriever (query = the question):
+  1. [17.6] Whiting School of Engineering
+  2. [16.9] Johns Hopkins University
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Evidence:
+
+[1] Whiting School of Engineering
+The G.W.C. Whiting School of Engineering, is a division of the Johns Hopkins University located in the university's Homewood campus in Baltimore, Maryland, United States.
+
+[2] Johns Hopkins University
+The Johns Hopkins University (commonly referred to as Johns Hopkins, JHU, or simply Hopkins) is an American private research university in Baltimore, Maryland. Founded in 1876, the university was named for its first benefactor, the American entrepreneur, abolitionist, and philanthropist Johns Hopkins. His $7 million bequest—of which half financed the establishment of Johns Hopkins Hospital—was the largest philanthropic gift in the history of the United States at that time. Daniel Coit Gilman, who was inaugurated as the institution's first president on February 22, 1876, led the university to revolutionize higher education in the U.S. by integrating teaching and research. Adopting the concept of a graduate school from Germany's ancient Heidelberg University, Johns Hopkins University is considered the first research university in the United States.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Northwestern University" }
+Answer:      Northwestern University
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+Correct:     no
+Attempts: 1   Tokens read: 322, written: 11, in 2.2 s
+
+===== Question 4 of 5 (id 5a70f9335542994082a3e46a) =====
+Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Retriever (query = the question):
+  1. [19.5] Alt for Damerne
+  2. [13.4] Lene Thiesen
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Evidence:
+
+[1] Alt for Damerne
+ALT for Damerne (meaning "All for the Ladies" in English) is a Danish language weekly women's magazine published in Copenhagen, Denmark.
+
+[2] Lene Thiesen
+Lene Thiesen (b. 1947 in Copenhagen) is the former director of the Copenhagen International Theatre (Danish: "Københavns Internationale Teater or KIT" ). In 1992, Thiesen was named 'Woman of the Year' by the Danish magazine "Alt for damerne".
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Essence"}
+Answer:      Essence
+Gold answer: ALT for Damerne
+Correct:     no
+Attempts: 1   Tokens read: 208, written: 8, in 1.3 s
+
+===== Question 5 of 5 (id 5a7103b35542994082a3e4c0) =====
+Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Retriever (query = the question):
+  1. [21.2] Khunyang Chhish
+  2. [19.6] Kunyang Chhish East
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Evidence:
+
+[1] Khunyang Chhish
+Khunyang Chhish or Kunyang Chhish (Urdu: ‎ )is the second-highest mountain in the Hispar Muztagh, a subrange of the Karakoram mountains of Pakistan. Alternate variations of the name include Kunyang Kish and Khiangyang Kish, among others. Its height, also sometimes given as 7823 m , is ranked 21st in the world and 8th in Pakistan.
+
+[2] Kunyang Chhish East
+Kunyang or Khunyang Chhish East is a 7400m mountain in the Khunyang Chhish massive (a subrange of the Karakoram mountains of Pakistan). It is separated by a 7160 m pass from the main summit 2 km to the West and has a 2,700 m Southwest face. On July 18, 2013 Hansjörg Auer, Matthias Auer and Simon Anthamatten made the first ascent over this wall, which had been widely regarded as one of the great remaining problems in alpinism.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Masherbrum" }
+Answer:      Masherbrum
+Gold answer: Khunyang Chhish
+Correct:     no
+Attempts: 1   Tokens read: 337, written: 12, in 2.3 s
+
+===== Summary =====
+Answered: 5 of 5
+Correct:  0 of 5 (0%)
+Tokens read: 1324, written: 57
+Time: 0.3 minutes

@@ -1,0 +1,2713 @@
+Method:         Single-turn (one search with the question, then the Answerer answers from it)
+Started:        2026-10-23 23:32:44
+Questions:      the first 100 of the pilot set
+Retriever:      BM25, k = 2 paragraphs, query = the question as written
+Model:          qwen3:8b
+Prompt version: v0
+Temperature:    0   Seed: 0
+
+===== Question 1 of 100 (id 5a70eee85542994082a3e3f0) =====
+Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Retriever (query = the question):
+  1. [21.4] Geography of Guinea
+  2. [21.1] Liptena bia
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which group of people in West Africa with significant populations in Ghana, Ivory Coast, Liberia and Sierra Leone use the Ida?
+
+Evidence:
+
+[1] Geography of Guinea
+Guinea is a country on the coast of West Africa and is bordered by Guinea-Bissau, Senegal, Mali, Ivory Coast, Liberia, and Sierra Leone.
+
+[2] Liptena bia
+Liptena bia is a butterfly in the Lycaenidae family. It is found in Ghana, Ivory Coast, Liberia and Sierra Leone.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "The Ida is used by the Mandinka people." }
+Answer:      The Ida is used by the Mandinka people
+Gold answer: The Yoruba
+Correct:     no
+Attempts: 1   Tokens read: 180, written: 18, in 9.4 s
+
+===== Question 2 of 100 (id 5a70f0a75542994082a3e403) =====
+Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Retriever (query = the question):
+  1. [19.6] Spettekaka
+  2. [12.1] Wood Frisian
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which dialect spoken in the province of Scania calls Spettekaka, "spiddekaga"?
+
+Evidence:
+
+[1] Spettekaka
+Spettekaka or spettkaka ("spiddekaga" in native Scanian) is a local dessert of the southern parts of Sweden, chiefly in the province of Scania (Skåne) but also in Halland. It is an important part of the Scanian culinary heritage. The name means "cake on a spit", and this describes the method of preparation: it is the Swedish variation on the spit cake.
+
+[2] Wood Frisian
+Wood Frisian (West Frisian: "Wâldfrysk") is a dialect of the West Frisian language spoken in the eastern part of the Dutch province of Friesland, which is called "Wâlden" (English: "woods"). The dialect is also spoken in parts of Groningen, the province to the east of Friesland.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Scanian"}
+Answer:      Scanian
+Gold answer: Scanian dialects
+Correct:     no
+Attempts: 1   Tokens read: 277, written: 8, in 1.4 s
+
+===== Question 3 of 100 (id 5a70f0e75542994082a3e408) =====
+Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Retriever (query = the question):
+  1. [17.6] Whiting School of Engineering
+  2. [16.9] Johns Hopkins University
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which of these universities, Northwestern University or Johns Hopkins University, have a campus outside of the United States territories?
+
+Evidence:
+
+[1] Whiting School of Engineering
+The G.W.C. Whiting School of Engineering, is a division of the Johns Hopkins University located in the university's Homewood campus in Baltimore, Maryland, United States.
+
+[2] Johns Hopkins University
+The Johns Hopkins University (commonly referred to as Johns Hopkins, JHU, or simply Hopkins) is an American private research university in Baltimore, Maryland. Founded in 1876, the university was named for its first benefactor, the American entrepreneur, abolitionist, and philanthropist Johns Hopkins. His $7 million bequest—of which half financed the establishment of Johns Hopkins Hospital—was the largest philanthropic gift in the history of the United States at that time. Daniel Coit Gilman, who was inaugurated as the institution's first president on February 22, 1876, led the university to revolutionize higher education in the U.S. by integrating teaching and research. Adopting the concept of a graduate school from Germany's ancient Heidelberg University, Johns Hopkins University is considered the first research university in the United States.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Northwestern University" }
+Answer:      Northwestern University
+Gold answer: with other campuses located in Chicago and Doha, Qatar
+Correct:     no
+Attempts: 1   Tokens read: 322, written: 11, in 1.9 s
+
+===== Question 4 of 100 (id 5a70f9335542994082a3e46a) =====
+Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Retriever (query = the question):
+  1. [19.5] Alt for Damerne
+  2. [13.4] Lene Thiesen
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which magazine is published more in a year, Essence or Alt for Damerne?
+
+Evidence:
+
+[1] Alt for Damerne
+ALT for Damerne (meaning "All for the Ladies" in English) is a Danish language weekly women's magazine published in Copenhagen, Denmark.
+
+[2] Lene Thiesen
+Lene Thiesen (b. 1947 in Copenhagen) is the former director of the Copenhagen International Theatre (Danish: "Københavns Internationale Teater or KIT" ). In 1992, Thiesen was named 'Woman of the Year' by the Danish magazine "Alt for damerne".
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Essence"}
+Answer:      Essence
+Gold answer: ALT for Damerne
+Correct:     no
+Attempts: 1   Tokens read: 208, written: 8, in 1.1 s
+
+===== Question 5 of 100 (id 5a7103b35542994082a3e4c0) =====
+Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Retriever (query = the question):
+  1. [21.2] Khunyang Chhish
+  2. [19.6] Kunyang Chhish East
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which mountain, Masherbrum or Khunyang Chhish, is a taller mountain?
+
+Evidence:
+
+[1] Khunyang Chhish
+Khunyang Chhish or Kunyang Chhish (Urdu: ‎ )is the second-highest mountain in the Hispar Muztagh, a subrange of the Karakoram mountains of Pakistan. Alternate variations of the name include Kunyang Kish and Khiangyang Kish, among others. Its height, also sometimes given as 7823 m , is ranked 21st in the world and 8th in Pakistan.
+
+[2] Kunyang Chhish East
+Kunyang or Khunyang Chhish East is a 7400m mountain in the Khunyang Chhish massive (a subrange of the Karakoram mountains of Pakistan). It is separated by a 7160 m pass from the main summit 2 km to the West and has a 2,700 m Southwest face. On July 18, 2013 Hansjörg Auer, Matthias Auer and Simon Anthamatten made the first ascent over this wall, which had been widely regarded as one of the great remaining problems in alpinism.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Masherbrum" }
+Answer:      Masherbrum
+Gold answer: Khunyang Chhish
+Correct:     no
+Attempts: 1   Tokens read: 337, written: 12, in 1.9 s
+
+===== Question 6 of 100 (id 5a7109e95542994082a3e4fa) =====
+Question: What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+
+Retriever (query = the question):
+  1. [15.0] Sean Francis (footballer)
+  2. [11.8] Alan McLoughlin
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What town did Sean Robert Francis play in as part of the most successful club in the Republic of Ireland?
+
+Evidence:
+
+[1] Sean Francis (footballer)
+Sean Robert Francis (born 1 August 1972) is a former footballer who played in the Football League for Birmingham City and Northampton Town, and in the League of Ireland for Cobh Ramblers, Shamrock Rovers and Longford Town. He played as a forward.
+
+[2] Alan McLoughlin
+Alan Francis McLoughlin (born 20 April 1967 in Manchester, England) is a former professional footballer and coach, who played as a midfielder for the Republic of Ireland and various English club sides, most notably Swindon Town and Portsmouth.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Shamrock Rovers" }
+Answer:      Shamrock Rovers
+Gold answer: Tallaght, South Dublin
+Correct:     no
+Attempts: 1   Tokens read: 227, written: 13, in 1.5 s
+
+===== Question 7 of 100 (id 5a710d155542994082a3e520) =====
+Question: Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+
+Retriever (query = the question):
+  1. [18.2] Anneliese Michel
+  2. [14.0] Erich Schmidt-Leichner
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who was the defense counsel of a German woman who underwent Catholic exorcism rites during the year before her death?
+
+Evidence:
+
+[1] Anneliese Michel
+Anneliese Michel ] (21 September 1952 – 1 July 1976) was a German woman who underwent Catholic exorcism rites during the year before her death. Later investigation determined that she was malnourished and dehydrated; her parents and the priests responsible were charged with negligent homicide. She was diagnosed with epileptic psychosis (temporal lobe epilepsy) and had a history of psychiatric treatment, which was overall not effective. Her condition worsened with her displaying various other symptoms which she took medication for as well. Michel and her family became convinced she was possessed by demons. The case attracted media and public attention because of the priests' unusual decision to employ a 400-year-old ritual of exorcism. The film "The Exorcism of Emily Rose" is loosely based on her story.
+
+[2] Erich Schmidt-Leichner
+Erich Schmidt-Leichner (14 October 1910 – 17 March 1983) was a German lawyer who made a name as a distinguished defense counsel at the Nuremberg Trials (1945 - 1946). In 1978, he was a defense counsel in the "Klingenberg Case" (Anneliese Michel), where a married couple were accused of negligent homicide for failing to call a medical doctor during an exorcism of their daughter.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Erich Schmidt-Leichner" }
+Answer:      Erich Schmidt-Leichner
+Gold answer: Erich Schmidt-Leichner
+Correct:     yes
+Attempts: 1   Tokens read: 398, written: 14, in 2.3 s
+
+===== Question 8 of 100 (id 5a711c535542994082a3e59b) =====
+Question: Albanians in Montenegro which make up 4.91 of the county's total population could be members of the Albanian Coalation Perspect which is a what? 
+
+Retriever (query = the question):
+  1. [22.2] Albanians in Montenegro
+  2. [19.8] Albanian Coalition &quot;Perspective&quot;
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Albanians in Montenegro which make up 4.91 of the county's total population could be members of the Albanian Coalation Perspect which is a what? 
+
+Evidence:
+
+[1] Albanians in Montenegro
+Albanians in Montenegro (, Albanian: "Shqiptarët e Malit të Zi" ) constitute 4.91% of the county's total population. Albanians of Montenegro are Ghegs who mainly live in southeastern and eastern Montenegro, mainly in the following municipalities: Ulcinj (71% of population), Plav (19%), Bar (6%), Podgorica (5%) and Rožaje (5%).
+
+[2] Albanian Coalition &quot;Perspective&quot;
+The Albanian Coalition "Perspective" is an Albanian political party in Montenegro.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "political party" }
+Answer:      political party
+Gold answer: Albanian political party in Montenegro
+Correct:     no
+Attempts: 1   Tokens read: 247, written: 10, in 1.5 s
+
+===== Question 9 of 100 (id 5a711cb45542994082a3e59f) =====
+Question: Who has won more Grand Slam women's doubles titles, Lisa Raymond or Liezel Huber?
+
+Retriever (query = the question):
+  1. [26.5] Liezel Huber
+  2. [22.5] 2007 Sony Ericsson Open – Women's Doubles
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who has won more Grand Slam women's doubles titles, Lisa Raymond or Liezel Huber?
+
+Evidence:
+
+[1] Liezel Huber
+Liezel Huber (née Horn; born 21 August 1976) is a South African-American retired tennis player who represents the United States internationally. Huber has won four Grand Slam titles in women's doubles with partner Cara Black, one with Lisa Raymond, and two mixed doubles titles with Bob Bryan. On 12 November 2007, she became the co-World No. 1 in doubles with Cara Black. On 19 April 2010, Huber became the sole No. 1 for the first time in her career.
+
+[2] 2007 Sony Ericsson Open – Women's Doubles
+Lisa Raymond and Samantha Stosur were the defending champions and they defended their title by beating Cara Black and Liezel Huber 6-4, 3-6, [10-2] in the final.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Lisa Raymond" }
+Answer:      Lisa Raymond
+Gold answer: Liezel Huber
+Correct:     no
+Attempts: 1   Tokens read: 284, written: 10, in 1.7 s
+
+===== Question 10 of 100 (id 5a71224f5542994082a3e5c1) =====
+Question: When was the actor born who starred in Nambia: The Struggle for Liberation and played Roger Murtaugh in the "Lethal Weapon" film series?
+
+Retriever (query = the question):
+  1. [22.6] Roger Murtaugh
+  2. [16.4] Lethal Weapon (franchise)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When was the actor born who starred in Nambia: The Struggle for Liberation and played Roger Murtaugh in the "Lethal Weapon" film series?
+
+Evidence:
+
+[1] Roger Murtaugh
+Roger Murtaugh is a fictional character in the "Lethal Weapon" films, played in all four by Danny Glover. On February 12, 2016, it was announced that Murtaugh would be played by Damon Wayans Sr. in the pilot for the new Fox Television drama series.
+
+[2] Lethal Weapon (franchise)
+Lethal Weapon is an American buddy cop action comedy franchise created by Shane Black that focuses on Los Angeles Police Department (LAPD) detectives, Martin Riggs, Roger Murtaugh, and their fast-talking sidekick Leo Getz (who debuts in the second film). The franchise consists of four films released during the 1980s and 1990s, as well as a television series in 2016. All four films in the series were directed by Richard Donner and also share many of the same core cast members, while the television series recast the main roles with younger actors instead.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Danny Glover"}
+Answer:      Danny Glover
+Gold answer: July 22, 1946
+Correct:     no
+Attempts: 1   Tokens read: 322, written: 8, in 1.7 s
+
+===== Question 11 of 100 (id 5a713dcb5542994082a3e6d9) =====
+Question: What pursuit did both Gevork Minaskanian and George Stambolian have in common?
+
+Retriever (query = the question):
+  1. [11.6] George Stambolian
+  2. [10.3] Gevork Minaskanian
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What pursuit did both Gevork Minaskanian and George Stambolian have in common?
+
+Evidence:
+
+[1] George Stambolian
+George Stambolian (born April 10, 1938 – December 22, 1991, New York City) was an American educator, writer, and editor of Armenian descent. Stambolian was a key figure in the early gay literary movement that came out of New York during the 1960s and 1970s. He was best known as the editor of the "Men on Men" anthologies of gay fiction.
+
+[2] Gevork Minaskanian
+Gevork Minaskanian, Ph.D., is a research professor in the Department of Chemistry at Virginia Commonwealth University and Co-founder/Vice President of Synthetic Chemistry at Aderis Pharmaceuticals who was a contributor to the development of rotigotine and Neupro (a transdermalpatch that delivers rotigotine). Rotigotine is a drug developed to mimic the actions of dopamine in the brain to help cope with restless legs syndrome and the abnormal movements(dyskinesia) found in Parkinson's disease patients. This drug is an alternative to oral medications for treatment of Parkinson's disease, considered by the VCU Department of Chemistry as "an unprecedented medication for the benefit of millions of Parkinson's patient worldwide." Minaskanian’s main contribution to Neupro was improving the efficiency of manufacturing rotigotine, thereby making the process commercially viable and enabling patients to afford this important medication. Dr. Minaskanian is the inventor and author of over 50 patents and publications in various fields of organic and medicinal chemistry. Some of his US patents include patents 5,470,848; 4,801,586; 5,234,959; 5,118,676; and other related research done on rotigotine and Neupro US patent 7,309,497 found in the United States Patent and Trademark Office linked to the penetration enhancers for transdermal delivery of systemic agents.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "research in chemistry and pharmaceuticals" }
+Answer:      research in chemistry and pharmaceuticals
+Gold answer: American educator, writer,
+Correct:     no
+Attempts: 1   Tokens read: 514, written: 14, in 2.9 s
+
+===== Question 12 of 100 (id 5a71419f5542994082a3e70d) =====
+Question: Riema Juhani Karppinen won the silver medal at what event held outside of Munich, Germany?
+
+Retriever (query = the question):
+  1. [15.8] Reima Karppinen
+  2. [12.7] Lebanon at the 1972 Summer Olympics
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Riema Juhani Karppinen won the silver medal at what event held outside of Munich, Germany?
+
+Evidence:
+
+[1] Reima Karppinen
+Reima Juhani Karppinen (born 27 January 1958) is a retired Finnish rower who specialized in the double sculls. In this event, he won a silver medal at the 1981 World Rowing Championships, together with his legendary brother Pertti. He competed at the 1984, 1988 and 1992 Summer Olympics, with other partners, and finished in 8th, 12th and 13th place, respectively.
+
+[2] Lebanon at the 1972 Summer Olympics
+Lebanon competed at the 1972 Summer Olympics in Munich, West Germany and won one silver medal. 19 competitors, 17 men and 2 women, took part in 23 events in 9 sports.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "1981 World Rowing Championships" }
+Answer:      1981 World Rowing Championships
+Gold answer: 1981 World Rowing Championships
+Correct:     yes
+Attempts: 1   Tokens read: 280, written: 16, in 2.0 s
+
+===== Question 13 of 100 (id 5a71474b5542994082a3e74f) =====
+Question: What was triggered by the resignation of Conservative MP Stephen Phillips on 4 November 2016 and was when Caroline Johnson became a Member of Parliament?
+
+Retriever (query = the question):
+  1. [18.7] Caroline Johnson
+  2. [17.0] Stephen Phillips (politician)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What was triggered by the resignation of Conservative MP Stephen Phillips on 4 November 2016 and was when Caroline Johnson became a Member of Parliament?
+
+Evidence:
+
+[1] Caroline Johnson
+Caroline Elizabeth Johnson (born 1978) is a British Conservative Party politician and consultant paediatrician. She has been the Member of Parliament (MP) for Sleaford and North Hykeham since the by-election there on 8 December 2016.
+
+[2] Stephen Phillips (politician)
+Stephen James Phillips (born 9 March 1970) is a British Conservative Party politician, barrister and recorder (part-time Crown Court judge). He represented the constituency of Sleaford and North Hykeham as its Member of Parliament (MP) from 2010 until his resignation. On 4 November 2016, he announced that he was standing down with immediate effect, owing to his irreconcilable policy differences with the government.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "by-election"}
+Answer:      by-election
+Gold answer: The Sleaford and North Hykeham by-election
+Correct:     no
+Attempts: 1   Tokens read: 275, written: 8, in 1.4 s
+
+===== Question 14 of 100 (id 5a7147fd5542994082a3e758) =====
+Question: When was the king that started coin production in Copenhagen born?
+
+Retriever (query = the question):
+  1. [11.7] Royal Mint (Denmark)
+  2. [8.2] Spur ryal
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When was the king that started coin production in Copenhagen born?
+
+Evidence:
+
+[1] Royal Mint (Denmark)
+Production of coins in Denmark goes about 1000 years back. For the first 500 years it took place at various towns around the country. The first king to start a production of coins in Copenhagen was King Hans. It is believed that it took place in the celler of his house. Owned by Magasin du Nord, the vaulted premises still exist today at Vingårdstræde 6
+
+[2] Spur ryal
+The Spur Royal was an extremely rare English gold coin issued in the reign of King James I. The coin is a development of the earlier Rose Noble, or Ryal which was worth ten shillings when issued by Kings Edward IV and Henry VII, and fifteen shillings when issued by Queens Mary and Elizabeth I.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "1397"}
+Answer:      1397
+Gold answer: 2 February 1455
+Correct:     no
+Attempts: 1   Tokens read: 256, written: 10, in 1.5 s
+
+===== Question 15 of 100 (id 5a7149cf5542994082a3e773) =====
+Question: What 2015 British-Canadian-Irish romantic drama was Finola Dwyer a producer of?
+
+Retriever (query = the question):
+  1. [16.1] Finola Dwyer
+  2. [12.8] Amanda Posey
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What 2015 British-Canadian-Irish romantic drama was Finola Dwyer a producer of?
+
+Evidence:
+
+[1] Finola Dwyer
+Finola Dwyer {'1': ", '2': ", '3': ", '4': "} is a UK-based New Zealand film producer and editor, best known for her films "An Education" and "Brooklyn", produced with frequent collaborator Amanda Posey.
+
+[2] Amanda Posey
+Amanda Rachel Posey (born June 1965) is a British film producer, best known for her films "An Education" and "Brooklyn", produced with frequent collaborator Finola Dwyer. She is the wife of novelist and screenwriter Nick Hornby.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "An Education"}
+Answer:      An Education
+Gold answer: Brooklyn
+Correct:     no
+Attempts: 1   Tokens read: 226, written: 8, in 1.3 s
+
+===== Question 16 of 100 (id 5a714de95542994082a3e7a8) =====
+Question: Alexander Young, also known as George Alexander, is the uncle to which Scottish musician who replaced Malcolm Young in the band AC/DC in 2014?
+
+Retriever (query = the question):
+  1. [31.4] Alexander Young (musician)
+  2. [27.8] Stevie Young
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Alexander Young, also known as George Alexander, is the uncle to which Scottish musician who replaced Malcolm Young in the band AC/DC in 2014?
+
+Evidence:
+
+[1] Alexander Young (musician)
+Alexander Young (28 December 1938 – 4 August 1997), also known as George Alexander, was a Scottish singer, songwriter, saxophonist, bassist, guitarist and session musician. He is an elder brother of George Young, the rhythm guitarist and founding member of the Easybeats, as well as Malcolm and Angus Young, founding members of the Australian hard rock band AC/DC, and the younger brother of Stephen Young, the father of Stevie Young, who was also a member of AC/DC.
+
+[2] Stevie Young
+Stephen Crawford Young (born 11 December 1956 in Glasgow, Scotland) is a Scottish musician, and the rhythm guitarist and backing vocalist for the Australian hard rock band, AC/DC. He officially joined the band in September 2014, replacing his uncle, Malcolm Young who retired due to dementia. He had previously filled in for Malcolm on AC/DC's 1988 U.S. tour.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Stevie Young" }
+Answer:      Stevie Young
+Gold answer: Stephen Crawford Young
+Correct:     no
+Attempts: 1   Tokens read: 324, written: 12, in 1.9 s
+
+===== Question 17 of 100 (id 5a71674f5542994082a3e819) =====
+Question: When was the magazine Sam Duckworth got his name Get Cape. Wear Cape. Fly from launched?
+
+Retriever (query = the question):
+  1. [30.4] Get Cape. Wear Cape. Fly
+  2. [28.0] Get Cape. Wear Cape. Fly (EP)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When was the magazine Sam Duckworth got his name Get Cape. Wear Cape. Fly from launched?
+
+Evidence:
+
+[1] Get Cape. Wear Cape. Fly
+Sam Duckworth is an English musician who performs as Get Cape. Wear Cape. Fly. He is sometimes referred to as Get Cape, Cape, GCWCF and Slam Dunkworth (the latter title apparently first coined by Emmy The Great). According to Duckworth, his original stage name came from Retro Gamer magazine, from an article about superhero games such as "Batman" containing the heading "Get Cape. Wear Cape. Fly". In addition to the Get Cape name, and his given name, Duckworth has released music under the moniker Recreations.
+
+[2] Get Cape. Wear Cape. Fly (EP)
+Get Cape. Wear Cape. Fly is the debut EP of Sam Duckworth, who performs under the name Get Cape. Wear Cape. Fly. It was released in tandem with a video for "Whitewash is Brainwash", which sees Get Cape. Wear Cape. Fly travelling around on the London Underground and performing a secret show in Bank Tube Station.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "1999"}
+Answer:      1999
+Gold answer: January 2004
+Correct:     no
+Attempts: 1   Tokens read: 302, written: 10, in 1.6 s
+
+===== Question 18 of 100 (id 5a716c415542994082a3e827) =====
+Question: Which airline partners with Gogo Inflight Internet and opened in 1984?
+
+Retriever (query = the question):
+  1. [16.2] Gogo Business Aviation
+  2. [15.9] Gogo Inflight Internet
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which airline partners with Gogo Inflight Internet and opened in 1984?
+
+Evidence:
+
+[1] Gogo Business Aviation
+Gogo Business Aviation (formerly Aircell) is a division of Gogo Inflight Internet is a provider of in-flight broadband Internet service and other connectivity services for business aircraft. It is headquartered in Broomfield, CO.
+
+[2] Gogo Inflight Internet
+Gogo Inc. is a provider of in-flight broadband Internet service and other connectivity services for commercial and business aircraft, headquartered in Chicago, Illinois. 17 airlines partner with Gogo to provide in-flight WiFi, including British Airways, Aer Lingus, Iberia, Gol linhas aereas, Beijing Capital, Aeromexico, American Airlines, Air Canada, Alaska Airlines, Delta Air Lines, Japan Airlines, JTA, United Airlines, Hainan Airlines, Virgin America, Vietnam Airlines and Virgin Atlantic. Gogo Inc. is a holding company, operating through its two subsidiaries, Gogo LLC and Aircell Business Aviation Services LLC (now Gogo Business Aviation Inc.). According to Gogo, over 2,500 commercial aircraft and 6,600 business aircraft have been equipped with its onboard Wi-Fi services. The company is also the developer of 2Ku, the new in-flight (satellite solution) Wi-Fi technology.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Gogo Business Aviation" }
+Answer:      Gogo Business Aviation
+Gold answer: Virgin Atlantic
+Correct:     no
+Attempts: 1   Tokens read: 353, written: 12, in 2.1 s
+
+===== Question 19 of 100 (id 5a716dc15542994082a3e82b) =====
+Question: Who is younger Kirk Humphreys or Tom Coburn?
+
+Retriever (query = the question):
+  1. [16.1] Kirk Humphreys
+  2. [10.8] Sarah Coburn
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who is younger Kirk Humphreys or Tom Coburn?
+
+Evidence:
+
+[1] Kirk Humphreys
+Kirk Humphreys (born September 13, 1950) is an American politician who served as Mayor of Oklahoma City from April 9, 1998 to November 3, 2003. He was considered a favorite candidate of the Republican party establishment for U.S. Senator in 2004, losing to former Congressman Tom Coburn, MD in the primary. Humphreys is the chairman of The Humphreys Company.
+
+[2] Sarah Coburn
+Sarah Coburn is an American operatic soprano (born August 4, 1977) who was born in Petersburg, Virginia and is the daughter of former United States Senator from Oklahoma, Tom Coburn.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Kirk Humphreys" }
+Answer:      Kirk Humphreys
+Gold answer: Kirk Humphreys
+Correct:     yes
+Attempts: 1   Tokens read: 245, written: 13, in 1.7 s
+
+===== Question 20 of 100 (id 5a721a7655429971e9dc9271) =====
+Question: What actor from the show Murphy Brown also had a role in a show with fellow actor Steve Howey? 
+
+Retriever (query = the question):
+  1. [17.8] Steve Howey (actor)
+  2. [13.6] Christopher Rich (actor)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What actor from the show Murphy Brown also had a role in a show with fellow actor Steve Howey? 
+
+Evidence:
+
+[1] Steve Howey (actor)
+Steven Michael Robert Howey (born July 12, 1977) is an American film and television actor. He is known for his roles on Showtime's series "Shameless" and the television series "Reba". Howey has also appeared in the films "Supercross", "", and "Bride Wars".
+
+[2] Christopher Rich (actor)
+Christopher Rich Wilson (born September 16, 1953, in Dallas, Texas) is an American actor, best known for his roles on "Murphy Brown" and "Reba".
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Christopher Rich" }
+Answer:      Christopher Rich
+Gold answer: Christopher Rich
+Correct:     yes
+Attempts: 1   Tokens read: 225, written: 10, in 1.4 s
+
+===== Question 21 of 100 (id 5a72224755429971e9dc92be) =====
+Question: Which was founded first, Dain Rauscher Wessels or Berenberg Bank?
+
+Retriever (query = the question):
+  1. [24.4] Dain Rauscher Wessels
+  2. [21.9] Tucker Anthony
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was founded first, Dain Rauscher Wessels or Berenberg Bank?
+
+Evidence:
+
+[1] Dain Rauscher Wessels
+Dain Rauscher Wessels was a brokerage and investment banking firm based in Minneapolis, Minnesota. The firm traced its origins to a number of smaller regional securities firms founded in the 1920s and 1930s.
+
+[2] Tucker Anthony
+Tucker Anthony was an independent investment banking and brokerage firm based in Boston, Massachusetts. In 2001, the firm was acquired by Royal Bank of Canada and was merged with the bank's Dain Rauscher Wessels subsidiary to create RBC Dain Rauscher.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Berenberg Bank" }
+Answer:      Berenberg Bank
+Gold answer: Dain Rauscher Wessels
+Correct:     no
+Attempts: 1   Tokens read: 220, written: 12, in 1.5 s
+
+===== Question 22 of 100 (id 5a722c2255429971e9dc932c) =====
+Question: What type of development, currently existing in Pasay, is currently being considered for malls such as one in M.A. Roxas Avenue in Clark Freeport, Angeles City in Pampanga Philippines?
+
+Retriever (query = the question):
+  1. [27.2] SM City Clark
+  2. [17.8] SM City San Fernando
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What type of development, currently existing in Pasay, is currently being considered for malls such as one in M.A. Roxas Avenue in Clark Freeport, Angeles City in Pampanga Philippines?
+
+Evidence:
+
+[1] SM City Clark
+SM City Clark is a shopping mall owned and operated by SM Prime Holdings. It is located along M.A. Roxas Avenue in Clark Freeport, Angeles City in Pampanga, Philippines. It is the second SM supermall in the province of Pampanga after SM City Pampanga in City of San Fernando and Mexico, Pampanga and SM San Fernando Downtown in the downtown area of the City of San Fernando, Pampanga.
+
+[2] SM City San Fernando
+SM City San Fernando is a shopping mall owned and operated by SM Prime Holdings. It is located along V. Tiomico Street and Consunji Street in the Downtown Heritage District, Barangay Santo Rosario, San Fernando, Pampanga. It is the third SM supermall in the province of Pampanga after SM City Pampanga in San Fernando and Mexico, Pampanga and SM City Clark in the Clark Freeport Zone, Angeles, Pampanga. The mall has a total gross floor area of 42,625 square meters. It features more than 100 shops.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "SM City Clark" }
+Answer:      SM City Clark
+Gold answer: SM Lifestyle Cities
+Correct:     no
+Attempts: 1   Tokens read: 344, written: 11, in 2.0 s
+
+===== Question 23 of 100 (id 5a72334755429971e9dc934c) =====
+Question: "Heartbreak Hurricane" was recorded by which country artist, that also goes by the name Ricky Skaggs?
+
+Retriever (query = the question):
+  1. [21.2] Heartbreak Hurricane
+  2. [16.9] Country Boy (Ricky Skaggs album)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: "Heartbreak Hurricane" was recorded by which country artist, that also goes by the name Ricky Skaggs?
+
+Evidence:
+
+[1] Heartbreak Hurricane
+"Heartbreak Hurricane" is a song written by Larry Cordle and Jim Rushing, and recorded by American country music artist Ricky Skaggs. It was released in December 1989 as the third single from the album "Kentucky Thunder". The song reached No. 13 on the "Billboard" Hot Country Singles & Tracks chart.
+
+[2] Country Boy (Ricky Skaggs album)
+Country Boy is the seventh studio album by American country music artist Ricky Skaggs. It was released in 1984 via Epic Records. The album peaked at number 1 on the "Billboard" Top Country Albums chart.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Ricky Skaggs"}
+Answer:      Ricky Skaggs
+Gold answer: Rickie Lee Skaggs
+Correct:     no
+Attempts: 1   Tokens read: 238, written: 11, in 1.4 s
+
+===== Question 24 of 100 (id 5a7243915542990c210a4086) =====
+Question: Where is the University of North Carolina at Wilmington, population 112,067 located?
+
+Retriever (query = the question):
+  1. [17.1] Wilmington, North Carolina
+  2. [14.4] University of North Carolina at Wilmington Arboretum
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Where is the University of North Carolina at Wilmington, population 112,067 located?
+
+Evidence:
+
+[1] Wilmington, North Carolina
+Wilmington is a port city and the county seat of New Hanover County in coastal southeastern North Carolina, United States. The population is 112,067; according to the 2010 Census it is the 8th largest city in the state. Wilmington is the principal city of the Wilmington Metropolitan Statistical Area, a metropolitan area that includes New Hanover and Pender counties in southeastern North Carolina, which has a population of 263,429 as of the 2012 Census Estimate.
+
+[2] University of North Carolina at Wilmington Arboretum
+University of North Carolina at Wilmington Arboretum
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Wilmington, North Carolina" }
+Answer:      Wilmington, North Carolina
+Gold answer: Wilmington, North Carolina
+Correct:     yes
+Attempts: 1   Tokens read: 236, written: 13, in 1.6 s
+
+===== Question 25 of 100 (id 5a724ba25542990c210a40c7) =====
+Question: What is the English translation of the social group which Baran Khan Kudezai was a part of?
+
+Retriever (query = the question):
+  1. [20.2] Baran Khan Kudezai
+  2. [10.0] What Is To Be Done? (Tolstoy)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What is the English translation of the social group which Baran Khan Kudezai was a part of?
+
+Evidence:
+
+[1] Baran Khan Kudezai
+Malak Baran Khan Kudezai was a politician and Chief of the Marmakhel Tribe which consists of famouse sub-tribes in Loralai i.e. Kudezai, Khadarzai, Malazai,Adhorhzai,Walizai, Alizai etc. He was also an active member of Loya jirga (Afghanistan Grand Council/Assembly).
+
+[2] What Is To Be Done? (Tolstoy)
+What Is To Be Done? (sometimes translated as What Then Must We Do?) is a non-fiction work by Leo Tolstoy, in which Tolstoy describes the social conditions of Russia in his day. Tolstoy completed the book in 1886, and the first English language publication came in 1887 as What To Do?. A revised translation with the current title was published in 1899.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Marmakhel Tribe" }
+Answer:      Marmakhel Tribe
+Gold answer: grand assembly
+Correct:     no
+Attempts: 1   Tokens read: 297, written: 13, in 1.9 s
+
+===== Question 26 of 100 (id 5a7264ed5542990c210a411a) =====
+Question: What was the slogan  that came about from the idea of Lebensraum which had its most extreme form supported by the Nazi Party until the end of World War II?
+
+Retriever (query = the question):
+  1. [24.5] Lebensraum
+  2. [14.3] List of Nazi ideologues
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What was the slogan  that came about from the idea of Lebensraum which had its most extreme form supported by the Nazi Party until the end of World War II?
+
+Evidence:
+
+[1] Lebensraum
+The German concept of Lebensraum (] , English: "living space" ) refers to policies and practices of settler colonialism which proliferated in Germany from the 1890s to the 1940s. First popularized around 1901, "Lebensraum" became a geopolitical goal of Imperial Germany in World War I (1914–1918) originally, as the core element of the "Septemberprogramm" of territorial expansion.<ref name="E/N301"> </ref> The most extreme form of this ideology was supported by the Nazi Party (NSDAP) and Nazi Germany until the end of World War II.
+
+[2] List of Nazi ideologues
+This is a list of people whose ideas became part of Nazi ideology. The ideas, writings, and speeches of these thinkers were incorporated into what became Nazism, including antisemitism, eugenics, racial hygiene, the concept of the master race, and Lebensraum. The list includes people whose ideas were incorporated, even if they did not live in the Nazi era.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Ein Volk, ein Reich, ein Führer"}
+Answer:      Ein Volk, ein Reich, ein Führer
+Gold answer: Blood and soil
+Correct:     no
+Attempts: 1   Tokens read: 346, written: 16, in 2.3 s
+
+===== Question 27 of 100 (id 5a7283365542991f9a20c4b2) =====
+Question: Allison Gross is a character in a story which applies what writing technique that introduces characters in threes? 
+
+Retriever (query = the question):
+  1. [11.6] Mrs. Hauksbee
+  2. [11.4] Do You See What I See?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Allison Gross is a character in a story which applies what writing technique that introduces characters in threes? 
+
+Evidence:
+
+[1] Mrs. Hauksbee
+Mrs. Hauksbee is a fictional character in many short stories by Rudyard Kipling. In the first, "Three and - an Extra", she is introduced as:
+
+[2] Do You See What I See?
+Do You See What I See? is Todd Agnew's third label release, which tells the story of the birth of Jesus from the perspective of characters involved in the Christmas story. Todd enlisted the help of fellow Christian artists to sing for characters on the album.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "three-character introduction"}
+Answer:      three-character introduction
+Gold answer: rule of three
+Correct:     no
+Attempts: 1   Tokens read: 204, written: 9, in 1.2 s
+
+===== Question 28 of 100 (id 5a7293655542991f9a20c4ff) =====
+Question: What 1996 book was written by the founder of Media Matter for America?
+
+Retriever (query = the question):
+  1. [11.5] What's the Matter with Kansas? (film)
+  2. [10.2] What's the Matter with Kansas?
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What 1996 book was written by the founder of Media Matter for America?
+
+Evidence:
+
+[1] What's the Matter with Kansas? (film)
+What's the Matter with Kansas? is a 2009 documentary film by filmmakers Joe Winston and Laura Cohen. It is based on the book "What's the Matter with Kansas? How Conservatives Won the Heart of America" (2004) by Thomas Frank.
+
+[2] What's the Matter with Kansas?
+What's the Matter with Kansas? How Conservatives Won the Heart of America (2004) is a book by American journalist and historian Thomas Frank, which explores the rise of populist anti-elitist conservatism in the United States, centering on the experience of Kansas, Frank's native state. In the late 19th century, says Frank, Kansas was known as a hotbed of the left-wing Populist movement, but in recent decades, it has become overwhelmingly conservative. The book was published in Britain and Australia as "What's the Matter with America?".
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "What's the Matter with Kansas?"}
+Answer:      What's the Matter with Kansas?
+Gold answer: The Seduction of Hillary Rodham
+Correct:     no
+Attempts: 1   Tokens read: 287, written: 13, in 1.8 s
+
+===== Question 29 of 100 (id 5a7294b65542991f9a20c509) =====
+Question: What is the name of the umcoming horror film adaptation starring Melanie Griffiths daughter?
+
+Retriever (query = the question):
+  1. [13.6] Working Girl (TV series)
+  2. [13.1] Born Yesterday (1993 film)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What is the name of the umcoming horror film adaptation starring Melanie Griffiths daughter?
+
+Evidence:
+
+[1] Working Girl (TV series)
+Working Girl is an American sitcom that aired on NBC from April to July 1990. Loosely based on the 1988 film of the same name starring Melanie Griffith, the series stars Sandra Bullock as Tess McGill (Melanie Griffith's character in the film), in a role that was initially meant for Nancy McKeon.
+
+[2] Born Yesterday (1993 film)
+Born Yesterday is a 1993 film based on "Born Yesterday", a play by Garson Kanin. The film stars Melanie Griffith, John Goodman and Don Johnson. It was adapted by Douglas McGrath and directed by Luis Mandoki.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "The name of the upcoming horror film adaptation starring Melanie Griffith's daughter is not mentioned in the provided evidence."}
+Answer:      The name of the upcoming horror film adaptation starring Melanie Griffith's daughter is not mentioned in the provided evidence
+Gold answer: Suspiria
+Correct:     no
+Attempts: 1   Tokens read: 234, written: 27, in 2.3 s
+
+===== Question 30 of 100 (id 5a72953b5542994cef4bc357) =====
+Question: What Labor member of the House of Representatives in the Australian Parliament was a member of the Australian Labor Party Australian Young Labor?
+
+Retriever (query = the question):
+  1. [29.1] Australian Labor Party Caucus
+  2. [28.0] Fred Stanley (politician)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What Labor member of the House of Representatives in the Australian Parliament was a member of the Australian Labor Party Australian Young Labor?
+
+Evidence:
+
+[1] Australian Labor Party Caucus
+The federal Australian Labor Party Caucus comprises all the elected members of the Australian Labor Party (ALP) in both Houses of the national Parliament. The Caucus determines some matters of policy, parliamentary tactics, and disciplinary measures against disobedient MPs.
+
+[2] Fred Stanley (politician)
+Fred Stanley (12 October 1888 – 29 November 1957) was an Australian politician. He was a member of the New South Wales Legislative Assembly from 1927 until 1950. During his parliamentary career he was, at various stages, a member of the Australian Labor Party (ALP), the Australian Labor Party (NSW) the Australian Labor Party (Non-Communist) and an Independent Labor member of parliament .
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Fred Stanley" }
+Answer:      Fred Stanley
+Gold answer: Tony Burke
+Correct:     no
+Attempts: 1   Tokens read: 261, written: 10, in 1.5 s
+
+===== Question 31 of 100 (id 5a72a2935542991f9a20c546) =====
+Question: Is Velvetpark or Shape magazine written more for a lesbian and queer-identified female readership?
+
+Retriever (query = the question):
+  1. [21.2] Velvetpark
+  2. [11.6] Queers in History
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Is Velvetpark or Shape magazine written more for a lesbian and queer-identified female readership?
+
+Evidence:
+
+[1] Velvetpark
+Velvetpark: Dyke Culture in Bloom is a lesbian and feminist arts and culture website that regularly features music, literature, theater, fine arts, film, television, and social activism as it impacts queer culture. "Velvetpark" also hosts a social network and dating community for lesbians and queer-identified women.
+
+[2] Queers in History
+Queers in History is an encyclopedia written by Keith Stern of historically prominent people who were lesbian, gay, bisexual, or transgender (LGBT).
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Velvetpark"}
+Answer:      Velvetpark
+Gold answer: Velvetpark
+Correct:     yes
+Attempts: 1   Tokens read: 200, written: 9, in 1.2 s
+
+===== Question 32 of 100 (id 5a72a3c45542994cef4bc3ac) =====
+Question: What is the birth name of the woman that "A Woman Called Moses" is based on?
+
+Retriever (query = the question):
+  1. [12.3] Woman Gives Birth to Tomato!
+  2. [11.9] A Woman Called Moses
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What is the birth name of the woman that "A Woman Called Moses" is based on?
+
+Evidence:
+
+[1] Woman Gives Birth to Tomato!
+Woman Gives Birth To Tomato! is the twenty-fourth studio album by Omar Rodríguez-López, released under the name Omar Rodriguez-Lopez Group.
+
+[2] A Woman Called Moses
+A Woman Called Moses is a television miniseries based on the life of Harriet Tubman, the escaped African American slave who helped to organize the Underground Railroad, and who led dozens of African Americans from enslavement in the Southern United States to freedom in the Northern states and Canada. Narrated by Orson Welles, the production was broadcast on the NBC television network on December 11 and 12, 1978. Tubman was portrayed by Cicely Tyson.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Harriet Tubman"}
+Answer:      Harriet Tubman
+Gold answer: Araminta Ross
+Correct:     no
+Attempts: 1   Tokens read: 241, written: 10, in 1.4 s
+
+===== Question 33 of 100 (id 5a72a9ac5542991f9a20c55f) =====
+Question: Which show co-hosted by Hoda Kotb was produced by Brian Balthazar?
+
+Retriever (query = the question):
+  1. [19.7] Hoda Kotb
+  2. [19.1] Brian Balthazar
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which show co-hosted by Hoda Kotb was produced by Brian Balthazar?
+
+Evidence:
+
+[1] Hoda Kotb
+Hoda Kotb ( ; Arabic: هدى قطب‎ ‎  "Hudā Quṭb" ] , born August 9, 1964) is an American television news anchor and TV host known as the co-host of NBC's "Today Show"' s fourth hour with Kathie Lee Gifford. An Egyptian American, she won a Daytime Emmy Award in 2010 as part of the "Today Show" team. Kotb is also a correspondent for "Dateline NBC".
+
+[2] Brian Balthazar
+Brian Balthazar is a TV personality and the executive producer and developer of several programs on broadcast and cable television. He has frequently appeared on television as the editor of the website POPgoesTheWeek.com on The Wendy Williams Show, The Today Show on NBC, VH1, CNN, TV Guide Network and Showbiz Tonight on HLN. He has also hosted specials for HGTV. In summer of 2014 he became co-executive producer of ABC's The View. As a television executive and producer, he was HGTV's network executive overseeing the popular series House Hunters and launched the fourth hour of the TODAY Show on NBC with Kathie Lee Gifford and Hoda Kotb
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "The Today Show"}
+Answer:      The Today Show
+Gold answer: the fourth hour of the TODAY Show
+Correct:     no
+Attempts: 1   Tokens read: 357, written: 9, in 2.0 s
+
+===== Question 34 of 100 (id 5a72c6f65542994cef4bc402) =====
+Question: Wheat salad is composed typically of what red fruit?
+
+Retriever (query = the question):
+  1. [15.4] Wheat salad
+  2. [12.8] Wheat berry
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Wheat salad is composed typically of what red fruit?
+
+Evidence:
+
+[1] Wheat salad
+Wheat salad (Arabic: سلطة قمح‎ ‎ ), is a salad of Arab salads, it typically of wheat, corn, tomatoes, carrots, cucumber pickles, lemon, parsley, olive oil and salt.
+
+[2] Wheat berry
+A wheat berry or wheatberry is an entire wheat kernel (except for the hull/husk), composed of the bran, germ, and endosperm. Botanically, it is a type of fruit called a caryopsis. Wheat berries have a tan to reddish-brown color and are available as either a . They are often added to salads or baked into bread to add a crunchy texture. If wheat berries are milled, whole-wheat flour is produced.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "tomato" }
+Answer:      tomato
+Gold answer: tomato
+Correct:     yes
+Attempts: 1   Tokens read: 237, written: 10, in 1.4 s
+
+===== Question 35 of 100 (id 5a72e4375542992359bc31bf) =====
+Question: Who is older, Lucy Gichuhi or Bob Day?
+
+Retriever (query = the question):
+  1. [14.6] Lucy Gichuhi
+  2. [8.8] Lucy and Superman
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who is older, Lucy Gichuhi or Bob Day?
+
+Evidence:
+
+[1] Lucy Gichuhi
+Lucy Muringo Gichuhi (née Munyiri) ( ) (born 23 September 1962) is an Australian politician who is a Senator for South Australia, sitting as an independent. She was declared to have been elected at the 2016 election for the Family First Party following a special recount on 13 April 2017 ordered by the High Court of Australia, sitting as the Court of Disputed Returns, following its decision that Bob Day had not been eligible to stand for election.
+
+[2] Lucy and Superman
+"Lucy and Superman" is an episode from the sitcom "I Love Lucy", and was first broadcast on January 14, 1957 on CBS. The episode was written by Bob Carroll, Jr., Madelyn Pugh, Bob Schiller and Bob Weiskopf. Directed by James V. Kern, it is the 13th episode of the sixth season, and the 166th episode of the series.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Lucy Gichuhi" }
+Answer:      Lucy Gichuhi
+Gold answer: Bob Day
+Correct:     no
+Attempts: 1   Tokens read: 307, written: 14, in 1.9 s
+
+===== Question 36 of 100 (id 5a73024f5542991f9a20c5fc) =====
+Question: what year was the cover artist of Multiverse: Exploring Poul Anderson's Worlds born ?
+
+Retriever (query = the question):
+  1. [16.7] Multiverse: Exploring Poul Anderson's Worlds
+  2. [12.4] Memory (Poul Anderson)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: what year was the cover artist of Multiverse: Exploring Poul Anderson's Worlds born ?
+
+Evidence:
+
+[1] Multiverse: Exploring Poul Anderson's Worlds
+Multiverse: Exploring Poul Anderson's Worlds is a gedenkschrift honoring science fiction and fantasy author Poul Anderson, in the form of an anthology of short stories and tributes edited by Greg Bear and Gardner Dozois. The book also includes cover art and interior illustrations by Bob Eggleton. It was first published in hardcover in May 2014 by Subterranean Press, with simultaneous paperback and ebook editions issued in June 2015 by Baen Books. All but one of the pieces are original to the anthology; the remaining one, Tad Williams's "Three Lilies and Three Leopards (And a Participation Ribbon in Science)", was originally published in the Winter 2012 issue of the ejournal "Subterreanean Online".
+
+[2] Memory (Poul Anderson)
+Memory (first title "A World Called Maanerek") is a science fiction narration by Poul Anderson, first published in 1957.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "1948" }
+Answer:      1948
+Gold answer: September 13, 1960
+Correct:     no
+Attempts: 1   Tokens read: 309, written: 12, in 2.0 s
+
+===== Question 37 of 100 (id 5a7312675542994cef4bc43d) =====
+Question: Which one of Ricardo Rodríguez Saá's relatives would become governor from 1983 to 2001?
+
+Retriever (query = the question):
+  1. [24.2] Ricardo Rodríguez Saá
+  2. [23.2] Adolfo Rodríguez Saá (elder)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which one of Ricardo Rodríguez Saá's relatives would become governor from 1983 to 2001?
+
+Evidence:
+
+[1] Ricardo Rodríguez Saá
+Ricardo Rodríguez Saá was Governor of the San Luis Province in Argentina from 1934 to 1938. His great-nephew, Adolfo Rodríguez Saá, would become President of Argentina. His brother, Adolfo, and another great-nephew, Alberto, have also served as Governors of the San Luis Province.
+
+[2] Adolfo Rodríguez Saá (elder)
+Adolfo Rodríguez Saá was Governor of the San Luis Province in Argentina. His grandson Adolfo Rodríguez Saá, would serve as President of Argentina. He was also grandfather and brother of San Luis Province Governors Alberto Rodríguez Saá and Ricardo Rodríguez Saá.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Adolfo Rodríguez Saá" }
+Answer:      Adolfo Rodríguez Saá
+Gold answer: Adolfo Rodríguez Saá
+Correct:     yes
+Attempts: 1   Tokens read: 264, written: 16, in 1.9 s
+
+===== Question 38 of 100 (id 5a7319bc5542992359bc3235) =====
+Question: Who lived longer, Leonid Khachiyan or Nikolai Lobachevsky?
+
+Retriever (query = the question):
+  1. [14.4] Lobachevsky (song)
+  2. [13.6] Lobachevsky Prize
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who lived longer, Leonid Khachiyan or Nikolai Lobachevsky?
+
+Evidence:
+
+[1] Lobachevsky (song)
+"Lobachevsky" is a humorous song by Tom Lehrer, referring to the mathematician Nikolai Lobachevsky.
+
+[2] Lobachevsky Prize
+The Lobachevsky Prize, awarded by the Russian Academy of Sciences, and the Lobachevsky Medal, awarded by the Kazan State University, are mathematical awards in honor of Nikolai Ivanovich Lobachevsky.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Nikolai Lobachevsky" }
+Answer:      Nikolai Lobachevsky
+Gold answer: Nikolai Ivanovich Lobachevsky
+Correct:     no
+Attempts: 1   Tokens read: 183, written: 16, in 1.6 s
+
+===== Question 39 of 100 (id 5a7324e055429901807daf8f) =====
+Question: What rapper on the song "Wij zijn Ajax" plays for the Turkish club Beşiktaş?
+
+Retriever (query = the question):
+  1. [19.1] Wij zijn Ajax
+  2. [12.9] Beşiktaş Women's Volleyball Team
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What rapper on the song "Wij zijn Ajax" plays for the Turkish club Beşiktaş?
+
+Evidence:
+
+[1] Wij zijn Ajax
+"Wij zijn Ajax" (Dutch, "We are Ajax") is a song by Ajax and Friends. A one off single by Dutch association football club AFC Ajax, which features guest vocal by several of the club's first team and women's team players, as well as prominent vocalists from the Netherlands, such as Victor Reinier, Koos Alberts, Dré Hazes, Karin Bloemen, Robert ten Brink, Peter Beense and Glennis Grace. The song also features rap parts from Darryl, RB Djan and Ryan Babel. The single was released online as a digital download on SPEC Entertainment, the label owned by popular Dutch rapper Ali B., while the video clip was frequently aired on television at the time of the release.
+
+[2] Beşiktaş Women's Volleyball Team
+Beşiktaş Women’s Volleyball is the women's volleyball section of Turkish sports club Beşiktaş J.K. in İstanbul, Turkey. The club plays its home matches in BJK Akatlar Arena.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Ali B." }
+Answer:      Ali B
+Gold answer: Ryan Babel
+Correct:     no
+Attempts: 1   Tokens read: 314, written: 10, in 1.9 s
+
+===== Question 40 of 100 (id 5a7329a15542991f9a20c65f) =====
+Question: What record officially started in 1519 in the same state that holds the city Augustus Chapman Allen used his inheritance to fund the founding of?
+
+Retriever (query = the question):
+  1. [17.9] Charlotte Baldwin Allen
+  2. [16.8] Augustus Chapman Allen
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What record officially started in 1519 in the same state that holds the city Augustus Chapman Allen used his inheritance to fund the founding of?
+
+Evidence:
+
+[1] Charlotte Baldwin Allen
+Charlotte Baldwin Allen (July 14, 1805 – August 3, 1895) is known in Texan history as the "mother of Houston". She was the wife of Augustus Chapman Allen, who used her inheritance to finance the founding of this city.
+
+[2] Augustus Chapman Allen
+Augustus Chapman Allen (July 4, 1806 – January 11, 1864), along with his younger brother, John Kirby Allen, founded the City of Houston in the U.S. state of Texas. He was born on July 4, 1806, in Canaseraga Village, New York (the present day hamlet of Sullivan in the Town of Sullivan, New York), to Sarah (Chapman) and Roland Allen.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Houston" }
+Answer:      Houston
+Gold answer: The recorded History of Texas
+Correct:     no
+Attempts: 1   Tokens read: 280, written: 9, in 1.7 s
+
+===== Question 41 of 100 (id 5a7331705542991f9a20c67a) =====
+Question: Who was the Goal keeper for Iraq in the 1996 AFC Asian Cup played in the United Arab Emirates?
+
+Retriever (query = the question):
+  1. [22.0] 1996 AFC Asian Cup qualification
+  2. [20.1] 2019 AFC Asian Cup
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who was the Goal keeper for Iraq in the 1996 AFC Asian Cup played in the United Arab Emirates?
+
+Evidence:
+
+[1] 1996 AFC Asian Cup qualification
+The 1996 AFC Asian Cup qualification involved 33 participating teams. The United Arab Emirates (hosts) and Japan (holders) qualified automatically for the 1996 AFC Asian Cup.
+
+[2] 2019 AFC Asian Cup
+The 2019 AFC Asian Cup will be the 17th edition of the AFC Asian Cup, the quadrennial international men's football championship of Asia organised by the Asian Football Confederation (AFC). It will be held in United Arab Emirates from 5 January to 1 February 2019. The United Arab Emirates was announced as the host for the tournament on 9 March 2015, with Iran being the only remaining bidder for the right to host the 2019 finals. It will be the second time that the United Arab Emirates hosts the tournament after the 1996 finals.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Mohammed Al-Kaabi" }
+Answer:      Mohammed Al-Kaabi
+Gold answer: Emad Hashim
+Correct:     no
+Attempts: 1   Tokens read: 298, written: 14, in 2.0 s
+
+===== Question 42 of 100 (id 5a7337715542991f9a20c690) =====
+Question: For which Thomas Rickman film did Sissy Spacek win an Academy Award for Best Actress?
+
+Retriever (query = the question):
+  1. [18.7] List of awards and nominations received by Sissy Spacek
+  2. [16.5] JFK (soundtrack)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: For which Thomas Rickman film did Sissy Spacek win an Academy Award for Best Actress?
+
+Evidence:
+
+[1] List of awards and nominations received by Sissy Spacek
+List of awards and nominations received by Sissy Spacek
+
+[2] JFK (soundtrack)
+JFK is the original soundtrack of the 1991 Academy Award and Golden Globe Award-winning film, "JFK", starring Kevin Costner, Tommy Lee Jones, Kevin Bacon, Joe Pesci and Sissy Spacek. The original score was composed by John Williams.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "JFK"}
+Answer:      JFK
+Gold answer: Coal Miner's Daughter
+Correct:     no
+Attempts: 1   Tokens read: 185, written: 8, in 1.1 s
+
+===== Question 43 of 100 (id 5a7345185542992359bc32cb) =====
+Question: Which continent are both magazines, Sayidaty and Closer published?
+
+Retriever (query = the question):
+  1. [14.0] Sayidaty
+  2. [11.5] Closer (magazine)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which continent are both magazines, Sayidaty and Closer published?
+
+Evidence:
+
+[1] Sayidaty
+Sayidaty (Arabic سيدتي "Sayyidatī", meaning "My Lady" in English) is a weekly Arabic and a monthly English women's magazine published in both Dubai and Beirut and distributed throughout the Middle East, North Africa, Europe and America.
+
+[2] Closer (magazine)
+Closer is a British tabloid magazine published by Bauer Media Group.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Africa" }
+Answer:      Africa
+Gold answer: Europe
+Correct:     no
+Attempts: 1   Tokens read: 173, written: 9, in 1.1 s
+
+===== Question 44 of 100 (id 5a734a205542992359bc32e2) =====
+Question: Which director won an Academy Award for best director for his work on the film, "Midnight Cowboy?"
+
+Retriever (query = the question):
+  1. [18.9] John Schlesinger
+  2. [17.6] Michel Hazanavicius
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which director won an Academy Award for best director for his work on the film, "Midnight Cowboy?"
+
+Evidence:
+
+[1] John Schlesinger
+John Richard Schlesinger, CBE ( ; 16 February 1926 – 25 July 2003) was an English film and stage director, and actor. He won an Academy Award for Best Director for "Midnight Cowboy", and was nominated for two other films ("Darling" and "Sunday Bloody Sunday").
+
+[2] Michel Hazanavicius
+Michel Hazanavicius (] ; born 29 March 1967) is a French film director, producer, screenwriter and film editor best known for his 2011 film, "The Artist", which won the Academy Award for Best Picture at the 84th Academy Awards. It also won him the Academy Award for Best Director. He also directed spy film parodies "" (2006) and "" (2009).
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "John Schlesinger"}
+Answer:      John Schlesinger
+Gold answer: John Schlesinger
+Correct:     yes
+Attempts: 1   Tokens read: 284, written: 10, in 1.7 s
+
+===== Question 45 of 100 (id 5a734db15542994cef4bc523) =====
+Question: Which musician was born first, Constantine Orbelian or Lili Chookasian?
+
+Retriever (query = the question):
+  1. [12.2] Constantine Orbelian
+  2. [9.0] Constantine Roussos
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which musician was born first, Constantine Orbelian or Lili Chookasian?
+
+Evidence:
+
+[1] Constantine Orbelian
+Constantine Garrievich Orbelian, Jr. (Armenian: Կոնստանտին Օրբելյան , Russian: Константин Гарриевич Орбелян , born San Francisco, 27 August 1956) is an American conductor and pianist of Armenian and Russian descent. He is named after his paternal uncle Konstantin Orbelyan, a major Armenian composer.
+
+[2] Constantine Roussos
+Constantine Roussos (also known as Constantinos Roussos) was born in Limassol, Cyprus. Roussos is an entrepreneur, domainer and musician.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Constantine Orbelian" }
+Answer:      Constantine Orbelian
+Gold answer: Lili Chookasian
+Correct:     no
+Attempts: 1   Tokens read: 246, written: 13, in 1.7 s
+
+===== Question 46 of 100 (id 5a73583455429901807dafcf) =====
+Question: In which professional wrestling promotion did Randy Savage perform, after he left the World Wrestling Federation?
+
+Retriever (query = the question):
+  1. [20.5] Randy Savage
+  2. [18.5] ICW Heavyweight Championship
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: In which professional wrestling promotion did Randy Savage perform, after he left the World Wrestling Federation?
+
+Evidence:
+
+[1] Randy Savage
+Randy Mario Poffo (November 15, 1952 – May 20, 2011), better known by the ring name "Macho Man" Randy Savage, was an American professional wrestler and color commentator best known for his time in the World Wrestling Federation (WWF, now WWE) and later World Championship Wrestling (WCW).
+
+[2] ICW Heavyweight Championship
+The ICW World Heavyweight Championship was a professional wrestling world heavyweight championship of International Championship Wrestling. Many title defenses featured matches between Randy Savage and his real-life brother Lanny Poffo. After the original ICW shut down in 1984, Paul Christy started his own ICW promotion. The title history in 1979 is not clear. It is possible that Randy Savage won the title in July rather than on March 13. In addition, one source does not recognize the title changes between Savage and Poffo between this reign and 1982, as it claims that Savage won the title in 1979 and held it for over four years before dropping it to Christy. Because the championship is a professional wrestling championship, it is not won or lost competitively but instead by the decision of the bookers of a wrestling promotion. The championship is awarded after the chosen team "wins" a match to maintain the illusion that professional wrestling is a competitive sport.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "World Championship Wrestling (WCW)" }
+Answer:      World Championship Wrestling (WCW)
+Gold answer: World Championship Wrestling
+Correct:     no
+Attempts: 1   Tokens read: 389, written: 14, in 2.4 s
+
+===== Question 47 of 100 (id 5a735bae55429901807dafef) =====
+Question: Which indigenous people of the Ryukyu Islands were massacred in the Mudan incident of 1871?
+
+Retriever (query = the question):
+  1. [16.3] Mudan incident (1871)
+  2. [13.5] Mudan, Pingtung
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which indigenous people of the Ryukyu Islands were massacred in the Mudan incident of 1871?
+
+Evidence:
+
+[1] Mudan incident (1871)
+The Mudan incident of 1871 was the massacre of 54 Ryūkyūan sailors in Qing-era Taiwan who wandered into the central part of Taiwan after their ship was shipwrecked. 12 men were rescued by Han Chinese and were transferred to Miyako. Japan sent a military force to Taiwan in the Taiwan Expedition of 1874 in retaliation for the murdered Ryukyuan sailors, in retailiation for what Japan viewed as the murder of their citizens by rebellious aboriginal peoples out of the control but in the dominion of the failing Qing dynasty.
+
+[2] Mudan, Pingtung
+Mudan Township () is a mountain indigenous township in Pingtung County, Taiwan. The main population is the Paiwan people of the Taiwanese aborigines.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Paiwan" }
+Answer:      Paiwan
+Gold answer: Ryukyuan people
+Correct:     no
+Attempts: 1   Tokens read: 275, written: 11, in 1.7 s
+
+===== Question 48 of 100 (id 5a735e9155429901807db00d) =====
+Question: What country is home to both Guadarrama National Park and Doñana National Park? 
+
+Retriever (query = the question):
+  1. [16.6] Guadarrama National Park
+  2. [13.7] Aznalcázar
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What country is home to both Guadarrama National Park and Doñana National Park? 
+
+Evidence:
+
+[1] Guadarrama National Park
+Sierra de Guadarrama National Park (in Spanish: "Parque Nacional de la Sierra de Guadarrama") is a national park in Spain, covering nearly 34,000 hectares, the fifth largest in Spain's national parks system. The Guadarrama mountain range ("Sistema Central") contains some ecologically valuable areas, located in the Community of Madrid and Castile and León (provinces of Segovia and Ávila). The law that regulates the recently approved national park was published in the BOE in  26, 2013 (2013--) .
+
+[2] Aznalcázar
+Aznalcázar is a town located in the province of Seville, southern Spain. It is only 20 minutes away from Seville, and is one of the 13 towns located in Doñana National Park, one of Spain’s most important national parks and wildlife reserves.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Spain" }
+Answer:      Spain
+Gold answer: Spain
+Correct:     yes
+Attempts: 1   Tokens read: 302, written: 9, in 1.7 s
+
+===== Question 49 of 100 (id 5a73626b55429901807db01e) =====
+Question: Mount Austin Barracks is located near the Peak Tram terminus at what mountain that is also known as Mount Austin?
+
+Retriever (query = the question):
+  1. [30.5] Mount Austin Barracks
+  2. [16.2] Mount Bonnell
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Mount Austin Barracks is located near the Peak Tram terminus at what mountain that is also known as Mount Austin?
+
+Evidence:
+
+[1] Mount Austin Barracks
+Mount Austin Barracks was a British Army base in Hong Kong during British rule. It was acquired in 1897 and developed from the former Mount Austin Hotel. It is named after John Gardiner Austin, former Hong Kong Colonial Secretary. It was located near the Peak Tram terminus at Victoria Peak.
+
+[2] Mount Bonnell
+Mount Bonnell , also known as Covert Park, is a prominent point alongside the Lake Austin portion of the Colorado River in Austin, Texas. It has been a popular tourist destination since the 1850s. The mount provides a vista for viewing the city of Austin, Lake Austin, and the surrounding hills. It was designated a Recorded Texas Historic Landmark in 1969, bearing Marker number 6473, and was listed on the National Register of Historic Places in 2015.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Victoria Peak" }
+Answer:      Victoria Peak
+Gold answer: Victoria Peak
+Correct:     yes
+Attempts: 1   Tokens read: 283, written: 10, in 1.7 s
+
+===== Question 50 of 100 (id 5a7365b155429901807db02a) =====
+Question: Which war was HMS Clonmel in where over nine million combatants died?
+
+Retriever (query = the question):
+  1. [11.7] HMS Clonmel (1918)
+  2. [9.5] Clonmel Oil Chase
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which war was HMS Clonmel in where over nine million combatants died?
+
+Evidence:
+
+[1] HMS Clonmel (1918)
+HMS "Clonmel" was a Hunt class minesweeper of the Royal Navy from World War I. She was originally to be named "Stranraer", but was renamed before launch to avoid possible misunderstandings of having vessels named after coastal locations.
+
+[2] Clonmel Oil Chase
+The Clonmel Oil Chase is a Grade 2 National Hunt chase in Ireland which is open to horses aged five years or older. It is run at Clonmel over a distance of about 2 miles and 4 furlongs (4,023 metres), and it is scheduled to take place each year in November.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "World War I"}
+Answer:      World War I
+Gold answer: World War I
+Correct:     yes
+Attempts: 1   Tokens read: 233, written: 9, in 1.4 s
+
+===== Question 51 of 100 (id 5a737fff554299623ed4abb9) =====
+Question: What was built near the residential neighborhood of Ramsay, Calgary in 1983?
+
+Retriever (query = the question):
+  1. [9.9] Ramsay, Calgary
+  2. [9.1] Silas Alexander Ramsay
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What was built near the residential neighborhood of Ramsay, Calgary in 1983?
+
+Evidence:
+
+[1] Ramsay, Calgary
+Ramsay is a residential neighbourhood in the south-east quadrant of Calgary, Alberta. It is an inner city community, located east of the Elbow River, Macleod Trail, Stampede Grounds and the Scotiabank Saddledome arena and south of Inglewood. To the south-east, it borders the Alyth-Bonny Brook industrial area. The eastern half of the community consists primarily of older homes and there is an industrial area in the most eastern corner of the community.
+
+[2] Silas Alexander Ramsay
+Silas Alexander Ramsay (August 27, 1850 – December 5, 1942) was a Canadian politician and merchant in Alberta, Canada. He served as the 14th mayor of Calgary.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Calgary Exhibition and Stampede Grounds" }
+Answer:      Calgary Exhibition and Stampede Grounds
+Gold answer: Scotiabank Saddledome
+Correct:     no
+Attempts: 1   Tokens read: 261, written: 16, in 1.9 s
+
+===== Question 52 of 100 (id 5a7380e055429908901be2d6) =====
+Question: Which building is newer, The Spiral, or the New York World Building?
+
+Retriever (query = the question):
+  1. [11.8] New York World Building
+  2. [11.4] New York Life Insurance Building
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which building is newer, The Spiral, or the New York World Building?
+
+Evidence:
+
+[1] New York World Building
+"The New York World" Building was a skyscraper in New York City designed by early skyscraper specialist George Browne Post and built in 1890 to house the now-defunct newspaper, "The New York World". It was razed in 1955.
+
+[2] New York Life Insurance Building
+New York Life Building or New York Life Insurance Building may refer to:
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "The Spiral" }
+Answer:      The Spiral
+Gold answer: The Spiral
+Correct:     yes
+Attempts: 1   Tokens read: 177, written: 10, in 1.1 s
+
+===== Question 53 of 100 (id 5a7384755542992d56e7e354) =====
+Question: Which soccer club's head coach was born August 1, 1973?
+
+Retriever (query = the question):
+  1. [12.9] Gregg Berhalter
+  2. [12.1] Greg Wilson (soccer)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which soccer club's head coach was born August 1, 1973?
+
+Evidence:
+
+[1] Gregg Berhalter
+Gregg Berhalter ( ; born August 1, 1973) is a retired American soccer player and current head coach of Columbus Crew SC in Major League Soccer.
+
+[2] Greg Wilson (soccer)
+Gregory J. "Greg" Wilson (born c. 1973/74) is an American soccer head coach and former professional player. He is currently the associate head coach with the UC Santa Barbara Gauchos men's soccer team.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Columbus Crew SC" }
+Answer:      Columbus Crew SC
+Gold answer: Columbus Crew Soccer Club
+Correct:     no
+Attempts: 1   Tokens read: 197, written: 13, in 1.5 s
+
+===== Question 54 of 100 (id 5a738a5955429908901be2f6) =====
+Question: A book that attracted 600 people at a 2015 reading is based on a person who is documented for what attribute of the transgender movement?
+
+Retriever (query = the question):
+  1. [17.2] Jessica Herthel
+  2. [13.6] Attraction to transgender people
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: A book that attracted 600 people at a 2015 reading is based on a person who is documented for what attribute of the transgender movement?
+
+Evidence:
+
+[1] Jessica Herthel
+Jessica Herthel is an author. In 2014 she wrote a children's book called "I Am Jazz" (not to be confused with the 2015 TV series of the same name) about a transgender child named Jazz Jennings, which is also the name of a YouTube personality. A 2015 reading of it attracted 600 people.
+
+[2] Attraction to transgender people
+Romantic or sexual attraction to transgender people can be toward trans men, trans women, non-binary people, or a combination of these. This attraction can be a person's occasional, preferred, primary, or exclusive interest.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "transgender advocacy" }
+Answer:      transgender advocacy
+Gold answer: youngest person to become a national transgender figure
+Correct:     no
+Attempts: 1   Tokens read: 247, written: 11, in 1.6 s
+
+===== Question 55 of 100 (id 5a738fb4554299623ed4abf9) =====
+Question: Which of these is further south in China, the Pulandian District or Kaiyuan, Liaoning?
+
+Retriever (query = the question):
+  1. [15.7] Pulandian District
+  2. [15.6] Kaiyuan, Liaoning
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which of these is further south in China, the Pulandian District or Kaiyuan, Liaoning?
+
+Evidence:
+
+[1] Pulandian District
+Pulandian District () is one of the seven districts under the administration of Dalian, located in the south of Liaoning province, People's Republic of China. Its area is 2769.90 km² and its permanent population as of 2010 is 741,230. The district borders the prefecture-level city of Yingkou to the north.
+
+[2] Kaiyuan, Liaoning
+Kaiyuan () is a county-level city in the northeast of Liaoning, People's Republic of China, bordering Jilin for a small section to the north. It is under the administration of Tieling City, the centre of which lies 33 km to the southwest.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Pulandian District" }
+Answer:      Pulandian District
+Gold answer: Pulandian District
+Correct:     yes
+Attempts: 1   Tokens read: 258, written: 13, in 1.7 s
+
+===== Question 56 of 100 (id 5a73984355429908901be307) =====
+Question: What singer-songwriter performed the country pop sing "Fifteen"?
+
+Retriever (query = the question):
+  1. [11.0] Anna Rossinelli
+  2. [10.9] Martina McBride
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What singer-songwriter performed the country pop sing "Fifteen"?
+
+Evidence:
+
+[1] Anna Rossinelli
+Anna Rossinelli (born 20 April 1987 in Basel) is a Swiss singer-songwriter. Rossinelli sings as a part of a pop-soul trio band, which performs under her name.
+
+[2] Martina McBride
+Martina Mariea McBride (née Schiff, born July 29, 1966) is an American country music singer-songwriter and record producer. She is known for her soprano singing range and her country pop material.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Anna Rossinelli" }
+Answer:      Anna Rossinelli
+Gold answer: Taylor Swift
+Correct:     no
+Attempts: 1   Tokens read: 199, written: 12, in 1.4 s
+
+===== Question 57 of 100 (id 5a739d8c55429905862fe073) =====
+Question: Near which town did the family of author of the "Adventures of Huckleberry Finn" own several tracts of land?
+
+Retriever (query = the question):
+  1. [17.7] Adventures of Huckleberry Finn (disambiguation)
+  2. [17.2] Huckleberry Finn (1974 film)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Near which town did the family of author of the "Adventures of Huckleberry Finn" own several tracts of land?
+
+Evidence:
+
+[1] Adventures of Huckleberry Finn (disambiguation)
+Adventures of Huckleberry Finn is a novel by Mark Twain.
+
+[2] Huckleberry Finn (1974 film)
+Huckleberry Finn is a 1974 musical film version of Mark Twain's"The Adventures of Huckleberry Finn".
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Hannibal" }
+Answer:      Hannibal
+Gold answer: Santa Fe
+Correct:     no
+Attempts: 1   Tokens read: 173, written: 11, in 1.2 s
+
+===== Question 58 of 100 (id 5a739ef955429978a71e904b) =====
+Question: What festival is held every June in Bartlesville, Oklahoma?
+
+Retriever (query = the question):
+  1. [12.8] OK Mozart Festival
+  2. [11.7] Bartlesville Public Schools
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What festival is held every June in Bartlesville, Oklahoma?
+
+Evidence:
+
+[1] OK Mozart Festival
+OK Mozart is an annual Classical music festival held each June in Bartlesville, Oklahoma. Considered Oklahoma's Premiere Music Festival, OK MOZART brings the highest quality professional musical and cultural experiences to the state of Oklahoma and the middle United States. The festival is a multi-day, multi-location event with professional orchestra musicians, concert artists and musical performances of artistic excellence for an event with international significance.
+
+[2] Bartlesville Public Schools
+Bartlesville Public Schools is a public school district located in Bartlesville, Oklahoma. The district had an enrollment of 5,963 in October 2008.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "OK Mozart Festival" }
+Answer:      OK Mozart Festival
+Gold answer: OK Mozart
+Correct:     no
+Attempts: 1   Tokens read: 221, written: 11, in 1.5 s
+
+===== Question 59 of 100 (id 5a73a7c755429978a71e9068) =====
+Question: What american actress/singer born in 1956 recorded the song Something there for beauty and the beast?
+
+Retriever (query = the question):
+  1. [14.2] Something There
+  2. [12.9] Beauty and the Beast (Disney song)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What american actress/singer born in 1956 recorded the song Something there for beauty and the beast?
+
+Evidence:
+
+[1] Something There
+"Something There" is a song written by lyricist Howard Ashman and composer Alan Menken for Walt Disney Pictures 30th animated feature film "Beauty and the Beast" (1991). Sung by the majority of the film's main cast, the song was recorded by American actors Paige O'Hara as Belle and Robby Benson as the Beast via voice over, featuring actors Jerry Orbach, Angela Lansbury and David Ogden Stiers as Lumiere, Mrs. Potts and Cogsworth, respectively. The only song performed by the Beast, "Something There" is heard midway through "Beauty and the Beast "during a scene in which Belle and the Beast finally begin to acknowledge their own feelings for each other.
+
+[2] Beauty and the Beast (Disney song)
+"Beauty and the Beast" is a song written by lyricist Howard Ashman and composer Alan Menken for the Disney animated feature film "Beauty and the Beast" (1991). The film's theme song, the Broadway-inspired ballad was first recorded by British-American actress Angela Lansbury in her role as the voice of the character Mrs. Potts, and essentially describes the relationship between its two main characters Belle and the Beast, specifically how the couple has learned to accept their differences and in turn change each other for the better. Additionally, the song's lyrics imply that the feeling of love is as timeless and ageless as a "tale as old as time". Lansbury's rendition is heard during the famous ballroom sequence between Belle and the Beast, while a shorted chorale version plays in the closing scenes of the film, and the song's motif features frequently in other pieces of Menken's film score. "Beauty and the Beast" was subsequently recorded as a pop duet by Canadian singer Celine Dion and American singer Peabo Bryson, and released as the only single from the film's soundtrack on November 25, 1991.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Angela Lansbury" }
+Answer:      Angela Lansbury
+Gold answer: Donna Paige Helmintoller
+Correct:     no
+Attempts: 1   Tokens read: 502, written: 12, in 2.9 s
+
+===== Question 60 of 100 (id 5a73b1855542992d56e7e388) =====
+Question: Which actor in the film Equus is also in the film The Informers?
+
+Retriever (query = the question):
+  1. [10.1] Michael Higgins (actor)
+  2. [10.1] Colin Blakely
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which actor in the film Equus is also in the film The Informers?
+
+Evidence:
+
+[1] Michael Higgins (actor)
+Michael Patrick Higgins, Jr. (January 20, 1920 – November 5, 2008) was an American actor who appeared in film and on stage, and was best known for his role in the original Broadway production of "Equus".
+
+[2] Colin Blakely
+Colin George Blakely (23 September 1930 – 7 May 1987) was a Northern Irish character actor. He was nominated for a BAFTA Award for Best Supporting Actor for the Academy Award-nominated film "Equus.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Michael Higgins" }
+Answer:      Michael Higgins
+Gold answer: Colin Blakely
+Correct:     no
+Attempts: 1   Tokens read: 218, written: 10, in 1.4 s
+
+===== Question 61 of 100 (id 5a73c958554299623ed4ac5c) =====
+Question: What community is the team Isaac Gómez played midfielder for located?
+
+Retriever (query = the question):
+  1. [14.0] Isaac Gómez
+  2. [10.4] Ernesto Gómez Gómez
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What community is the team Isaac Gómez played midfielder for located?
+
+Evidence:
+
+[1] Isaac Gómez
+Isaac Gómez Sánchez (born 28 October 1995), commonly known as Isi, is a Spanish footballer who plays for CF Fuenlabrada as a midfielder.
+
+[2] Ernesto Gómez Gómez
+Ernesto Gómez Gómez (born 26 April 1985), known simply as Ernesto, is a Spanish professional footballer who plays as a midfielder.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Fuenlabrada" }
+Answer:      Fuenlabrada
+Gold answer: the autonomous community of Madrid
+Correct:     no
+Attempts: 1   Tokens read: 190, written: 13, in 1.5 s
+
+===== Question 62 of 100 (id 5a73cbe4554299623ed4ac5f) =====
+Question: What series did Tom Mandrake collaborate on that was based on a fictional superhero?
+
+Retriever (query = the question):
+  1. [14.4] Tom Mandrake
+  2. [10.0] List of Mandrake episodes
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What series did Tom Mandrake collaborate on that was based on a fictional superhero?
+
+Evidence:
+
+[1] Tom Mandrake
+Tom Mandrake (born May 26, 1956) is an American comics artist, perhaps best known for his collaborations with writer John Ostrander on several series, including "Grimjack" (from First Comics) and "Firestorm", "The Spectre", and "Martian Manhunter" from DC Comics.<ref name="John/Tom">John Ostrander and Tom Mandrake collaborations at the Grand Comics Database</ref>
+
+[2] List of Mandrake episodes
+This is a list of episodes for the Brazilian HBO original series "Mandrake".
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Grimjack"}
+Answer:      Grimjack
+Gold answer: Martian Manhunter
+Correct:     no
+Attempts: 1   Tokens read: 222, written: 9, in 1.4 s
+
+===== Question 63 of 100 (id 5a74547755429979e2882900) =====
+Question: the head football coach at the University of Houston from 2007 to 2011, is the current team coach of which football team ?
+
+Retriever (query = the question):
+  1. [21.1] Kevin Sumlin
+  2. [20.4] 2007 Houston Cougars football team
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: the head football coach at the University of Houston from 2007 to 2011, is the current team coach of which football team ?
+
+Evidence:
+
+[1] Kevin Sumlin
+Kevin Warren Sumlin (born August 3, 1964) is an American football coach and former player who is the head coach at Texas A&M University. Previously, Sumlin was the head football coach at the University of Houston from 2007 to 2011.
+
+[2] 2007 Houston Cougars football team
+The 2007 Houston Cougars football team, also known as the Houston Cougars, Houston, or UH, represented the University of Houston in the 2007 NCAA Division I FBS football season. It was the 62nd year of season play for Houston. The team was coached by fifth-year head football coach, Art Briles. The team played its home games at Robertson Stadium, a 32,000-person capacity stadium on-campus in Houston. Competing against the TCU Horned Frogs in the 2007 Texas Bowl, the Cougars fell short, 20–13.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Texas A&M Aggies" }
+Answer:      Texas A&M Aggies
+Gold answer: Texas A&M Aggies football
+Correct:     no
+Attempts: 1   Tokens read: 323, written: 13, in 2.1 s
+
+===== Question 64 of 100 (id 5a7458ff55429979e2882918) =====
+Question: That Darn Cat and Honey, I Blew Up the Kid are both what?
+
+Retriever (query = the question):
+  1. [13.3] Honey, We Shrunk Ourselves
+  2. [12.4] Honey, I Blew Up the Kid
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: That Darn Cat and Honey, I Blew Up the Kid are both what?
+
+Evidence:
+
+[1] Honey, We Shrunk Ourselves
+Honey, We Shrunk Ourselves is a 1997 live-action direct-to-video sequel to "Honey, I Shrunk the Kids" and "Honey, I Blew Up the Kid". It is the third and final installment in the "Honey, I Shrunk the Kids" trilogy. The directorial debut of cinematographer Dean Cundey and released through Walt Disney Home Video, it tells the story of inventor Wayne Szalinski as he accidentally shrinks his wife, brother, sister-in-law, and himself with his electromagnetic shrink ray.
+
+[2] Honey, I Blew Up the Kid
+Honey, I Blew Up the Kid is a 1992 American comedy science fiction film and the sequel to the 1989 film "Honey, I Shrunk the Kids". Directed by Randal Kleiser and released by Walt Disney Pictures, the film stars Rick Moranis, Marcia Strassman, Robert Oliveri and Amy O'Neill, who reprise their roles as Wayne, Diane, Nick, and Amy Szalinski respectively, as well as newcomer Keri Russell as Mandy Park, Nick's love interest and babysitter of Adam, the Szalinskis' new two-year-old son, whose accidental exposure to Wayne's new industrial-sized growth machine causes him to gradually grow to enormous size. Made only three years after "Honey, I Shrunk the Kids", this film is set five years after the events depicted in the previous film. It was filmed in 1991.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "films"}
+Answer:      films
+Gold answer: comedy
+Correct:     no
+Attempts: 1   Tokens read: 421, written: 7, in 2.2 s
+
+===== Question 65 of 100 (id 5a745e1455429929fddd83fd) =====
+Question: What drug is among the list of illegal drugs in the Philippines and can be taken by mouth or by injection?
+
+Retriever (query = the question):
+  1. [19.1] Illegal drug trade in the Philippines
+  2. [17.2] Politics of drug abuse
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What drug is among the list of illegal drugs in the Philippines and can be taken by mouth or by injection?
+
+Evidence:
+
+[1] Illegal drug trade in the Philippines
+The prevalence of drug use in the Philippines is lower than the global average, according to the United Nations Office on Drugs and Crime (UNODC). Two of the most used and valuable illegal drugs in the country are methamphetamine hydrochloride (shabu) and marijuana. Ephedrine and methylenedioxy methamphetamine are also among the list of illegal drugs that are of great concern to the authorities.
+
+[2] Politics of drug abuse
+Most countries have legislation designed to criminalise some drug use. Usually however the legislative process is self-referential, defining abuse in terms of what is made illegal. The legislation concerns lists of drugs specified by the legislation. These drugs are often called "illegal drugs" but, generally, what is illegal is their unlicensed production, supply and possession. The drugs are also called "controlled drugs" or "controlled substances".
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "shabu" }
+Answer:      shabu
+Gold answer: Ephedrine
+Correct:     no
+Attempts: 1   Tokens read: 282, written: 11, in 1.8 s
+
+===== Question 66 of 100 (id 5a74670855429929fddd840d) =====
+Question: Which CNN journalist and two-time Pulitzer winner inspired the Half the Sky Movement?
+
+Retriever (query = the question):
+  1. [11.7] Paul Salopek
+  2. [11.0] Horst Faas
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which CNN journalist and two-time Pulitzer winner inspired the Half the Sky Movement?
+
+Evidence:
+
+[1] Paul Salopek
+Paul Salopek (born February 9, 1962, in Barstow, California) is an American journalist and writer. He is a two-time Pulitzer Prize winner and was raised in central Mexico.
+
+[2] Horst Faas
+Horst Faas (28 April 1933 – 10 May 2012) was a German photo-journalist and two-time Pulitzer Prize winner. He is best known for his images of the Vietnam War.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Paul Salopek" }
+Answer:      Paul Salopek
+Gold answer: Nicholas Kristof
+Correct:     no
+Attempts: 1   Tokens read: 201, written: 12, in 1.4 s
+
+===== Question 67 of 100 (id 5a74701655429979e2882952) =====
+Question: Which band has released the most studio albums, Blonde Redhead or Rob Zombie's band White Zombie?
+
+Retriever (query = the question):
+  1. [25.0] Rob Zombie
+  2. [22.6] Blonde Redhead (album)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which band has released the most studio albums, Blonde Redhead or Rob Zombie's band White Zombie?
+
+Evidence:
+
+[1] Rob Zombie
+Rob Zombie (born Robert Bartleh Cummings; January 12, 1965) is an American musician, filmmaker and screenwriter. Zombie rose to fame as a founding member of the heavy metal band White Zombie, releasing four studio albums with the band. He is the older brother of Spider One, lead vocalist for American rock band Powerman 5000.
+
+[2] Blonde Redhead (album)
+Blonde Redhead is the eponymous debut album by rock band Blonde Redhead released in 1995.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Blonde Redhead" }
+Answer:      Blonde Redhead
+Gold answer: Blonde Redhead
+Correct:     yes
+Attempts: 1   Tokens read: 211, written: 12, in 1.4 s
+
+===== Question 68 of 100 (id 5a7471f655429979e2882955) =====
+Question: Which American main title designer designed sequences for the founder of the Sundance Film Festival?
+
+Retriever (query = the question):
+  1. [14.7] Michael H. Riley
+  2. [13.1] Richard Morrison (film titles designer)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which American main title designer designed sequences for the founder of the Sundance Film Festival?
+
+Evidence:
+
+[1] Michael H. Riley
+Michael Harold Riley (born November 1, 1968 in Palo Alto) is an American motion graphics designer, art director and the founder of design company Shine. Has directed the television title sequence for "", the film title sequence for "Kung Fu Panda", film sequences for "How To Train Your Dragon", and worked on the redesign of the animated MGM theatrical logo. He has been nominated for an Emmy Award six times including for the main title design on "Temple Grandin".
+
+[2] Richard Morrison (film titles designer)
+Richard Morrison (born September 1953) is an English designer of film title sequences. He has created over 150 feature film title sequences in a career of more than thirty years.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Michael H. Riley" }
+Answer:      Michael H. Riley
+Gold answer: Wayne Fitzgerald
+Correct:     no
+Attempts: 1   Tokens read: 249, written: 12, in 1.7 s
+
+===== Question 69 of 100 (id 5a749e1855429979e28829c3) =====
+Question: Which tennis player is older, Emilio Sánchez or Andrei Olhovskiy?
+
+Retriever (query = the question):
+  1. [17.2] Andrei Olhovskiy
+  2. [12.4] 1996 Indonesia Open – Doubles
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which tennis player is older, Emilio Sánchez or Andrei Olhovskiy?
+
+Evidence:
+
+[1] Andrei Olhovskiy
+Andrei Stanislavovich Olhovskiy (Russian: Андрей Станиславович Ольховский ) (born 15 April 1966) is a former tennis player from Russia, who turned professional in 1989.
+
+[2] 1996 Indonesia Open – Doubles
+David Adams and Andrei Olhovskiy were the defending champions but only Olhovskiy competed that year with Patrick Galbraith.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Emilio Sánchez" }
+Answer:      Emilio Sánchez
+Gold answer: Emilio Ángel Sánchez Vicario
+Correct:     no
+Attempts: 1   Tokens read: 205, written: 12, in 1.4 s
+
+===== Question 70 of 100 (id 5a74bdce55429929fddd84e1) =====
+Question: Who died last Vladimir Arnold or Georg Cantor?
+
+Retriever (query = the question):
+  1. [9.9] List of things named after Vladimir Arnold
+  2. [9.8] Israel Alter
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who died last Vladimir Arnold or Georg Cantor?
+
+Evidence:
+
+[1] List of things named after Vladimir Arnold
+A list of things named after Vladimir Arnold, a Russian and Soviet mathematician.
+
+[2] Israel Alter
+Israel Alter (also: "Yisraʾel Alter", born September 23, 1901 in Lemberg, died November 16, 1979, in New York City) was an Austrian-Hungarian Jewish cantor and last chief cantor in Hanover, Germany. The well traveled composer was regarded as "the one Chasanim, the cantor of the cantors.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Georg Cantor" }
+Answer:      Georg Cantor
+Gold answer: Vladimir Igorevich Arnold
+Correct:     no
+Attempts: 1   Tokens read: 205, written: 12, in 1.4 s
+
+===== Question 71 of 100 (id 5a74e9c255429974ef308c93) =====
+Question: The book translated as "School of Religions" was suggested to be written by whom?
+
+Retriever (query = the question):
+  1. [10.5] The World's Religions
+  2. [9.0] Twenty Cases Suggestive of Reincarnation
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: The book translated as "School of Religions" was suggested to be written by whom?
+
+Evidence:
+
+[1] The World's Religions
+The World's Religions, originally titled The Religions of Man, is a book written by religious studies scholar Huston Smith. The book was first published in 1958 and has been translated into twelve languages; it is "one of the most widely used college textbooks on comparative religion."
+
+[2] Twenty Cases Suggestive of Reincarnation
+Twenty Cases Suggestive of Reincarnation is a book written by psychiatrist Ian Stevenson on the phenomenon of what he calls spontaneous recall of information about previous lives by young children. The book focuses on twenty cases investigated by the author. It has been translated into seven foreign languages.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Huston Smith" }
+Answer:      Huston Smith
+Gold answer: Mohsin Fani
+Correct:     no
+Attempts: 1   Tokens read: 233, written: 12, in 1.5 s
+
+===== Question 72 of 100 (id 5a751bbe5542993748c897ba) =====
+Question: Which 1962 film starring Tom Courtenay is based on a short story of the same name?
+
+Retriever (query = the question):
+  1. [14.5] The Loneliness of the Long Distance Runner (film)
+  2. [14.1] A Dandy in Aspic
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which 1962 film starring Tom Courtenay is based on a short story of the same name?
+
+Evidence:
+
+[1] The Loneliness of the Long Distance Runner (film)
+The Loneliness of the Long Distance Runner is a 1962 film based on the short story of the same name.
+
+[2] A Dandy in Aspic
+A Dandy in Aspic is a 1968 Technicolor and Panavision British spy film, directed by Anthony Mann, based on the novel of the same name by Derek Marlowe and starring Laurence Harvey, Tom Courtenay, and Mia Farrow. It was the Mann's final film.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "The Loneliness of the Long Distance Runner"}
+Answer:      The Loneliness of the Long Distance Runner
+Gold answer: The Loneliness of the Long Distance Runner
+Correct:     yes
+Attempts: 1   Tokens read: 212, written: 14, in 1.5 s
+
+===== Question 73 of 100 (id 5a75447b55429974ef308cbf) =====
+Question: Which battle came first, the Battle of Okinawa or Operation Diadem?
+
+Retriever (query = the question):
+  1. [15.9] Operation Diadem order of battle
+  2. [14.1] Operation Diadem
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which battle came first, the Battle of Okinawa or Operation Diadem?
+
+Evidence:
+
+[1] Operation Diadem order of battle
+Operation Diadem order of battle is a listing of the significant formations that were involved in the fighting on the Winter Line and at the Anzio bridgehead south of Rome during "Operation Diadem" in May - June 1944 which resulted in the Allied breakthrough at Cassino and the breakout at Anzio leading to the capture of Rome.
+
+[2] Operation Diadem
+Operation Diadem, also referred to as the Fourth Battle of Monte Cassino or, in Canada, the Battle of the Liri Valley, was an offensive operation undertaken by the Allies of World War II (U.S. Fifth Army and British Eighth Army in May 1944, as part of the Italian Campaign of World War II. "Diadem" was supported by air attacks called Operation Strangle. The opposing force was the German 10th Army.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Operation Diadem" }
+Answer:      Operation Diadem
+Gold answer: Operation Diadem
+Correct:     yes
+Attempts: 1   Tokens read: 274, written: 11, in 1.6 s
+
+===== Question 74 of 100 (id 5a75462d5542996c70cfaed3) =====
+Question: Who was born first, Kwok Kin Pong or Edison Chen?
+
+Retriever (query = the question):
+  1. [23.1] Kwok Kin Pong
+  2. [12.5] Wong Kwok-kin
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who was born first, Kwok Kin Pong or Edison Chen?
+
+Evidence:
+
+[1] Kwok Kin Pong
+Kwok Kin Pong (, born 30 March 1987 in Hong Kong) is a Hong Kong professional footballer playing for Hong Kong Premier League club HK Pegasus. He plays as a defender or midfielder. As he resembles Hong Kong artist and singer Edison Chen, he was given the nickname 'Edison'.
+
+[2] Wong Kwok-kin
+Wong Kwok-kin, BBS (黃國健; Yale: Wòhng Gwok Gihn; born May 1952) is the member of the Legislative Council of Hong Kong representing the Kowloon East constituency.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Kwok Kin Pong" }
+Answer:      Kwok Kin Pong
+Gold answer: Edison Koon-hei Chen
+Correct:     no
+Attempts: 1   Tokens read: 226, written: 14, in 1.7 s
+
+===== Question 75 of 100 (id 5a756b175542996c70cfaef7) =====
+Question: Which peak stands higher, Muztagh Ata or Manaslu?
+
+Retriever (query = the question):
+  1. [11.2] Batura III
+  2. [10.5] Muztagh Ata
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which peak stands higher, Muztagh Ata or Manaslu?
+
+Evidence:
+
+[1] Batura III
+Batura III (Urdu: ‎ ), also known as Batura Muztagh III, is a 7729 m peak in Batura Muztagh, which is the westernmost subrange of the Karakoram range.
+
+[2] Muztagh Ata
+Muztagh Ata, or Muztagata (Uyghur: مۇز تاغ ئاتا, Музтаң Ата, literally "ice-mountain-father"; ), is the second highest (7509 metres) of the mountains which form the northern edge of the Tibetan Plateau (not the second highest of the mountains of the Tibetan Plateau). It is sometimes regarded as being part of the Kunlun Shan, although physically it is more closely connected to the Pamirs. It is also one of the relatively easier 7,000 m peaks in the world to climb, due to its gentle western slope and the comparatively drier weather of Xinjiang, though a thorough acclimatization period and a very strong physical condition are crucial for success.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Manaslu" }
+Answer:      Manaslu
+Gold answer: Manaslu
+Correct:     yes
+Attempts: 1   Tokens read: 323, written: 11, in 1.9 s
+
+===== Question 76 of 100 (id 5a756dd65542996c70cfaef9) =====
+Question: Which documentary was produced first, The Saimaa Gesture or Eclipse of Reason?
+
+Retriever (query = the question):
+  1. [16.8] The Saimaa Gesture
+  2. [9.3] Eclipse of Reason
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which documentary was produced first, The Saimaa Gesture or Eclipse of Reason?
+
+Evidence:
+
+[1] The Saimaa Gesture
+The Saimaa Gesture (Finnish: "Saimaa-ilmiö" ) is a 1981 film by Finnish directors Aki and Mika Kaurismäki. It is a documentary of three Finnish rock groups aboard the steamboat SS Heinävesi on their tour around Lake Saimaa.
+
+[2] Eclipse of Reason
+Eclipse of Reason is a 1987 pro-life documentary video directed, filmed, and narrated by Bernard Nathanson, with an introduction by Charlton Heston. "Eclipse of Reason" is a follow up to Nathanson’s first film "The Silent Scream". The film is perhaps most known for its controversial depiction of a dilation and evacuation (D&E) abortion. The subject matter of this film focuses more on the moral implications of abortion. It served as Nathanson’s call to the women of the world to end the practice of abortion. This film, as well as "The Silent Scream", was instrumental in the Right to Life Committee's garnering the attention of the United States public regarding the issue of abortion.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "The Saimaa Gesture"}
+Answer:      The Saimaa Gesture
+Gold answer: The Saimaa Gesture
+Correct:     yes
+Attempts: 1   Tokens read: 325, written: 11, in 1.9 s
+
+===== Question 77 of 100 (id 5a7577145542996c70cfaf03) =====
+Question: Which park is larger, Timanfaya National Park or Sierra Nevada National Park?
+
+Retriever (query = the question):
+  1. [22.5] Sierra Nevada National Park
+  2. [21.0] Timanfaya National Park
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which park is larger, Timanfaya National Park or Sierra Nevada National Park?
+
+Evidence:
+
+[1] Sierra Nevada National Park
+There are at least two national parks named Sierra Nevada:
+
+[2] Timanfaya National Park
+Timanfaya National Park (Spanish: "Parque Nacional de Timanfaya" ) is a Spanish national park in the southwestern part of the island of Lanzarote, Canary Islands. It covers parts of the municipalities Tinajo and Yaiza. The area is 51.07 km2 . The parkland is entirely made up of volcanic soil.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Timanfaya National Park"}
+Answer:      Timanfaya National Park
+Gold answer: Sierra Nevada National Park
+Correct:     no
+Attempts: 1   Tokens read: 196, written: 12, in 1.4 s
+
+===== Question 78 of 100 (id 5a75a4135542992d0ec05fcd) =====
+Question: The Woodvale Historic District was built buy a company headquartered where?
+
+Retriever (query = the question):
+  1. [10.9] Woodvale Historic District
+  2. [10.6] Lafayette Worsted Company Administrative Headquarters Historic District
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: The Woodvale Historic District was built buy a company headquartered where?
+
+Evidence:
+
+[1] Woodvale Historic District
+Woodvale Historic District is a national historic district located at Broad Top Township, Bedford County; Wells Township, Fulton County; and Wood Township, Huntingdon County, Pennsylvania. The district includes 79 contributing buildings, 1 contributing site, and 2 contributing structures in the coal mining community of Woodvale. The buildings date between about 1890 and 1942, and include industrial buildings, institutional buildings, and vernacular worker's housing. They were built by the Rockhill Iron and Coal Company. Non-residential buildings include the Methodist Church (1911), St. Michael's Greek Orthodox Church (1930s), a social hall, a mule barn, power house, railroad machine shop (1918), and post office (1919).
+
+[2] Lafayette Worsted Company Administrative Headquarters Historic District
+Lafayette Worsted Company Administrative Headquarters Historic District
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Pennsylvania" }
+Answer:      Pennsylvania
+Gold answer: Rockhill Furnace, Pennsylvania
+Correct:     no
+Attempts: 1   Tokens read: 282, written: 10, in 1.7 s
+
+===== Question 79 of 100 (id 5a75a76b5542992db9473697) =====
+Question: Which animal-themed Disney classic film appeared first: That Darn Cat! or Perri?
+
+Retriever (query = the question):
+  1. [16.3] That Darn Cat!
+  2. [14.1] That Darn Cat (1997 film)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which animal-themed Disney classic film appeared first: That Darn Cat! or Perri?
+
+Evidence:
+
+[1] That Darn Cat!
+That Darn Cat! is a 1965 American Walt Disney Productions thriller comedy film starring Hayley Mills (in her last of the six films she made for the Walt Disney Studios) and Dean Jones (starring in his first film for Disney) in a story about bank robbers, a kidnapping and a mischievous cat. The film was based on the 1963 novel "Undercover Cat" by Gordon and Mildred Gordon and was directed by Robert Stevenson. The title song was written by the Sherman Brothers and sung by Bobby Darin. The 1997 remake includes a cameo appearance by Dean Jones.
+
+[2] That Darn Cat (1997 film)
+That Darn Cat is a 1997 American mystery comedy film starring Christina Ricci and Doug E. Doug. It is a remake of the 1965 film "That Darn Cat!", which in turn was based on the book "Undercover Cat" by Gordon and Mildred Gordon. It is directed by British TV veteran Bob Spiers (most famous for "Fawlty Towers", as well as "Spice World") and written by Scott Alexander and Larry Karaszewski, best known for "Ed Wood" and the first two "Problem Child" films.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Perri"}
+Answer:      Perri
+Gold answer: That Darn Cat!
+Correct:     no
+Attempts: 1   Tokens read: 364, written: 8, in 1.9 s
+
+===== Question 80 of 100 (id 5a75c02f5542992db94736b4) =====
+Question: Which mountain is higher, Tongshanjiabu or Himalchuli?
+
+Retriever (query = the question):
+  1. [14.3] Tongshanjiabu
+  2. [11.1] Himalchuli
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which mountain is higher, Tongshanjiabu or Himalchuli?
+
+Evidence:
+
+[1] Tongshanjiabu
+Tongshanjiabu () is a mountain in the Himalayas. At 7,207 m tall, Tongshanjiabu is the 103rd tallest mountain in the world. It sits in the disputed border territory between Bhutan and China. Tongshanjiabu has never been officially climbed.
+
+[2] Himalchuli
+Himalchuli is the second highest mountain in the Mansiri Himal, part of the Nepalese Himalayas. It lies south of Manaslu, one of the Eight-thousanders. Himalchuli has three main peaks: East (7893 m), West (7540 m) and North (7371 m). It is also often written as two words, "Himal Chuli".
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Tongshanjiabu" }
+Answer:      Tongshanjiabu
+Gold answer: Himalchuli has three main peaks: East (7893 m), West (7540 m) and North (7371 m)
+Correct:     no
+Attempts: 1   Tokens read: 260, written: 14, in 1.8 s
+
+===== Question 81 of 100 (id 5a75da235542992db94736f9) =====
+Question: One of the signatories of the Chicago Statement on Biblical Inerrancy was which Presbyterian pastor, known for taking a more presuppositional approach to apologetics?
+
+Retriever (query = the question):
+  1. [20.3] Chicago Statement on Biblical Inerrancy
+  2. [18.8] Biblical inerrancy
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: One of the signatories of the Chicago Statement on Biblical Inerrancy was which Presbyterian pastor, known for taking a more presuppositional approach to apologetics?
+
+Evidence:
+
+[1] Chicago Statement on Biblical Inerrancy
+At a conference sponsored by the International Council on Biblical Inerrancy (ICBI) and held in Chicago in October 1978, more than 200 evangelical leaders formulated the Chicago Statement on Biblical Inerrancy. The statement was designed to defend the position of Biblical inerrancy against a perceived trend toward liberal conceptions of Scripture. Those signing the statement came from a variety of evangelical Christian denominations, and included Robert Preus, James Montgomery Boice, Kenneth Kantzer, J. I. Packer, Francis Schaeffer, R. C. Sproul and John F. MacArthur.
+
+[2] Biblical inerrancy
+Biblical inerrancy, as formulated in the "Chicago Statement on Biblical Inerrancy", is the doctrine that the Protestant Bible "is without error or fault in all its teaching"; or, at least, that "Scripture in the original manuscripts does not affirm anything that is contrary to fact".
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Francis Schaeffer" }
+Answer:      Francis Schaeffer
+Gold answer: Francis Schaeffer
+Correct:     yes
+Attempts: 1   Tokens read: 314, written: 13, in 2.1 s
+
+===== Question 82 of 100 (id 5a75e814554299109176e5c7) =====
+Question: Which Republican Chairman was born June 1, 1956? 
+
+Retriever (query = the question):
+  1. [9.8] Katon Dawson
+  2. [9.3] 1956 Republican National Convention
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which Republican Chairman was born June 1, 1956? 
+
+Evidence:
+
+[1] Katon Dawson
+Katon Edwards Dawson (born February 29, 1956) is an American politician from the state of South Carolina, former chairman of the South Carolina Republican Party and was a 2009 candidate for chairman of the Republican National Committee.
+
+[2] 1956 Republican National Convention
+The 1956 Republican National Convention was held by the Republican Party of the United States at the Cow Palace in San Francisco, California, from August 20 to August 23, 1956. U.S. Senator William F. Knowland was temporary chairman and former speaker of the House Joseph W. Martin Jr. served as permanent chairman. It renominated President Dwight D. Eisenhower and Vice President Richard M. Nixon as the party's candidates for the 1956 presidential election.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Katon Dawson" }
+Answer:      Katon Dawson
+Gold answer: Gregg Harper
+Correct:     no
+Attempts: 1   Tokens read: 267, written: 11, in 1.7 s
+
+===== Question 83 of 100 (id 5a75ebfc5542992d0ec06018) =====
+Question: What indigenous American ethnic group that inhabits land in the northern United States and southern Canada was part of the Treaty of Springwells?
+
+Retriever (query = the question):
+  1. [14.7] Murut people
+  2. [14.4] Tlaxcaltec
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What indigenous American ethnic group that inhabits land in the northern United States and southern Canada was part of the Treaty of Springwells?
+
+Evidence:
+
+[1] Murut people
+The Murut are an indigenous ethnic group, comprising 29 sub-ethnic groups inhabiting northern inland regions of Borneo.
+
+[2] Tlaxcaltec
+The Tlaxcalans, or Talaxcaltecs, were an indigenous group of Nahua ethnicity who inhabited the republic of Tlaxcala located in what is now the Mexican state of Tlaxcala.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "No relevant answer found." }
+Answer:      No relevant answer found
+Gold answer: Odawa
+Correct:     no
+Attempts: 1   Tokens read: 189, written: 12, in 1.4 s
+
+===== Question 84 of 100 (id 5a75f0ea5542994ccc91866c) =====
+Question: What major truck road is located in Backford Cross?
+
+Retriever (query = the question):
+  1. [12.0] Backford Cross
+  2. [9.6] Strawberry Park, Cheshire
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What major truck road is located in Backford Cross?
+
+Evidence:
+
+[1] Backford Cross
+Backford Cross is a village on the Wirral Peninsula, Cheshire, England. It is a suburb of the town of Ellesmere Port and part of Cheshire West and Chester. Backford Cross is located around the A41/A5117 junction, south of Great Sutton and about 1.5 mi north of the village of Backford, near Chester. Backford Cross is largely made up of residential homes built from 1990 onwards and serves as a commuter village to Ellesmere Port and Chester, although inhabitants show no allegiance to either locality. The area is split between postcode districts, with parts of the village in Great Sutton, Ellesmere Port CH66 and other areas in Backford, Chester CH1.
+
+[2] Strawberry Park, Cheshire
+Strawberry Park and Strawberry Fields are suburbs in the town of Ellesmere Port, Cheshire West and Chester. They are located to the south of Hope Farm and to the west of Backford Cross.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "A41/A5117" }
+Answer:      A41/A5117
+Gold answer: The A41
+Correct:     no
+Attempts: 1   Tokens read: 296, written: 16, in 2.1 s
+
+===== Question 85 of 100 (id 5a75f1a755429976ec32bcb1) =====
+Question: Which actress played a character that dated Mark Brendanawicz?
+
+Retriever (query = the question):
+  1. [11.1] Mark Brendanawicz
+  2. [7.3] Iteration mark
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which actress played a character that dated Mark Brendanawicz?
+
+Evidence:
+
+[1] Mark Brendanawicz
+Mark Brendanawicz is a fictional character in the NBC comedy series "Parks and Recreation". He is the city planner for Pawnee, Indiana, as well as Leslie Knope's colleague and one of Ann Perkins' ex-boyfriends. He is portrayed by Paul Schneider, who left "Parks and Recreation" at the end of the second season; despite the producers' plans to the contrary, Schneider never reprised the role in any later seasons, and the show made absolutely no references to the character after his departure.
+
+[2] Iteration mark
+Iteration marks are characters or punctuation marks that represent a duplicated character or word.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Ann Perkins" }
+Answer:      Ann Perkins
+Gold answer: Rashida Jones
+Correct:     no
+Attempts: 1   Tokens read: 222, written: 10, in 1.4 s
+
+===== Question 86 of 100 (id 5a760dcd5542994ccc9186a1) =====
+Question: What component was included on the iPad4 that is now a registered trademark in Jamaica? 
+
+Retriever (query = the question):
+  1. [10.3] Retina Display
+  2. [9.5] Then and Now (books)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What component was included on the iPad4 that is now a registered trademark in Jamaica? 
+
+Evidence:
+
+[1] Retina Display
+Retina Display is a brand name used by Apple for its series of IPS panel displays that have a higher pixel density than traditional displays. Apple has applied to register the term "Retina" as a trademark in regard to computers and mobile devices with the United States Patent and Trademark Office, Canadian Intellectual Property Office, and in Jamaica. On November 27, 2012 the US Patent and Trademark office approved Apple's application and "Retina" is now a registered trademark for computer equipment.
+
+[2] Then and Now (books)
+Then and Now books is a registered trademark of as series of books published by Salamander Books, a subsidiary of Pavilion Books.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Retina Display"}
+Answer:      Retina Display
+Gold answer: Retina Display
+Correct:     yes
+Attempts: 1   Tokens read: 237, written: 9, in 1.4 s
+
+===== Question 87 of 100 (id 5a761e855542994ccc9186e0) =====
+Question: Where are Catcha Lake and Hedley Mascot Mine located?
+
+Retriever (query = the question):
+  1. [14.7] Catcha Lake
+  2. [13.5] Hedley Mascot Mine
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Where are Catcha Lake and Hedley Mascot Mine located?
+
+Evidence:
+
+[1] Catcha Lake
+Catcha Lake is a Canadian lake located in the central part of Nova Scotia's Halifax Regional Municipality.
+
+[2] Hedley Mascot Mine
+The Hedley Mascot Mine was a gold mine in Hedley, British Columbia, Canada. Gold was first discovered in the Nickel Plate Mountain area in 1897 and several small mines were developed over the years. The Hedley Mascot Mine operated between 1936 and 1949 and was one of the most unusual mining operations in the world, being built entirely on the side of a mountain, 5,000 feet above the town of Hedley or seven thousand feet above sea level. In the 1990s, the British Columbia government was going to burn the site down because it posed a safety risk, but the Minister of Tourism at the time intervened and, in 1995, steps were taken to preserve the site as a Provincial Heritage resource.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Catcha Lake is in Nova Scotia, Hedley Mascot Mine is in British Columbia" }
+Answer:      Catcha Lake is in Nova Scotia, Hedley Mascot Mine is in British Columbia
+Gold answer: British Columbia, Canada
+Correct:     no
+Attempts: 1   Tokens read: 290, written: 25, in 2.5 s
+
+===== Question 88 of 100 (id 5a762cf0554299109176e6a4) =====
+Question: Who is older, Bertalan Farkas or Hans Schlegel?
+
+Retriever (query = the question):
+  1. [13.9] Bertalan Farkas
+  2. [11.3] Hans Schlegel
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Who is older, Bertalan Farkas or Hans Schlegel?
+
+Evidence:
+
+[1] Bertalan Farkas
+Bertalan Farkas (born August 2, 1949) is the first Hungarian cosmonaut and the first Esperantist in space. He is currently the president of Airlines Service and Trade. With Charles Simonyi's travel, Farkas is no longer the only Hungarian who has been to space (he is still the only astronaut, as Simonyi flew as a space tourist).
+
+[2] Hans Schlegel
+Hans Wilhelm Schlegel (Überlingen, 3 August 1951) is a German physicist, an ESA astronaut, and a veteran of two NASA Space Shuttle missions.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Bertalan Farkas"}
+Answer:      Bertalan Farkas
+Gold answer: Bertalan Farkas
+Correct:     yes
+Attempts: 1   Tokens read: 230, written: 12, in 1.5 s
+
+===== Question 89 of 100 (id 5a7630105542992d0ec0605a) =====
+Question: What album was released by 1948-born French composer in 1998?
+
+Retriever (query = the question):
+  1. [9.2] Gisèle Barreau
+  2. [9.0] Live (Wise album)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What album was released by 1948-born French composer in 1998?
+
+Evidence:
+
+[1] Gisèle Barreau
+Gisèle Barreau (born 1948) is a French composer.
+
+[2] Live (Wise album)
+Live was the second album by reggaeton singer and composer Wise released in 1998.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Live"}
+Answer:      Live
+Gold answer: Odyssey Through O
+Correct:     no
+Attempts: 1   Tokens read: 151, written: 7, in 1.0 s
+
+===== Question 90 of 100 (id 5a7631c05542994ccc91870b) =====
+Question: Which university is located more east, Indiana University or University of Pennsylvania?
+
+Retriever (query = the question):
+  1. [15.2] List of Indiana University of Pennsylvania buildings
+  2. [14.3] University of Indianapolis
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which university is located more east, Indiana University or University of Pennsylvania?
+
+Evidence:
+
+[1] List of Indiana University of Pennsylvania buildings
+List of Indiana University of Pennsylvania buildings
+
+[2] University of Indianapolis
+The University of Indianapolis, or UIndy, is a university located in Indianapolis, Indiana, United States, which is affiliated with the United Methodist Church. Established in 1902, the university offers associate's, bachelor's, master's, and doctoral degrees, and has more than 5,400 students. It was formerly known as Indiana Central College and Indiana Central University.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "University of Pennsylvania" }
+Answer:      University of Pennsylvania
+Gold answer: University of Pennsylvania
+Correct:     yes
+Attempts: 1   Tokens read: 194, written: 11, in 1.4 s
+
+===== Question 91 of 100 (id 5a7633ad5542992db9473741) =====
+Question: Which was fought earlier in our nation's history, the Seven Days Battles or the Battle of Manila?
+
+Retriever (query = the question):
+  1. [15.0] Battle of Manila (1762)
+  2. [14.8] Seven Days Union order of battle
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was fought earlier in our nation's history, the Seven Days Battles or the Battle of Manila?
+
+Evidence:
+
+[1] Battle of Manila (1762)
+The Battle of Manila was fought during the Seven Years' War, from 24 September 1762 to 6 October 1762, between the Kingdom of Great Britain and the Kingdom of Spain in and around Manila, the capital of the Philippines, a Spanish colony at that time. The British won, leading to a twenty month occupation of Manila.
+
+[2] Seven Days Union order of battle
+The following Union Army units and commanders fought in the Seven Days Battles (from June 25 to July 1, 1862) of the American Civil War. Order of battle compiled from the army organization-return of casualties during the battle and the reports. The Confederate order of battle is listed separately.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Seven Days Battles" }
+Answer:      Seven Days Battles
+Gold answer: The Seven Days Battles
+Correct:     yes
+Attempts: 1   Tokens read: 254, written: 11, in 1.7 s
+
+===== Question 92 of 100 (id 5a7642f7554299109176e6e8) =====
+Question: who is younger Ulrich Walter or  Luca Parmitano?
+
+Retriever (query = the question):
+  1. [12.8] Luca Parmitano
+  2. [10.3] Lucas Smout the Younger
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: who is younger Ulrich Walter or  Luca Parmitano?
+
+Evidence:
+
+[1] Luca Parmitano
+Luca Parmitano (born 27 September 1976 in Paternò, Sicily) is an Italian engineer and astronaut in the European Astronaut Corps for the European Space Agency (ESA). The astronauts work on missions at the International Space Station. He was selected as an ESA astronaut in May 2009.
+
+[2] Lucas Smout the Younger
+Lucas Smout the Younger or Lucas Smaut (27 February 1671 – 8 April 1713) was a Flemish painter of coastal and country scenes who was active in Antwerp.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Luca Parmitano" }
+Answer:      Luca Parmitano
+Gold answer: Luca Parmitano
+Correct:     yes
+Attempts: 1   Tokens read: 223, written: 13, in 1.6 s
+
+===== Question 93 of 100 (id 5a765fe85542992d0ec060c5) =====
+Question: The Black Star identified closely with this American magazine magnate who was called what?
+
+Retriever (query = the question):
+  1. [9.3] Magnate (magazine)
+  2. [9.2] Black Sports Magazine
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: The Black Star identified closely with this American magazine magnate who was called what?
+
+Evidence:
+
+[1] Magnate (magazine)
+Magnate was a digital men's lifestyle publication.
+
+[2] Black Sports Magazine
+Black Sports Magazine was a magazine that launched in April 1971 in New York City and closed later that decade. The magazine was published on a monthly basis.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "Black Star"}
+Answer:      Black Star
+Gold answer: the most influential private citizen in the America of his day"
+Correct:     no
+Attempts: 1   Tokens read: 150, written: 8, in 1.0 s
+
+===== Question 94 of 100 (id 5a7666095542992d0ec060db) =====
+Question: What American gangster, businessman, casino owner and philanthropist was the inspiration for Morris "Moe" Greene in "The Godfather"?
+
+Retriever (query = the question):
+  1. [21.1] Moe Dalitz
+  2. [13.3] Moe Greene
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: What American gangster, businessman, casino owner and philanthropist was the inspiration for Morris "Moe" Greene in "The Godfather"?
+
+Evidence:
+
+[1] Moe Dalitz
+Morris Barney Dalitz (December 25, 1899 – August 31, 1989), known as Moe Dalitz, was an American gangster, businessman, casino owner and philanthropist. He was one of the major figures who shaped Las Vegas, in the 20th century. He was often referred to as "Mr. Las Vegas".
+
+[2] Moe Greene
+Morris "Moe" Greene is a fictional character appearing in Mario Puzo's 1969 novel "The Godfather" and the 1972 movie of the same name. The character's name is a composite of real Las Vegas mobsters Moe Dalitz, or possibly Moe Sedway, and Gus Greenbaum. However, both Greene's character and personality are actually based on Bugsy Siegel: his affiliation with the mob in Los Angeles, his involvement in the development of Las Vegas, and his flamboyant tendencies. Greene is portrayed in the movie by Alex Rocco.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Moe Dalitz" }
+Answer:      Moe Dalitz
+Gold answer: Moe Dalitz
+Correct:     yes
+Attempts: 1   Tokens read: 325, written: 12, in 2.0 s
+
+===== Question 95 of 100 (id 5a769b0d5542993569682c50) =====
+Question: Which documentary film was created first, The End of Suburbia or Super High Me?
+
+Retriever (query = the question):
+  1. [15.3] Super High Me
+  2. [12.8] The End of Suburbia
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which documentary film was created first, The End of Suburbia or Super High Me?
+
+Evidence:
+
+[1] Super High Me
+Super High Me is a 2008 documentary film about the effects of smoking cannabis for 30 days. The documentary stars comedian Doug Benson. The documentary's name and its poster are plays on the 2004 documentary "Super Size Me".
+
+[2] The End of Suburbia
+The End of Suburbia: Oil Depletion and the Collapse of The American Dream is a 2004 documentary film concerning peak oil and its implications for the suburban lifestyle, written and directed by Toronto-based filmmaker Gregory Greene.
+
+Answer the question using the evidence.
+
+Full reply:  {"answer": "The End of Suburbia"}
+Answer:      The End of Suburbia
+Gold answer: The End of Suburbia
+Correct:     yes
+Attempts: 1   Tokens read: 209, written: 12, in 1.4 s
+
+===== Question 96 of 100 (id 5a76db3555429972597f13e7) =====
+Question: When did the first bank come into existence that is part of an organization that serves rural areas of India with basic banking and financial services?
+
+Retriever (query = the question):
+  1. [21.5] Regional Rural Bank
+  2. [16.8] YA Bank
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: When did the first bank come into existence that is part of an organization that serves rural areas of India with basic banking and financial services?
+
+Evidence:
+
+[1] Regional Rural Bank
+Regional Rural Banks are local level banking organizations operating in different States of India. They have been created with a view to serve primarily the rural areas of India with basic banking and financial services. However, RRBs may have branches set up for urban operations and their area of operation may include urban areas too.
+
+[2] YA Bank
+yA Bank is a Norwegian bank offering basic banking and financial services to personal customers.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "1975" }
+Answer:      1975
+Gold answer: on 20 July 2009
+Correct:     no
+Attempts: 1   Tokens read: 192, written: 12, in 1.4 s
+
+===== Question 97 of 100 (id 5a76fe7b5542994aec3b71b2) =====
+Question: Eric Stark Maskin was a  teacher for which university, located in New Jersey?
+
+Retriever (query = the question):
+  1. [13.8] Eric Maskin
+  2. [13.2] Maskin monotonicity
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Eric Stark Maskin was a  teacher for which university, located in New Jersey?
+
+Evidence:
+
+[1] Eric Maskin
+Eric Stark Maskin (born December 12, 1950) is an American economist and 2007 Nobel laureate recognized with Leonid Hurwicz and Roger Myerson "for having laid the foundations of mechanism design theory". He is the Adams University Professor at Harvard University. Until 2011, he was the Albert O. Hirschman Professor of Social Science at the Institute for Advanced Study, and a visiting lecturer with the rank of professor at Princeton University.
+
+[2] Maskin monotonicity
+Maskin monotonicity is a desired property of voting systems, suggested by Eric Maskin.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Princeton University" }
+Answer:      Princeton University
+Gold answer: The Institute for Advanced Study
+Correct:     no
+Attempts: 1   Tokens read: 228, written: 11, in 1.5 s
+
+===== Question 98 of 100 (id 5a771e0b55429966f1a36c75) =====
+Question: Jessica Lee, former MP for Erewash, served as Parliamentary Private Secretary to the experienced representative for Beaconsfield, when he held which office?
+
+Retriever (query = the question):
+  1. [21.6] Jessica Lee
+  2. [14.2] Spencer Batiste
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Jessica Lee, former MP for Erewash, served as Parliamentary Private Secretary to the experienced representative for Beaconsfield, when he held which office?
+
+Evidence:
+
+[1] Jessica Lee
+Jessica Katherine Lee (born 7 April 1976) was a British Conservative Party politician. She was elected as the Member of Parliament (MP) for the constituency of Erewash in Derbyshire in 2010. She served as Parliamentary Private Secretary to the Attorney General, Dominic Grieve, before stepping down for the 2015 general election.
+
+[2] Spencer Batiste
+Spencer Lee Batiste (born 5 June 1945) was the British Conservative MP for Elmet from 1983 until his 1997 defeat by Labour's Colin Burgon. He served as Parliamentary Private Secretary to Lord Trefgarne, Sir Geoffrey Pattie and, latterly, for European Commissioner and former Home Secretary Sir Leon Brittan.
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "Attorney General" }
+Answer:      Attorney General
+Gold answer: Attorney General
+Correct:     yes
+Attempts: 1   Tokens read: 273, written: 11, in 1.6 s
+
+===== Question 99 of 100 (id 5a7723fa55429966f1a36ca0) =====
+Question: Which was published earlier, La Belle Assemblée or VIVmag?
+
+Retriever (query = the question):
+  1. [17.1] La Belle Assemblée
+  2. [9.5] Assemblée parlementaire de la Francophonie
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was published earlier, La Belle Assemblée or VIVmag?
+
+Evidence:
+
+[1] La Belle Assemblée
+La Belle Assemblée (in full La Belle Assemblée or, Bell's Court and Fashionable Magazine Addressed Particularly to the Ladies) was a British women's magazine published from 1806 to 1837, founded by John Bell (1745–1831).
+
+[2] Assemblée parlementaire de la Francophonie
+The Assemblée parlementaire de la Francophonies (APF) is an association of the parliaments of Francophone countries. It was established in Luxembourg in 1967, and was then known as the "Association internationale des parlementaires de langue française".
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "La Belle Assemblée" }
+Answer:      La Belle Assemblée
+Gold answer: La Belle Assemblée
+Correct:     yes
+Attempts: 1   Tokens read: 236, written: 13, in 1.6 s
+
+===== Question 100 of 100 (id 5a772c925542993735360208) =====
+Question: Which was published first Polarity or The Farming Game?
+
+Retriever (query = the question):
+  1. [9.3] Umut Tarlaları
+  2. [9.0] Polarity (game)
+
+Full prompt sent to the model:
+[system] You are the Answerer in a question-answering system, think deeply before answering. Give a short answer only (a name, a date, a number, or yes/no). Do not explain.
+[user]   Question: Which was published first Polarity or The Farming Game?
+
+Evidence:
+
+[1] Umut Tarlaları
+Umut Tarlaları (Turkish for Fields of Hope) is the world's first "farming simulation" computer game. The game, which was published by SiliconWorx in 1993, is of the "system strategy games" genre.
+
+[2] Polarity (game)
+Polarity is a board game that requires strategic thinking and dexterity to control hovering magnetic discs. "Polarity" was invented in 1985 by Canadian artist and designer Douglas Seaton. It was first published in 1986. The game has had a tumultuous past, with its rights changing hands several times over the past two decades. The game has been published by Telemotion Technologies, Irwin Toy, briefly with Mattel and most recently by Temple Games. The game ships in a canvas sleeve and include the magnets, the board, and a paper rulebook. An unrelated game of the same name is published by a company called Mindwalk (Company).
+
+Answer the question using the evidence.
+
+Full reply:  { "answer": "The Farming Game" }
+Answer:      The Farming Game
+Gold answer: The Farming Game
+Correct:     yes
+Attempts: 1   Tokens read: 297, written: 12, in 1.9 s
+
+===== Summary =====
+Answered: 100 of 100
+Correct:  30 of 100 (30%)
+Tokens read: 26263, written: 1172
+Time: 3.1 minutes
