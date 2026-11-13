@@ -37,6 +37,7 @@ Notebooks/
   kaggle_methods.ipynb     runs one method (Closed-book, Single-turn or Always-loop) on Kaggle with Ollama
   kaggle_condition_a.ipynb runs Condition A (LLM judge stops and steers) on Kaggle with Ollama
   kaggle_condition_b.ipynb runs Condition B (LLM judge stops, Oracle steers) on Kaggle with Ollama
+  kaggle_condition_c.ipynb runs Condition C (Oracle stops, LLM judge steers) on Kaggle with Ollama
   kaggle_condition_d.ipynb runs Condition D (Oracle stops and steers) on Kaggle with Ollama
   kaggle_WikiIndex.ipynb   builds the HotpotQA BM25 index on Kaggle (only needed to rebuild it)
 NOTES.md             pilot choices, run sheet, throughput numbers
