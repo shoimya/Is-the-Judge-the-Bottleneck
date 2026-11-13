@@ -92,17 +92,22 @@ def ollama_server_is_running() -> bool:
         return False
 
 
+_started_server_process = None
+
+
 def start_ollama_server() -> bool:
     """Start this project's Ollama server in the background, with this machine's models folder and port.
 
     Returns True if this call started the server, so the same code knows to stop it again when it has finished.
     Returns False if the server was already running: whoever started it stops it.
     """
+    global _started_server_process
     if ollama_server_is_running():
         print(f"This project's Ollama server is already running at {settings.OLLAMA_ADDRESS}.")
         return False
     if not shutil.which("ollama"):
-        raise RuntimeError("Ollama isn't installed: on the Mac run `brew install ollama`; on Kaggle, run the "
+        raise RuntimeError("Ollama isn't installed: on Windows install from https://ollama.com/download/windows; "
+                           "on the Mac run `brew install ollama`; on Kaggle, run the "
                            "notebook's install cell first.")
 
     # Here the server's own messages go to a file next to the models, to read if it fails to start.
@@ -110,8 +115,12 @@ def start_ollama_server() -> bool:
     settings.MODELS_FOLDER.mkdir(parents=True, exist_ok=True)
     with open(settings.MODELS_FOLDER / "ollama-server.log", "a") as server_messages_file:
         # Here start_new_session lets the server keep running after this file finishes.
-        subprocess.Popen(["ollama", "serve"], env=settings.ollama_environment(),
-                         stdout=server_messages_file, stderr=server_messages_file, start_new_session=True)
+        background_options = ({"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt"
+                              else {"start_new_session": True})
+        _started_server_process = subprocess.Popen(
+            ["ollama", "serve"], env=settings.ollama_environment(),
+            stdout=server_messages_file, stderr=server_messages_file, **background_options,
+        )
 
     # Here we wait until the server answers, so a call can use it straight away.
     for _ in range(SECONDS_TO_WAIT_FOR_THE_SERVER):
@@ -136,9 +145,16 @@ def stop_ollama_server() -> None:
     if not ollama_server_is_running():
         print(f"No Ollama server is running at {settings.OLLAMA_ADDRESS}. Nothing to stop.")
         return
-    for process_id in server_process_ids():
-        # Here we send the polite "please stop" signal, the same one the `kill` command sends.
-        os.kill(process_id, signal.SIGTERM)
+    if os.name == "nt":
+        # Windows has no lsof; only stop the process this Python session started.
+        if _started_server_process is None or _started_server_process.poll() is not None:
+            print("WARNING  this session did not start the running Ollama server; leaving it running.")
+            return
+        _started_server_process.terminate()
+        _started_server_process.wait(timeout=SECONDS_TO_WAIT_FOR_THE_SERVER)
+    else:
+        for process_id in server_process_ids():
+            os.kill(process_id, signal.SIGTERM)
 
     # Here we wait until the server stops answering, so we only report success once it has really stopped.
     for _ in range(SECONDS_TO_WAIT_FOR_THE_SERVER):

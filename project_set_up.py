@@ -25,7 +25,8 @@ from pathlib import Path
 # The repo's top folder: this file sits directly in it.
 REPO_ROOT = Path(__file__).resolve().parent
 VENV_DIR = REPO_ROOT / ".venv"
-VENV_PYTHON = VENV_DIR / "bin" / "python"
+RUNNING_ON_WINDOWS = os.name == "nt"
+VENV_PYTHON = VENV_DIR / "Scripts" / "python.exe" if RUNNING_ON_WINDOWS else VENV_DIR / "bin" / "python"
 REQUIREMENTS_FILE = REPO_ROOT / "requirements.txt"
 PROJECT_PACKAGE_NAME = "judge-bottleneck"         # the name pyproject.toml gives this repo's own code
 
@@ -57,7 +58,17 @@ def find_kaggle_python() -> str:
     """The path of a Python at Kaggle's version: the one running this file, or one on the PATH ("" if none)."""
     if tuple(sys.version_info[:2]) == KAGGLE_PYTHON_VERSION:
         return sys.executable
-    # Here we look for Homebrew-style names such as "python3.13".
+    # Windows installs can be found through the Python launcher even when Python is not on PATH.
+    launcher = shutil.which("py") if RUNNING_ON_WINDOWS else None
+    if launcher:
+        version_check = subprocess.run(
+            [launcher, "-" + version_text(KAGGLE_PYTHON_VERSION), "-c",
+             "import sys; print(sys.executable)"],
+            capture_output=True, text=True,
+        )
+        if version_check.returncode == 0 and Path(version_check.stdout.strip()).is_file():
+            return version_check.stdout.strip()
+    # Here we also look for names such as "python3.13" on macOS and Linux.
     found_path = shutil.which("python" + version_text(KAGGLE_PYTHON_VERSION))
     return found_path or ""
 
@@ -85,10 +96,19 @@ def make_virtual_environment() -> None:
               f"         Delete the .venv folder, then run this file again.")
         sys.exit(1)
 
+    if VENV_DIR.exists():
+        print("WARNING  .venv exists but has no Python executable for this operating system.\n"
+              "         Rename that folder, then run this file again to create a local environment.")
+        sys.exit(1)
+
     python_path = find_kaggle_python()
     if not python_path:
+        install_step = (
+            f"Install Python {wanted_version} from https://www.python.org/downloads/windows/ (include the Python launcher)."
+            if RUNNING_ON_WINDOWS else f"Install it with:  brew install python@{wanted_version}"
+        )
         print(f"WARNING  the project uses Python {wanted_version} (Kaggle's version), and none was found.\n"
-              f"         Install it with:  brew install python@{wanted_version}\n"
+              f"         {install_step}\n"
               f"         then run this file again.")
         sys.exit(1)
     print(f"MAKING   .venv with {python_path}")
@@ -204,10 +224,9 @@ def get_ollama_models(model_names: list) -> list:
     if not shutil.which("ollama"):
         print("WARNING  Ollama isn't installed. It's system software, so it's a step for you.")
         return [
-            "Install Ollama, the program that runs the model on the Mac:\n"
-            "    1. In a terminal, run:  brew install ollama\n"
-            "       (no Homebrew? download it from https://ollama.com/download instead)\n"
-            "    2. Run this file again; it then downloads the model into data/ollama/."
+            "Install Ollama from https://ollama.com/download/windows, then restart VS Code and run this file again."
+            if RUNNING_ON_WINDOWS else
+            "Install Ollama with brew install ollama (or from https://ollama.com/download), then run this file again."
         ]
     missing_models = [name for name in model_names if not settings.model_is_downloaded(name)]
     if not missing_models:
@@ -256,9 +275,13 @@ if __name__ == "__main__":
     if os.environ.get(RESTARTED_VARIABLE) != "yes":
         first_half()
     second_half()
-    print("To turn the .venv on and off in a terminal:\n"
-        f"    on:   cd \"{REPO_ROOT}\" && source .venv/bin/activate\n"
-        "    off:  deactivate\n"
-        "In VS Code, pick it once with Cmd+Shift+P > Python: Select Interpreter > .venv;\n"
-        "every Run and Debug then uses it.")
-    
+    if RUNNING_ON_WINDOWS:
+        print('In PowerShell, activate with: .\\.venv\\Scripts\\Activate.ps1\n'
+              'In Command Prompt, activate with: .venv\\Scripts\\activate.bat\n'
+              'Deactivate with: deactivate\n'
+              'In VS Code: Ctrl+Shift+P > Python: Select Interpreter > .venv\\Scripts\\python.exe.\n'
+              'Activation is optional when you select that interpreter in VS Code.')
+    else:
+        print('Activate with: source .venv/bin/activate\n'
+              'Deactivate with: deactivate\n'
+              'In VS Code: Cmd+Shift+P > Python: Select Interpreter > .venv.')

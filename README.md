@@ -48,6 +48,17 @@ data/, runs/         questions, search index, model files and run logs (not on G
 
 Don't hard-code settings. Experiment settings go in `config.yaml`, read with `pipeline.load_config()`; anything that differs between the Mac and Kaggle goes in `pipeline/settings.py`. Each method writes one log per run to `runs/<method>/<date>/<HHMMSS>.txt`.
 
+## Setup on Windows
+
+1. Install Python **3.13** from [python.org](https://www.python.org/downloads/windows/), including the Python launcher, and install [Ollama for Windows](https://ollama.com/download/windows).
+2. Open the repo in VS Code. Restart VS Code after installing Ollama so its PATH is refreshed.
+3. Open `project_set_up.py` and press Run. The same script supports Windows and macOS: on Windows it creates `.venv/Scripts/python.exe`, installs the pinned requirements, prepares the question sets, and downloads the configured chat and embedding models into `data/ollama/`.
+4. If `.venv` was copied from another operating system, rename it before running setup; virtual environments cannot be shared between operating systems.
+5. Download the private Kaggle dataset `hotpotqa-bm25-index` (ask the repo owner for access). Extract its files directly into `data/wiki/bm25_index/`.
+6. Press Ctrl+Shift+P > Python: Select Interpreter and choose `.venv/Scripts/python.exe`. Open `project_check.py` and press Run, then try a method in `pipeline/Methods/`.
+
+Terminal activation is optional. In PowerShell use `.\.venv\Scripts\Activate.ps1`; in Command Prompt use `.venv\Scripts\activate.bat`. If PowerShell blocks activation, select the interpreter in VS Code instead. Setup uses a separate Ollama server on port 11600 and stops only the server it started.
+
 ## Setup on Mac
 
 1. **Get the code** (the current work is on the `SC.V3` branch):

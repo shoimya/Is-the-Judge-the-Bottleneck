@@ -154,7 +154,7 @@ def run_all_checks() -> None:
     """Run every check in order and print how many passed."""
     if not running_in_venv():
         # Here we stop early: without .venv, the project's libraries can't be imported.
-        print("This file needs the .venv's Python. In VS Code: Cmd+Shift+P > Python: Select Interpreter > .venv,\n"
+        print("This file needs the .venv's Python. In VS Code: Ctrl+Shift+P (Windows) or Cmd+Shift+P (Mac) > Python: Select Interpreter > .venv,\n"
               "then press Run again. (No .venv yet? Run project_set_up.py first.)")
         return
 
