@@ -25,6 +25,7 @@ pipeline/
     always_loop.py   3 Rounds of search steered by the Judge, then answer
     condition_a.py   the LLM judge stops and steers (the deployed system); the Oracle labels each Stop decision
     condition_b.py   the LLM judge stops, the Oracle steers (B − A = the cost of steering)
+    condition_c.py   the Oracle stops, the LLM judge steers (C minus A = the cost of stopping)
     condition_d.py   the Oracle stops and steers (the best case)
 project_set_up.py    sets this machine up in one run (Python, .venv, libraries, questions, model)
 project_check.py     checks the setup without changing anything
@@ -92,3 +93,5 @@ Every number in the paper comes from Kaggle. The Mac is for development.
 ## Adding a library
 
 Pin the exact version in `requirements.txt` (`name==x.y.z`), and check it installs on the Mac and on Kaggle before pushing.
+
+To run Condition C, open `pipeline/Methods/condition_c.py`, choose `QUESTION_SET` and `HOW_MANY_QUESTIONS` at the top, and press Run. It uses the existing setup and writes logs to `runs/condition_c/<date>/<HHMMSS>.txt`.
