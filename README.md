@@ -16,7 +16,8 @@ pipeline/
   retriever.py       BM25 search over HotpotQA's 2017 Wikipedia; also builds the search index
   answerer.py        question + Evidence → short answer
   judge.py           LLM judge (Stop decision, Steer signal, p_yes) + Oracle judge
-  rewriter.py        Steer signal → next search query
+  rewriter.py        Steer signal → next search query (Pipeline 1 only; under Pipeline 2 the steer is the query)
+  run_log.py         the log pieces every method shares: log path (runs/<method>/P<pipeline>-k<k>/<date>/), header lines
   llm2.py            the one place that talks to the model (Ollama); starts and stops our Ollama server
   llm.py             earlier model code, still used by the roles' older functions
   scoring.py         answer vs gold answer: exact match, precision, recall, F1, cosine similarity (embedding model)
@@ -27,10 +28,11 @@ pipeline/
     always_loop.py   3 Rounds of search steered by the Judge, then answer
     condition_a.py   the LLM judge stops and steers (the deployed system); the Oracle labels each Stop decision
     condition_b.py   the LLM judge stops, the Oracle steers (B − A = the cost of steering)
+    condition_c.py   the Oracle stops, the LLM judge steers (C − A = the cost of stopping)
     condition_d.py   the Oracle stops and steers (the best case)
 project_set_up.py    sets this machine up in one run (Python, .venv, libraries, questions, model)
 project_check.py     checks the setup without changing anything
-config.yaml          experiment settings: model per role, k, Rounds, seeds, reply limits
+config.yaml          experiment settings: model per role, k, pipeline (Rewriter on/off), Rounds, seeds, reply limits
 pyproject.toml       makes pipeline/ importable from any file, so every file runs with Run
 requirements.txt     pinned libraries
 requirements-gpu.txt vLLM pins (not used since the move to Ollama)
@@ -38,6 +40,7 @@ Notebooks/
   kaggle_methods.ipynb     runs one method (Closed-book, Single-turn or Always-loop) on Kaggle with Ollama
   kaggle_condition_a.ipynb runs Condition A (LLM judge stops and steers) on Kaggle with Ollama
   kaggle_condition_b.ipynb runs Condition B (LLM judge stops, Oracle steers) on Kaggle with Ollama
+  kaggle_condition_c.ipynb runs Condition C (Oracle stops, LLM judge steers) on Kaggle with Ollama
   kaggle_condition_d.ipynb runs Condition D (Oracle stops and steers) on Kaggle with Ollama
   kaggle_WikiIndex.ipynb   builds the HotpotQA BM25 index on Kaggle (only needed to rebuild it)
 NOTES.md             pilot choices, run sheet, throughput numbers

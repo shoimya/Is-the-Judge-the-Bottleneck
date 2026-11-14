@@ -26,10 +26,12 @@ llm:
     answerer: 128
 
 retrieval:
-  k: 3              # pipeline v1 (owner, Nov 12): 3 new paragraphs per Round, so 3 Rounds give at most 9
+  k: 2              # new paragraphs per search; the k study (owner, Nov 13) runs every method at k = 2, 3, 4 and 5
 
 loop:
   rounds: 3         # maximum Rounds per question
+  pipeline: 2       # 1 = Rewriter on: the Rewriter turns the steer into the next query.
+                    # 2 = Rewriter off: the steer is the next query, as written (owner, Nov 13)
   token_budget: null  # T10: max Evidence tokens shown to the Judge and Answerer
 
 # Scoring (pipeline/scoring.py). Exact match, precision, recall and F1 need no model; the cosine similarity

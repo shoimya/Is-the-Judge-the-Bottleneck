@@ -1,23 +1,30 @@
 """Rewriter: question + Steer signal -> next search query. Built in T06.
 
 The Rewriter sees the question, the queries already tried, and the Steer
-signal (the Judge's MISSING text — only the Rewriter reads it), and outputs
-one search query. ask() fills the prompt, calls llm.generate("rewriter",
-prompt), and parses the query; an empty output is flagged parse_error.
+signal (the Judge's MISSING text), and outputs one search query. It runs only
+under Pipeline 1 (config.yaml's loop.pipeline); under Pipeline 2 the steer is
+the next query as written, and this file is not called. ask() fills the prompt,
+calls llm.generate("rewriter", prompt), and parses the query; an empty output
+is flagged parse_error.
 """
 
 from pipeline import llm, llm2, load_config
 
-# Here v2 = the Rewriter also sees the earlier Rounds' steers next to the queries it wrote for them, so a repeated
-# steer is visible and it can avoid writing the same query again (Nov 12). v1 = the few-shot prompt (Nov 10);
+# Here v1 = the few-shot Rewriter prompt (Nov 10), used again from Nov 13: v2 (Nov 12) also showed the Rewriter the
+# earlier Rounds' steers next to the queries it wrote for them, and that changed nothing, so it was dropped.
 # v0 = the earlier prompt without examples.
-PROMPT_VERSION = "v2"
+PROMPT_VERSION = "v1"
+
 REWRITER_PROMPT = """Question: {question}
-Earlier Rounds (the steer the Judge gave -> the query already written for it):
-{history}
-What the evidence is still missing now:
+
+Search queries already tried:
+{queries}
+
+What the evidence is still missing:
 {steer}
-Write one short search query (a few words, no punctuation) for a Wikipedia keyword search that finds the missing information. Name the missing person, place or thing directly. If the new steer asks for the same thing as an earlier one, do not write that query again: name a different person, place or thing from the steer or the question, or add the new name the steer gives.
+
+Write one short search query (a few words, no punctuation) for a Wikipedia keyword search that finds the missing information. Name the missing person, place or thing directly, and never repeat a query already tried.
+
 Examples (question / still missing -> query):
 - Which gaming console was both Yakuza Kiwami and Yakuza 0 released on? / which consoles Yakuza 0 was released on -> Yakuza 0 release consoles
 - In the NASA mission where Moon trees were taken into space, what was the nickname of the Command Module? / the nickname of the Apollo 14 Command Module -> Apollo 14 Command Module
@@ -25,16 +32,11 @@ Examples (question / still missing -> query):
 - Are both American Foxhound and Löwchen types of Foxhounds? / what kind of dog the Löwchen is -> Löwchen dog breed"""
 
 
-def render_history(past_steers, past_queries) -> str:
-    """The earlier Rounds as the Rewriter reads them: Round 1 searched the question itself, and every later Round
-    searched a query written from the steer before it."""
-    if not past_queries:
+def render_queries(queries) -> str:
+    """The queries already tried, one per line, as the Rewriter reads them."""
+    if not queries:
         return "(none yet)"
-    lines = [f"- Round 1 searched the question itself: {past_queries[0]}"]
-    # Here each later query is shown next to the steer it was written from, so the model sees what it already made.
-    for round_number, (steer, query) in enumerate(zip(past_steers, past_queries[1:]), start=2):
-        lines.append(f'- Round {round_number} steer: "{steer}"  ->  query written: {query}')
-    return "\n".join(lines)
+    return "\n".join(f"- {query}" for query in queries)
 
 
 def parse(out: dict) -> dict:
@@ -46,11 +48,11 @@ def parse(out: dict) -> dict:
     return {"query": "", "parse_error": True}
 
 
-def ask(question: str, past_queries, steer: str, past_steers=(), *, config: dict | None = None) -> dict:
+def ask(question: str, past_queries, steer: str, *, config: dict | None = None) -> dict:
     """One Rewriter call: the next search query."""
     prompt = REWRITER_PROMPT.format(
         question=question,
-        history=render_history(past_steers, past_queries),
+        queries=render_queries(past_queries),
         steer=steer or "nothing",
     )
     out = llm.generate("rewriter", prompt, config=config)
@@ -78,20 +80,14 @@ QUERY_FORMAT = {
 }
 
 
-def rewriter_prompt(question: str, past_queries: list[str], steer: str, past_steers: list[str] = ()) -> str:
-    """The prompt the Rewriter reads: the question, the earlier Rounds' steers with the queries written for them,
-    and what the Evidence is missing now. past_steers has one entry fewer than past_queries (Round 1 had no steer)."""
+def rewriter_prompt(question: str, past_queries: list[str], steer: str) -> str:
+    """The prompt the Rewriter reads: the question, the queries already tried, and what the Evidence is missing."""
     # Here an empty Steer signal is written as "nothing", as the Judge writes it when nothing is missing.
-    return REWRITER_PROMPT.format(
-        question=question,
-        history=render_history(past_steers, past_queries),
-        steer=steer or "nothing",
-    )
+    return REWRITER_PROMPT.format(question=question, queries=render_queries(past_queries), steer=steer or "nothing")
 
 
-def rewrite_query(question: str, past_queries: list[str], steer: str, past_steers: list[str] = ()) -> dict:
-    """Turn the question, the earlier Rounds (queries, and the steers they came from) and the new Steer signal into
-    the next search query. past_steers may be left out: then only the queries are shown.
+def rewrite_query(question: str, past_queries: list[str], steer: str) -> dict:
+    """Turn the question, the queries already tried and the Steer signal into the next search query.
 
     Returns a dictionary with:
         query             the next search query ("" if the model never gave one in the right format)
@@ -103,7 +99,7 @@ def rewrite_query(question: str, past_queries: list[str], steer: str, past_steer
         tokens_read, tokens_written, seconds, prompt_may_be_cut, reply_was_cut   the call's costs and warnings
     """
     config = load_config()
-    prompt = rewriter_prompt(question, past_queries, steer, past_steers)
+    prompt = rewriter_prompt(question, past_queries, steer)
     # Here the model, reply limit, temperature and seed all come from config.yaml, the same for every method.
     result = llm2.send_to_ollama_with_retries(
         llm2.model_for_role("rewriter"), REWRITER_SYSTEM_PROMPT, prompt, QUERY_FORMAT,

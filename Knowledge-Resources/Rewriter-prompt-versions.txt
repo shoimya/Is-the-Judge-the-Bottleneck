@@ -67,3 +67,13 @@ Examples (question / still missing -> query):
 - In the NASA mission where Moon trees were taken into space, what was the nickname of the Command Module? / the nickname of the Apollo 14 Command Module -> Apollo 14 Command Module
 - Which airport is located further north in the United States, San Angelo Regional Airport or Grand Junction Regional Airport? / where Grand Junction Regional Airport is located -> Grand Junction Regional Airport location
 - Are both American Foxhound and Löwchen types of Foxhounds? / what kind of dog the Löwchen is -> Löwchen dog breed"""
+
+
+
+
+VERSION 11-13-2026 - back to v1 (in the code as PROMPT_VERSION = "v1")
+Change: the Rewriter now runs only under Pipeline 1 (config.yaml loop.pipeline = 1); under Pipeline 2 the steer goes to
+BM25 as written. For the Pipeline 1 vs 2 study the Rewriter uses the 11-11 original prompt again (the one that scored
+427/1000 in Condition A), with its {queries} list. The 11-12 v2 prompt, which also showed the Rewriter the earlier
+steers, made no measurable difference in the Nov 12 history run, so it was dropped. The prompt text is the first block
+in this file.

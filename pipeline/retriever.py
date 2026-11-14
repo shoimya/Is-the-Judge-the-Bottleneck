@@ -38,7 +38,7 @@ import numpy as np                            # noqa: E402
 import Stemmer                                # noqa: E402
 from bm25s.tokenization import Tokenized      # noqa: E402
 
-from pipeline import REPO_ROOT, load_config   # noqa: E402
+from pipeline import REPO_ROOT, llm2, load_config, pipeline_number, rewriter   # noqa: E402
 from pipeline.dataset import load_questions   # noqa: E402
 
 # --- Settings for the demo at the bottom: edit them, then press Run ---
@@ -306,16 +306,34 @@ class Retriever:
         return drop_titles_already_held(ranked_results, exclude_titles)[:k]
 
 
-def query_for_round(question: str, previous_steer: str | None) -> str:
-    """The search query for one Round: the question in Round 1, and after that the Judge's Steer signal from the
-    Round before, as written. There is no Rewriter: replaying the Kaggle logs on the index, the LLM judge's raw steer
-    found a new Gold paragraph more often than the Rewriter's query (33% vs 28% in the top 3), and the Oracle's bare
-    title did as well as it (47% vs 48%).
-    A steer of "nothing" (or none) searches with the question again; the search skips titles already held, so it
-    still brings new paragraphs."""
-    if previous_steer is None or previous_steer.strip().rstrip(".").casefold() in ("", "nothing"):
-        return question
-    return previous_steer
+def steer_says_nothing_is_missing(steer: str | None) -> bool:
+    """True when there is no steer, or the Judge wrote "nothing" (every Gold paragraph is already there)."""
+    return steer is None or steer.strip().rstrip(".").casefold() in ("", "nothing")
+
+
+def choose_query_for_round(question: str, previous_steer: str | None, past_queries: list[str]) -> dict:
+    """Choose the search query for one Round, by config.yaml's loop.pipeline.
+
+    Round 1 (no steer yet) searches with the question in both pipelines. After that:
+        Pipeline 1: the Rewriter turns the question, the queries already tried and the steer into the query.
+        Pipeline 2: the steer is the query, as written. A steer of "nothing" searches with the question again; the
+                    search skips titles already held, so it still brings new paragraphs.
+
+    Returns a dictionary with:
+        query      the text sent to BM25
+        rewrite    the Rewriter call's record (Pipeline 1, Rounds 2+), or None when the Rewriter was not called
+    """
+    if previous_steer is None:
+        return {"query": question, "rewrite": None}
+
+    if pipeline_number() == 1:
+        rewrite_result = rewriter.rewrite_query(question, past_queries, previous_steer)
+        # Here a Rewriter reply that never fitted its shape gives no query, so we search with the question again.
+        return {"query": rewrite_result["query"] or question, "rewrite": rewrite_result}
+
+    if steer_says_nothing_is_missing(previous_steer):
+        return {"query": question, "rewrite": None}
+    return {"query": previous_steer, "rewrite": None}
 
 
 def drop_titles_already_held(ranked_results: list[dict], exclude_titles: Collection[str]) -> list[dict]:
@@ -488,3 +506,17 @@ if __name__ == "__main__":
     made_up_results = retriever.search(made_up_question["question"], k=5)
     print("\n" + "-" * 80 + "\n")
     print_search_results(made_up_question, made_up_results)
+
+    # Here we show which query Round 2 would search with under the pipeline config.yaml asks for. Under Pipeline 2
+    # this needs no model; under Pipeline 1 it calls the Rewriter, so we start the server first.
+    made_up_steer = "the name of the river that flows through Budapest"
+    made_up_past_queries = [made_up_question["question"]]
+    server_started_here = llm2.start_ollama_server() if pipeline_number() == 1 else False
+    try:
+        round_2_choice = choose_query_for_round(made_up_question["question"], made_up_steer, made_up_past_queries)
+        print(f"Pipeline {pipeline_number()}: steer \"{made_up_steer}\"  ->  "
+              f"Round 2 query \"{round_2_choice['query']}\"")
+    finally:
+        # Here we stop the server only if this demo started it.
+        if server_started_here:
+            llm2.stop_ollama_server()

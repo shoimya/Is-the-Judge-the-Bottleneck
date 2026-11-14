@@ -11,7 +11,7 @@ finished), and a summary at the end.
 from datetime import datetime
 from pathlib import Path
 
-from pipeline import REPO_ROOT, llm2, load_config
+from pipeline import llm2, load_config, run_log
 from pipeline.answerer import ANSWERER_SYSTEM_PROMPT, PROMPT_VERSION, answer_question
 from pipeline.dataset import load_questions
 from pipeline.scoring import average_score, score_answer
@@ -21,26 +21,10 @@ QUESTION_SET = "pilot"       # "pilot" (100 questions) or "test" (1,000)
 HOW_MANY_QUESTIONS = 10       # how many from the start of the set; None = all of them
 
 
-def new_log_file(start_time: datetime) -> Path:
-    """Create this run's log file, runs/closed_book/<date>/<HHMMSS>.txt: one file per run, one folder per day."""
-    date_folder = REPO_ROOT / load_config()["paths"]["runs_dir"] / "closed_book" / start_time.strftime("%Y-%m-%d")
-    date_folder.mkdir(parents=True, exist_ok=True)
-    log_file = date_folder / f"{start_time:%H%M%S}.txt"
-    # Here exist_ok=False stops with an error rather than mixing two runs into one file.
-    log_file.touch(exist_ok=False)
-    return log_file
-
-
-def write_to_log(log_file: Path, text: str) -> None:
-    """Add text to the end of the log file straight away, so it is kept even if the run stops later."""
-    with open(log_file, "a", encoding="utf-8") as opened_log:
-        opened_log.write(text + "\n")
-
-
 def log_header(log_file: Path, start_time: datetime, question_count: int) -> None:
     """Write the run's settings at the top of the log, so the log always says what produced it."""
     config = load_config()
-    write_to_log(log_file, "\n".join([
+    run_log.write_to_log(log_file, "\n".join([
         "Method:         Closed-book (the Answerer answers from memory, with no Evidence)",
         f"Started:        {start_time:%Y-%m-%d %H:%M:%S}",
         f"Questions:      the first {question_count} of the {QUESTION_SET} set",
@@ -88,7 +72,7 @@ def log_closed_book(log_file: Path, question_number: int, question_count: int, q
         lines.append("WARNING  the prompt may have been cut to fit the context window")
     if result["reply_was_cut"]:
         lines.append("WARNING  the reply was cut at the reply limit")
-    write_to_log(log_file, "\n".join(lines) + "\n")
+    run_log.write_to_log(log_file, "\n".join(lines) + "\n")
 
 
 def log_summary(log_file: Path, results: list[dict], question_count: int, start_time: datetime) -> None:
@@ -101,7 +85,7 @@ def log_summary(log_file: Path, results: list[dict], question_count: int, start_
     share_cosine_correct = cosine_correct_count / answered_count if answered_count else 0
     cosine_threshold = load_config()["scoring"]["cosine_threshold"]
     minutes_taken = (datetime.now() - start_time).total_seconds() / 60
-    write_to_log(log_file, "\n".join([
+    run_log.write_to_log(log_file, "\n".join([
         "===== Summary =====",
         f"Answered: {answered_count} of {question_count}",
         f"Correct:  {correct_count} of {answered_count} ({share_correct:.0%})",
@@ -120,7 +104,8 @@ def run_closed_book() -> Path:
     # Here [:None] keeps every question, so HOW_MANY_QUESTIONS = None means the whole set.
     questions = load_questions(QUESTION_SET)[:HOW_MANY_QUESTIONS]
     start_time = datetime.now()
-    log_file = new_log_file(start_time)
+    # Here Closed-book never searches, so its log has no pipeline or k folder: runs/closed_book/<date>/.
+    log_file = run_log.new_log_file("closed_book", start_time)
     log_header(log_file, start_time, len(questions))
 
     # Here the server starts once, so the model stays loaded for every question.
